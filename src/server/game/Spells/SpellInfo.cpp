@@ -548,16 +548,16 @@ float SpellEffectInfo::CalcRadius(Unit* caster, Spell* spell) const
         {
             //! Still not sure which to pick. Anyway at the current time (Patch 4.3.4) most of the spell effects
             //! have no radius mod per level, and RadiusMin is equal to RadiusMax.
-            return MaxRadiusEntry->RadiusMin;
+            return MaxRadiusEntry->radiusHostile; //Just fix compile
         }
         return 0.0f;
     }
 
-    float radius = RadiusEntry->RadiusMin;
+    float radius = RadiusEntry->radiusHostile; //Just fix compile
     if (caster)
     {
-        radius += RadiusEntry->RadiusPerLevel * caster->getLevel();
-        radius = std::min(radius, RadiusEntry->RadiusMax);
+        radius += RadiusEntry->radiusHostile * caster->getLevel();
+        radius = std::min(radius, RadiusEntry->radiusFriend); //Just fix compile
         if (Player* modOwner = caster->GetSpellModOwner())
             modOwner->ApplySpellMod(_spellInfo->Id, SPELLMOD_RADIUS, radius, spell);
     }
