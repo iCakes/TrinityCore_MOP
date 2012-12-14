@@ -347,9 +347,9 @@ SpellEffectInfo::SpellEffectInfo(SpellEntry const* /*spellEntry*/, SpellInfo con
     TriggerSpell = _effect ? _effect->EffectTriggerSpell : 0;
     SpellClassMask = _effect ? _effect->EffectSpellClassMask : flag96(0);
     ImplicitTargetConditions = NULL;
-    ScalingMultiplier = scaling ? scaling->Multiplier[_effIndex] : 0.0f;
-    DeltaScalingMultiplier = scaling ? scaling->RandomMultiplier[_effIndex] : 0.0f;
-    ComboScalingMultiplier = scaling ? scaling->OtherMultiplier[_effIndex] : 0.0f;
+    ScalingMultiplier = scaling ? NULL : 0.0f; // Multiplier[3] DELETE form dbcstruture. so.here need recheck
+    DeltaScalingMultiplier = scaling ? NULL : 0.0f;// RandomMultiplier[3] need recheck
+    ComboScalingMultiplier = scaling ? NULL : 0.0f;// OtherMultiplier[3] need recheck
 }
 
 bool SpellEffectInfo::IsEffect() const
