@@ -4480,6 +4480,8 @@ uint32 Player::GetNextResetTalentsCost() const
 
 bool Player::ResetTalents(bool no_cost)
 {
+    sLog->outError(LOG_FILTER_GENERAL, "MOP->Player::ResetTalents(Player::ResetTalents) need refix after talent system fixed");
+    return false;
     sScriptMgr->OnPlayerTalentsReset(this, no_cost);
 
     // not need after this call
@@ -4509,7 +4511,7 @@ bool Player::ResetTalents(bool no_cost)
 
     RemovePet(NULL, PET_SAVE_NOT_IN_SLOT, true);
 
-    for (uint32 talentId = 0; talentId < sTalentStore.GetNumRows(); ++talentId)
+    /*for (uint32 talentId = 0; talentId < sTalentStore.GetNumRows(); ++talentId)//MOP FIX COMPILE cause talent struture
     {
         TalentEntry const* talentInfo = sTalentStore.LookupEntry(talentId);
 
@@ -4554,7 +4556,7 @@ bool Player::ResetTalents(bool no_cost)
         if (specSpells)
             for (size_t i = 0; i < specSpells->size(); ++i)
                 removeSpell(specSpells->at(i), true);
-    }
+    }*/
 
     SetPrimaryTalentTree(GetActiveSpec(), 0);
     SetFreeTalentPoints(talentPointsForLevel);
@@ -17392,7 +17394,8 @@ bool Player::LoadFromDB(uint32 guid, SQLQueryHolder *holder)
 
     // must be after loading spells and talents
     Tokenizer talentTrees(fields[26].GetString(), ' ', MAX_TALENT_SPECS);
-    for (uint8 i = 0; i < MAX_TALENT_SPECS; ++i)
+    sLog->outError(LOG_FILTER_GENERAL, "MOP->Player::LoadFromDB() need refix talent init");
+    /*for (uint8 i = 0; i < MAX_TALENT_SPECS; ++i) //MOP talent need refix
     {
         if (i >= talentTrees.size())
             break;
@@ -17402,7 +17405,7 @@ bool Player::LoadFromDB(uint32 guid, SQLQueryHolder *holder)
             SetPrimaryTalentTree(i, talentTree);
         else if (i == GetActiveSpec() && talentTree != 0)
             SetAtLoginFlag(AT_LOGIN_RESET_TALENTS); // invalid tree, reset talents
-    }
+    }*/
 
     sLog->outDebug(LOG_FILTER_PLAYER_LOADING, "The value of player %s after load item and aura is: ", m_name.c_str());
     outDebugValues();
@@ -24820,7 +24823,9 @@ void Player::CompletedAchievement(AchievementEntry const* entry)
 
 bool Player::LearnTalent(uint32 talentId, uint32 talentRank)
 {
-    uint32 CurTalentPoints = GetFreeTalentPoints();
+    sLog->outError(LOG_FILTER_GENERAL, "MOP->Player::LearnTalent() need recheck, disable it now");
+    return false;
+    /*uint32 CurTalentPoints = GetFreeTalentPoints();
 
     if (CurTalentPoints == 0)
         return false;
@@ -24945,12 +24950,14 @@ bool Player::LearnTalent(uint32 talentId, uint32 talentRank)
 
     // update free talent points
     SetFreeTalentPoints(CurTalentPoints - (talentRank - curtalent_maxrank + 1));
-    return true;
+    return true;*/
 }
 
 void Player::LearnPetTalent(uint64 petGuid, uint32 talentId, uint32 talentRank)
 {
-    Pet* pet = GetPet();
+    sLog->outError(LOG_FILTER_GENERAL, "MOP->Player::LearnPetTalent() need recheck, disable it now");
+    return;
+    /*Pet* pet = GetPet();
 
     if (!pet)
         return;
@@ -25080,7 +25087,7 @@ void Player::LearnPetTalent(uint64 petGuid, uint32 talentId, uint32 talentRank)
     sLog->outInfo(LOG_FILTER_PLAYER, "PetTalentID: %u Rank: %u Spell: %u\n", talentId, talentRank, spellid);
 
     // update free talent points
-    pet->SetFreeTalentPoints(CurTalentPoints - (talentRank - curtalent_maxrank + 1));
+    pet->SetFreeTalentPoints(CurTalentPoints - (talentRank - curtalent_maxrank + 1));*/
 }
 
 void Player::AddKnownCurrency(uint32 itemId)
@@ -25154,7 +25161,9 @@ bool Player::canSeeSpellClickOn(Creature const* c) const
 
 void Player::BuildPlayerTalentsInfoData(WorldPacket* data)
 {
-    *data << uint32(GetFreeTalentPoints());                 // unspentTalentPoints
+    sLog->outError(LOG_FILTER_GENERAL, "MOP->Player::BuildPlayerTalentsInfoData() disable it casuse talent dbc");
+    return;
+    /**data << uint32(GetFreeTalentPoints());                 // unspentTalentPoints
     *data << uint8(GetSpecsCount());                        // talent group count (0, 1 or 2)
     *data << uint8(GetActiveSpec());                        // talent group index (0 or 1)
 
@@ -25217,12 +25226,14 @@ void Player::BuildPlayerTalentsInfoData(WorldPacket* data)
             for (uint8 i = 0; i < MAX_GLYPH_SLOT_INDEX; ++i)
                 *data << uint16(GetGlyph(specIdx, i));               // GlyphProperties.dbc
         }
-    }
+    }*/
 }
 
 void Player::BuildPetTalentsInfoData(WorldPacket* data)
 {
-    uint32 unspentTalentPoints = 0;
+    sLog->outError(LOG_FILTER_GENERAL, "MOP->Player::BuildPetTalentsInfoData() disable it casuse talent dbc");
+    return;
+    /*uint32 unspentTalentPoints = 0;
     size_t pointsPos = data->wpos();
     *data << uint32(unspentTalentPoints);                   // [PH], unspentTalentPoints
 
@@ -25289,7 +25300,7 @@ void Player::BuildPetTalentsInfoData(WorldPacket* data)
         data->put<uint8>(countPos, talentIdCount);          // put real count
 
         break;
-    }
+    }*/
 }
 
 void Player::SendTalentsInfoData(bool pet)
@@ -25719,7 +25730,9 @@ void Player::UpdateSpecCount(uint8 count)
 
 void Player::ActivateSpec(uint8 spec)
 {
-    if (GetActiveSpec() == spec)
+    sLog->outError(LOG_FILTER_GENERAL, "MOP->Player::ActivateSpec() need recheck, disable it now");
+    return;
+    /*if (GetActiveSpec() == spec)
         return;
 
     if (spec > GetSpecsCount())
@@ -25739,7 +25752,7 @@ void Player::ActivateSpec(uint8 spec)
     ClearComboPointHolders();
     ClearAllReactives();
     UnsummonAllTotems();
-    RemoveAllControlled();
+    RemoveAllControlled();*/ //mop disabled it
     /*RemoveAllAurasOnDeath();
     if (GetPet())
         GetPet()->RemoveAllAurasOnDeath();*/
@@ -25748,7 +25761,7 @@ void Player::ActivateSpec(uint8 spec)
     //ExitVehicle(); // should be impossible to switch specs from inside a vehicle..
 
     // Let client clear his current Actions
-    SendActionButtons(2);
+    /*SendActionButtons(2);
     // m_actionButtons.clear() is called in the next _LoadActionButtons
     for (uint32 talentId = 0; talentId < sTalentStore.GetNumRows(); ++talentId)
     {
@@ -25873,7 +25886,7 @@ void Player::ActivateSpec(uint8 spec)
     SetPower(pw, 0);
 
     if (!sTalentTabStore.LookupEntry(GetPrimaryTalentTree(GetActiveSpec())))
-        ResetTalents(true);
+        ResetTalents(true);*/
 }
 
 void Player::ResetTimeSync()

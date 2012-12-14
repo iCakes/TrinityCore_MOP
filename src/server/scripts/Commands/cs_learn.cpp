@@ -195,7 +195,9 @@ public:
 
     static bool HandleLearnAllMyTalentsCommand(ChatHandler* handler, char const* /*args*/)
     {
-        Player* player = handler->GetSession()->GetPlayer();
+        sLog->outError(LOG_FILTER_GENERAL, "MOP->HandleLearnAllMyTalentsCommand(), disable it now");
+        return true;
+        /*Player* player = handler->GetSession()->GetPlayer();
         uint32 classMask = player->getClassMask();
 
         for (uint32 i = 0; i < sTalentStore.GetNumRows(); ++i)
@@ -237,12 +239,14 @@ public:
         player->SetFreeTalentPoints(0);
 
         handler->SendSysMessage(LANG_COMMAND_LEARN_CLASS_TALENTS);
-        return true;
+        return true;*/
     }
 
     static bool HandleLearnAllMyPetTalentsCommand(ChatHandler* handler, char const* /*args*/)
     {
-        Player* player = handler->GetSession()->GetPlayer();
+        sLog->outError(LOG_FILTER_GENERAL, "MOP->HandleLearnAllMyPetTalentsCommand(), disable it now");
+        return true;
+        /*Player* player = handler->GetSession()->GetPlayer();
 
         Pet* pet = player->GetPet();
         if (!pet)
@@ -315,7 +319,7 @@ public:
         pet->SetFreeTalentPoints(0);
 
         handler->SendSysMessage(LANG_COMMAND_LEARN_PET_TALENTS);
-        return true;
+        return true;*/
     }
 
     static bool HandleLearnAllLangCommand(ChatHandler* handler, char const* /*args*/)

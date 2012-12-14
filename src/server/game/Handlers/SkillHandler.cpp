@@ -39,8 +39,9 @@ void WorldSession::HandleLearnTalentOpcode(WorldPacket& recvData)
 void WorldSession::HandleLearnPreviewTalents(WorldPacket& recvPacket)
 {
     sLog->outDebug(LOG_FILTER_NETWORKIO, "CMSG_LEARN_PREVIEW_TALENTS");
-
-    int32 tabPage;
+    sLog->outError(LOG_FILTER_GENERAL, "MOP->WorldSession::HandleLearnPreviewTalents() need recheck, disable it now");
+    return;
+    /*int32 tabPage;
     uint32 talentsCount;
     recvPacket >> tabPage;    // talent tree
 
@@ -72,7 +73,7 @@ void WorldSession::HandleLearnPreviewTalents(WorldPacket& recvPacket)
         }
     }
 
-    _player->SendTalentsInfoData(false);
+    _player->SendTalentsInfoData(false);*/ // just fix compile(mop)
 }
 
 void WorldSession::HandleTalentWipeConfirmOpcode(WorldPacket& recvData)

@@ -1611,6 +1611,9 @@ void Pet::InitPetCreateSpells()
 
 bool Pet::resetTalents()
 {
+    sLog->outError(LOG_FILTER_GENERAL, "MOP->Pet::resetTalents() need refix after talent system fix");
+    return false;
+
     Unit* owner = GetOwner();
     if (!owner || owner->GetTypeId() != TYPEID_PLAYER)
         return false;
@@ -1638,7 +1641,7 @@ bool Pet::resetTalents()
         return false;
     }
 
-    for (uint32 i = 0; i < sTalentStore.GetNumRows(); ++i)
+    /*for (uint32 i = 0; i < sTalentStore.GetNumRows(); ++i) //MOP fix compile..need fix later
     {
         TalentEntry const* talentInfo = sTalentStore.LookupEntry(i);
 
@@ -1677,7 +1680,7 @@ bool Pet::resetTalents()
                     ++itr;
             }
         }
-    }
+    }*/
 
     SetFreeTalentPoints(talentPointsForLevel);
 
