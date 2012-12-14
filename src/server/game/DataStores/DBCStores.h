@@ -65,9 +65,6 @@ typedef std::map<uint32/*pair32(map, diff)*/, MapDifficulty> MapDifficultyMap;
 MapDifficulty const* GetMapDifficultyData(uint32 mapId, Difficulty difficulty);
 MapDifficulty const* GetDownscaledMapDifficultyData(uint32 mapId, Difficulty &difficulty);
 
-uint32 const* /*[MAX_TALENT_TABS]*/ GetTalentTabPages(uint8 cls);
-std::vector<uint32> const* GetTalentTreePrimarySpells(uint32 talentTree);
-
 uint32 GetLiquidFlags(uint32 liquidType);
 
 PvPDifficultyEntry const* GetBattlegroundBracketByLevel(uint32 mapid, uint32 level);
@@ -160,7 +157,6 @@ extern DBCStorage <MapEntry>                     sMapStore;
 extern DBCStorage <MountCapabilityEntry>         sMountCapabilityStore;
 extern DBCStorage <MountTypeEntry>               sMountTypeStore;
 extern DBCStorage <NameGenEntry>                 sNameGenStore;
-extern DBCStorage <NumTalentsAtLevelEntry>       sNumTalentsAtLevelStore;
 extern DBCStorage <PhaseEntry>                   sPhaseStore;
 //extern DBCStorage <MapDifficultyEntry>           sMapDifficultyStore; -- use GetMapDifficultyData insteed
 extern MapDifficultyMap                          sMapDifficultyMap;
@@ -176,7 +172,6 @@ extern DBCStorage <SkillLineEntry>               sSkillLineStore;
 extern DBCStorage <SkillLineAbilityEntry>        sSkillLineAbilityStore;
 extern DBCStorage <SoundEntriesEntry>            sSoundEntriesStore;
 extern DBCStorage <SpellCastTimesEntry>          sSpellCastTimesStore;
-extern DBCStorage <SpellDifficultyEntry>         sSpellDifficultyStore;
 extern DBCStorage <SpellDurationEntry>           sSpellDurationStore;
 extern DBCStorage <SpellFocusObjectEntry>        sSpellFocusObjectStore;
 extern DBCStorage <SpellItemEnchantmentEntry>    sSpellItemEnchantmentStore;
@@ -200,6 +195,7 @@ extern DBCStorage <SpellEquippedItemsEntry>      sSpellEquippedItemsStore;
 extern DBCStorage <SpellInterruptsEntry>         sSpellInterruptsStore;
 extern DBCStorage <SpellLevelsEntry>             sSpellLevelsStore;
 extern DBCStorage <SpellPowerEntry>              sSpellPowerStore;
+extern DBCStorage <SpellMiscEntry>               sSpellMiscStore;
 extern DBCStorage <SpellReagentsEntry>           sSpellReagentsStore;
 extern DBCStorage <SpellScalingEntry>            sSpellScalingStore;
 extern DBCStorage <SpellTargetRestrictionsEntry> sSpellTargetRestrictionsStore;
@@ -207,7 +203,6 @@ extern DBCStorage <SpellTotemsEntry>             sSpellTotemsStore;
 //extern DBCStorage <StableSlotPricesEntry>        sStableSlotPricesStore;
 extern DBCStorage <SummonPropertiesEntry>        sSummonPropertiesStore;
 extern DBCStorage <TalentEntry>                  sTalentStore;
-extern DBCStorage <TalentTabEntry>               sTalentTabStore;
 extern DBCStorage <TaxiNodesEntry>               sTaxiNodesStore;
 extern DBCStorage <TaxiPathEntry>                sTaxiPathStore;
 extern TaxiMask                                  sTaxiNodesMask;
