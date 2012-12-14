@@ -952,7 +952,9 @@ uint32 ChatHandler::extractSpellIdFromLink(char* text)
         case SPELL_LINK_TALENT:
         {
             // talent
-            TalentEntry const* talentEntry = sTalentStore.LookupEntry(id);
+            sLog->outError(LOG_FILTER_GENERAL, "MOP->ChatHandler::extractSpellIdFromLink() continue remove talent");
+            return 0;
+            /*TalentEntry const* talentEntry = sTalentStore.LookupEntry(id);
             if (!talentEntry)
                 return 0;
 
@@ -963,7 +965,7 @@ uint32 ChatHandler::extractSpellIdFromLink(char* text)
             if (rank < 0)
                 rank = 0;
 
-            return talentEntry->RankID[rank];
+            return talentEntry->RankID[rank];*/
         }
         case SPELL_LINK_ENCHANT:
         case SPELL_LINK_TRADE:

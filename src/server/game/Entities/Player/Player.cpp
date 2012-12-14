@@ -3571,7 +3571,9 @@ void Player::AddNewMailDeliverTime(time_t deliver_time)
 
 bool Player::AddTalent(uint32 spellId, uint8 spec, bool learning)
 {
-    SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spellId);
+    sLog->outError(LOG_FILTER_GENERAL, "MOP->Player::AddTalent() disabled");
+    return false;
+    /*SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spellId);
     if (!spellInfo)
     {
         // do character spell book cleanup (all characters)
@@ -3639,7 +3641,7 @@ bool Player::AddTalent(uint32 spellId, uint8 spec, bool learning)
         (*GetTalentMap(spec))[spellId] = newtalent;
         return true;
     }
-    return false;
+    return false;*/
 }
 
 bool Player::addSpell(uint32 spellId, bool active, bool learning, bool dependent, bool disabled, bool loading /*= false*/)
@@ -3802,7 +3804,8 @@ bool Player::addSpell(uint32 spellId, bool active, bool learning, bool dependent
     if (!disabled_case) // skip new spell adding if spell already known (disabled spells case)
     {
         // talent: unlearn all other talent ranks (high and low)
-        if (TalentSpellPos const* talentPos = GetTalentSpellPos(spellId))
+        sLog->outError(LOG_FILTER_GENERAL, "MOP->Player::addSpell()disable talent spell add");
+        /*if (TalentSpellPos const* talentPos = GetTalentSpellPos(spellId))
         {
             if (TalentEntry const* talentInfo = sTalentStore.LookupEntry(talentPos->talent_id))
             {
@@ -3818,7 +3821,7 @@ bool Player::addSpell(uint32 spellId, bool active, bool learning, bool dependent
             }
         }
         // non talent spell: learn low ranks (recursive call)
-        else if (uint32 prev_spell = sSpellMgr->GetPrevSpellInChain(spellId))
+        else */if (uint32 prev_spell = sSpellMgr->GetPrevSpellInChain(spellId))
         {
             if (!IsInWorld() || disabled)                    // at spells loading, no output, but allow save
                 addSpell(prev_spell, active, true, true, disabled);
