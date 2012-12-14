@@ -24485,8 +24485,10 @@ void Player::StoreLootItem(uint8 lootSlot, Loot* loot)
 
 uint32 Player::CalculateTalentsPoints() const
 {
+    sLog->outError(LOG_FILTER_GENERAL, "MOP->Player::CalculateTalentsPoints() temp remove ,because NumTalentsAtLevel.dbc file remove by MOP. so need recheck");
+    return 0;
     // this dbc file has entries only up to level 100
-    NumTalentsAtLevelEntry const* count = sNumTalentsAtLevelStore.LookupEntry(std::min<uint32>(getLevel(), 100));
+    /*NumTalentsAtLevelEntry const* count = sNumTalentsAtLevelStore.LookupEntry(std::min<uint32>(getLevel(), 100));
     if (!count)
         return 0;
 
@@ -24510,7 +24512,7 @@ uint32 Player::CalculateTalentsPoints() const
     if (talentPointsForLevel > baseForLevel)
         talentPointsForLevel = baseForLevel;
 
-    return uint32(talentPointsForLevel * sWorld->getRate(RATE_TALENT));
+    return uint32(talentPointsForLevel * sWorld->getRate(RATE_TALENT));*/
 }
 
 bool Player::IsKnowHowFlyIn(uint32 mapid, uint32 zone) const
