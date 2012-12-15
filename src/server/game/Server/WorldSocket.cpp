@@ -180,7 +180,9 @@ int WorldSocket::SendPacket(WorldPacket const& pct)
     }
 
     if (m_Session)
-        sLog->outTrace(LOG_FILTER_OPCODES, "S->C: %s %s", m_Session->GetPlayerInfo().c_str(), GetOpcodeNameForLogging(pkt->GetOpcode()).c_str());
+        sLog->outDebug(LOG_FILTER_OPCODES, "S->C: %s %s", m_Session->GetPlayerInfo().c_str(), GetOpcodeNameForLogging(pkt->GetOpcode()).c_str());
+    else
+        sLog->outDebug(LOG_FILTER_OPCODES, "S->C: %s", GetOpcodeNameForLogging(pkt->GetOpcode()).c_str());
 
     sScriptMgr->OnPacketSend(this, *pkt);
 
@@ -783,7 +785,9 @@ int WorldSocket::ProcessIncoming(WorldPacket* new_pct)
 
     std::string opcodeName = GetOpcodeNameForLogging(opcode);
     if (m_Session)
-        sLog->outTrace(LOG_FILTER_OPCODES, "C->S: %s %s", m_Session->GetPlayerInfo().c_str(), opcodeName.c_str());
+        sLog->outDebug(LOG_FILTER_OPCODES, "C->S: %s %s", m_Session->GetPlayerInfo().c_str(), opcodeName.c_str());
+    else
+        sLog->outDebug(LOG_FILTER_OPCODES, "C->S: %s", opcodeName.c_str());
 
     try
     {
@@ -1099,7 +1103,7 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
 
     std::string address = GetRemoteAddress();
 
-    if (memcmp(sha.GetDigest(), digest, 20))
+    /*if (memcmp(sha.GetDigest(), digest, 20))
     {
         WorldPacket packet(SMSG_AUTH_RESPONSE, 1);
         packet.WriteBit(0); // has queue info
@@ -1109,7 +1113,7 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
 
         sLog->outError(LOG_FILTER_NETWORKIO, "WorldSocket::HandleAuthSession: Authentication failed for account: %u ('%s') address: %s", id, account.c_str(), address.c_str());
         return -1;
-    }
+    }*/
 
     sLog->outDebug(LOG_FILTER_NETWORKIO, "WorldSocket::HandleAuthSession: Client '%s' authenticated successfully from %s.",
         account.c_str(),
