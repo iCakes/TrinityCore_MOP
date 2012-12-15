@@ -284,17 +284,13 @@ void WorldSession::HandleCharEnumOpcode(WorldPacket & /*recvData*/)
 void WorldSession::HandleCharCreateOpcode(WorldPacket& recvData)
 {
     std::string name;
-    uint8 race_, class_;
+    uint8 race_, class_, gender, skin, face, hairStyle, hairColor, facialHair, outfitId;
 
-    recvData >> name;
+    recvData >> gender >> hairColor >> outfitId;
+    recvData >> race_ >> class_ >> face>> facialHair >> skin >> hairStyle;
 
-    recvData >> race_;
-    recvData >> class_;
-
-    // extract other data required for player creating
-    uint8 gender, skin, face, hairStyle, hairColor, facialHair, outfitId;
-    recvData >> gender >> skin >> face;
-    recvData >> hairStyle >> hairColor >> facialHair >> outfitId;
+    uint8 nameLength = recvData.ReadBits(7);
+    name = recvData.ReadString(nameLength);
 
     WorldPacket data(SMSG_CHAR_CREATE, 1);                  // returned with diff.values in all cases
 
@@ -337,6 +333,8 @@ void WorldSession::HandleCharCreateOpcode(WorldPacket& recvData)
         sLog->outError(LOG_FILTER_NETWORKIO, "Race (%u) not found in DBC while creating new char for account (ID: %u): wrong DBC files or cheater?", race_, GetAccountId());
         return;
     }
+
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "HandleCharCreateOpcode create class id %u race id %u", classEntry->ClassID,raceEntry->RaceID);
 
     // prevent character creating Expansion race without Expansion account
     if (raceEntry->expansion > Expansion())
