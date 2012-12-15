@@ -769,6 +769,14 @@ void WorldSession::HandleCharDeleteOpcode(WorldPacket& recvData)
     SendPacket(&data);
 }
 
+void WorldSession::HandleWorldLoginOpcode(WorldPacket& recvData)
+{
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: Recvd World Login Message");
+    uint32 unk;
+    uint8 unk1;
+    recvData >> unk >> unk1;
+}
+
 void WorldSession::HandlePlayerLoginOpcode(WorldPacket& recvData)
 {
     if (PlayerLoading() || GetPlayer() != NULL)
