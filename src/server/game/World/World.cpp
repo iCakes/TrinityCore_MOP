@@ -1337,7 +1337,7 @@ void World::SetInitialWorldSettings()
     sSpellMgr->LoadDbcDataCorrections();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading SpellInfo store...");
-    sSpellMgr->LoadSpellInfoStore();
+    //sSpellMgr->LoadSpellInfoStore();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading SkillLineAbilityMultiMap Data...");
     sSpellMgr->LoadSkillLineAbilityMap();
@@ -1377,7 +1377,7 @@ void World::SetInitialWorldSettings()
     sObjectMgr->LoadPageTexts();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading Game Object Templates...");         // must be after LoadPageTexts
-    sObjectMgr->LoadGameObjectTemplate();
+    /*sObjectMgr->LoadGameObjectTemplate();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading Spell Rank Data...");
     sSpellMgr->LoadSpellRanks();
@@ -1410,7 +1410,7 @@ void World::SetInitialWorldSettings()
     sSpellMgr->LoadSpellGroupStackRules();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading Spell Phase Dbc Info...");
-    sObjectMgr->LoadSpellPhaseInfo();
+    sObjectMgr->LoadSpellPhaseInfo();*/
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading NPC Texts...");
     sObjectMgr->LoadGossipText();
@@ -1425,7 +1425,7 @@ void World::SetInitialWorldSettings()
     DisableMgr::LoadDisables();                                 // must be before loading quests and items
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading Items...");                         // must be after LoadRandomEnchantmentsTable and LoadPageTexts
-    sObjectMgr->LoadItemTemplates();
+    /*sObjectMgr->LoadItemTemplates();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading Item set names...");                // must be after LoadItemPrototypes
     sObjectMgr->LoadItemTemplateAddon();
@@ -1533,13 +1533,13 @@ void World::SetInitialWorldSettings()
     sObjectMgr->LoadInstanceEncounters();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading LFG rewards...");
-    sLFGMgr->LoadRewards();
+    sLFGMgr->LoadRewards();*/
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading Graveyard-zone links...");
     sObjectMgr->LoadGraveyardZones();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading spell pet auras...");
-    sSpellMgr->LoadSpellPetAuras();
+    /*sSpellMgr->LoadSpellPetAuras();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading Spell target coordinates...");
     sSpellMgr->LoadSpellTargetPositions();
@@ -1548,7 +1548,7 @@ void World::SetInitialWorldSettings()
     sSpellMgr->LoadEnchantCustomAttr();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading linked spells...");
-    sSpellMgr->LoadSpellLinked();
+    sSpellMgr->LoadSpellLinked();*/
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading Player Create Data...");
     sObjectMgr->LoadPlayerInfo();
@@ -1565,7 +1565,7 @@ void World::SetInitialWorldSettings()
     sObjectMgr->LoadPetNumber();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading pet level stats...");
-    sObjectMgr->LoadPetLevelInfo();
+    /*sObjectMgr->LoadPetLevelInfo();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading Player Corpses...");
     sObjectMgr->LoadCorpses();
@@ -1596,7 +1596,7 @@ void World::SetInitialWorldSettings()
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading Achievement Reward Locales...");
     sAchievementMgr->LoadRewardLocales();
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading Completed Achievements...");
-    sAchievementMgr->LoadCompletedAchievements();
+    sAchievementMgr->LoadCompletedAchievements();*/
 
     // Delete expired auctions before loading
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Deleting expired auctions...");
@@ -1612,7 +1612,7 @@ void World::SetInitialWorldSettings()
     sGuildMgr->LoadGuildXpForLevel();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading Guild rewards...");
-    sGuildMgr->LoadGuildRewards();
+    //sGuildMgr->LoadGuildRewards();
 
     sGuildMgr->LoadGuilds();
 
@@ -1628,7 +1628,7 @@ void World::SetInitialWorldSettings()
     sObjectMgr->LoadReservedPlayersNames();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading GameObjects for quests...");
-    sObjectMgr->LoadGameObjectForQuests();
+    /*sObjectMgr->LoadGameObjectForQuests();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading BattleMasters...");
     sBattlegroundMgr->LoadBattleMastersEntry();
@@ -1688,7 +1688,7 @@ void World::SetInitialWorldSettings()
     sTicketMgr->LoadSurveys();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading client addons...");
-    AddonMgr::LoadFromDB();
+    AddonMgr::LoadFromDB();*/
 
     ///- Handle outdated emails (delete/return)
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Returning old mails...");
@@ -1698,7 +1698,7 @@ void World::SetInitialWorldSettings()
     LoadAutobroadcasts();
 
     ///- Load and initialize scripts
-    sObjectMgr->LoadQuestEndScripts();                           // must be after load Creature/Gameobject(Template/Data) and QuestTemplate
+    /*sObjectMgr->LoadQuestEndScripts();                           // must be after load Creature/Gameobject(Template/Data) and QuestTemplate
     sObjectMgr->LoadSpellScripts();                              // must be after load Creature/Gameobject(Template/Data)
     sObjectMgr->LoadGameObjectScripts();                         // must be after load Creature/Gameobject(Template/Data)
     sObjectMgr->LoadEventScripts();                              // must be after load Creature/Gameobject(Template/Data)
@@ -1727,7 +1727,7 @@ void World::SetInitialWorldSettings()
     sSmartScriptMgr->LoadSmartAIFromDB();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading Calendar data...");
-    sCalendarMgr->LoadFromDB();
+    sCalendarMgr->LoadFromDB();*/
 
     ///- Initialize game time and timers
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Initialize game time and timers");
