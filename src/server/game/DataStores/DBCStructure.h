@@ -1279,9 +1279,9 @@ struct ItemArmorTotalEntry
 struct ItemClassEntry
 {
     uint32    Class;                                          // 1 item class id
-    //uint32 unk3;                                            // 1        1 for weapons
-    float     PriceFactor;                                    // 4 used to calculate certain prices
-    char* name;                                               // 3        m_name_lang
+    //uint32 unk3;                                            // 2        1 for weapons
+    float     PriceFactor;                                    // 3 used to calculate certain prices
+    //char* name;                                               // 4        m_name_lang
 };
 
 struct ItemBagFamilyEntry
