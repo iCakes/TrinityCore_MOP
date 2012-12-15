@@ -142,6 +142,42 @@ class ByteBuffer
             return (bit != 0);
         }
 
+        void WriteGuidMask(uint64 guid, uint8* maskOrder, uint8 maskCount, uint8 maskPos = 0)
+        {
+            uint8* guidByte = ((uint8*)&guid);
+
+            for (uint8 i = 0; i < maskCount; i++)
+                WriteBit(guidByte[maskOrder[i + maskPos]]);
+        }
+
+        void WriteGuidBytes(uint64 guid, uint8* byteOrder, uint8 byteCount, uint8 bytePos)
+        {
+            uint8* guidByte = ((uint8*)&guid);
+
+            for (uint8 i = 0; i < byteCount; i++)
+                if (guidByte[byteOrder[i + bytePos]])
+                    (*this) << uint8(guidByte[byteOrder[i + bytePos]] ^ 1);
+        }
+
+        uint64 ReadGuid(uint8* mask, uint8* bytes)
+        {
+            uint8 guidMask[8] = { 0 };
+            uint8 guidBytes[8]= { 0 };
+
+            for (int i = 0; i < 8; i++)
+                guidMask[i] = ReadBit();
+
+            for (uint8 i = 0; i < 8; i++)
+                if (guidMask[mask[i]])
+                    guidBytes[bytes[i]] = uint8(read<uint8>() ^ 1);
+
+            uint64 guid = guidBytes[0];
+            for (int i = 1; i < 8; i++)
+                guid |= ((uint64)guidBytes[i]) << (i * 8);
+
+            return guid;
+        }
+
         bool ReadBit()
         {
             ++_bitpos;
