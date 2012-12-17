@@ -337,7 +337,8 @@ void WorldSession::HandleCharCreateOpcode(WorldPacket& recvData)
     sLog->outDebug(LOG_FILTER_NETWORKIO, "HandleCharCreateOpcode create class id %u race id %u", classEntry->ClassID,raceEntry->RaceID);
 
     // prevent character creating Expansion race without Expansion account
-    if (raceEntry->expansion > Expansion())
+    // ChrRaces.dbc and ChrClasses.dbc structure need recheck
+    /*if (raceEntry->expansion > Expansion())
     {
         data << (uint8)CHAR_CREATE_EXPANSION;
         sLog->outError(LOG_FILTER_NETWORKIO, "Expansion %u account:[%d] tried to Create character with expansion %u race (%u)", Expansion(), GetAccountId(), raceEntry->expansion, race_);
@@ -352,7 +353,7 @@ void WorldSession::HandleCharCreateOpcode(WorldPacket& recvData)
         sLog->outError(LOG_FILTER_NETWORKIO, "Expansion %u account:[%d] tried to Create character with expansion %u class (%u)", Expansion(), GetAccountId(), classEntry->expansion, class_);
         SendPacket(&data);
         return;
-    }
+    }*/
 
     if (AccountMgr::IsPlayerAccount(GetSecurity()))
     {
