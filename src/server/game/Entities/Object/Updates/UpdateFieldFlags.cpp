@@ -26,7 +26,6 @@ uint32 ItemUpdateFieldFlags[CONTAINER_END] =
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_TYPE
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_ENTRY
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_SCALE_X
-    UF_FLAG_NONE,                                           // OBJECT_FIELD_PADDING
     UF_FLAG_PUBLIC,                                         // ITEM_FIELD_OWNER
     UF_FLAG_PUBLIC,                                         // ITEM_FIELD_OWNER+1
     UF_FLAG_PUBLIC,                                         // ITEM_FIELD_CONTAINED
@@ -93,8 +92,12 @@ uint32 ItemUpdateFieldFlags[CONTAINER_END] =
     UF_FLAG_OWNER | UF_FLAG_ITEM_OWNER,                     // ITEM_FIELD_DURABILITY
     UF_FLAG_OWNER | UF_FLAG_ITEM_OWNER,                     // ITEM_FIELD_MAXDURABILITY
     UF_FLAG_PUBLIC,                                         // ITEM_FIELD_CREATE_PLAYED_TIME
+    UF_FLAG_PUBLIC,                                         // ITEM_FIELD_MODIFIERSMASK
+    UF_FLAG_PUBLIC,                                         // ITEMD_MODIFIERS
+    UF_FLAG_PUBLIC,                                         // ITEMD_MODIFIERS+1
+    UF_FLAG_PUBLIC,                                         // ITEMD_MODIFIERS+2
+    UF_FLAG_PUBLIC,                                         // ITEMD_MODIFIERS+3
     UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_NUM_SLOTS
-    UF_FLAG_NONE,                                           // CONTAINER_ALIGN_PAD
     UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1
     UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+1
     UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+2
@@ -145,28 +148,6 @@ uint32 ItemUpdateFieldFlags[CONTAINER_END] =
     UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+47
     UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+48
     UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+49
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+50
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+51
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+52
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+53
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+54
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+55
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+56
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+57
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+58
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+59
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+60
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+61
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+62
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+63
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+64
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+65
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+66
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+67
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+68
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+69
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+70
-    UF_FLAG_PUBLIC,                                         // CONTAINER_FIELD_SLOT_1+71
 };
 
 uint32 UnitUpdateFieldFlags[PLAYER_END] =
@@ -178,7 +159,6 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_TYPE
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_ENTRY
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_SCALE_X
-    UF_FLAG_NONE,                                           // OBJECT_FIELD_PADDING
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_CHARM
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_CHARM+1
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_SUMMON
@@ -195,8 +175,10 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_TARGET+1
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_CHANNEL_OBJECT
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_CHANNEL_OBJECT+1
-    UF_FLAG_PUBLIC,                                         // UNIT_CHANNEL_SPELL
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_BYTES_0
+    UF_FLAG_PUBLIC,                                         // UNIT_CHANNEL_SPELL
+    UF_FLAG_PUBLIC,                                         // UNIT_DISPLAYPOWER
+    UF_FLAG_PUBLIC,                                         // UNIT_OVERRIDE_DISPLAYPOWERID
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_HEALTH
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_POWER1
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_POWER2
@@ -247,6 +229,8 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_DYNAMIC,                                        // UNIT_DYNAMIC_FLAGS
     UF_FLAG_PUBLIC,                                         // UNIT_MOD_CAST_SPEED
     UF_FLAG_PUBLIC,                                         // UNIT_MOD_CAST_HASTE
+    UF_FLAG_PUBLIC,                                         // UNIT_MOD_HASTE
+    UF_FLAG_PUBLIC,                                         // UNIT_MOD_HASTEREGEN
     UF_FLAG_PUBLIC,                                         // UNIT_CREATED_BY_SPELL
     UF_FLAG_DYNAMIC,                                        // UNIT_NPC_FLAGS
     UF_FLAG_PUBLIC,                                         // UNIT_NPC_EMOTESTATE
@@ -315,8 +299,12 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PRIVATE | UF_FLAG_OWNER,                        // UNIT_FIELD_POWER_COST_MULTIPLIER+6
     UF_FLAG_PRIVATE | UF_FLAG_OWNER,                        // UNIT_FIELD_MAXHEALTHMODIFIER
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_HOVERHEIGHT
+    UF_FLAG_PUBLIC,                                         // UNIT_FIELD_MINITEMLEVEL
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_MAXITEMLEVEL
-    UF_FLAG_NONE,                                           // UNIT_FIELD_PADDING
+    UF_FLAG_PUBLIC,                                         // UNIT_FIELD_WILDBATTLEPETLEVEL
+    UF_FLAG_PUBLIC,                                         // UNIT_FIELD_BATTLEPETCOMPANIONIDID
+    UF_FLAG_PUBLIC,                                         // UNIT_FIELD_BATTLEPETCOMPANIONNAMETIMESTAMP
+    UF_FLAG_PUBLIC,                                         //UNITD_PASSIV_SPELLS
     UF_FLAG_PUBLIC,                                         // PLAYER_DUEL_ARBITER
     UF_FLAG_PUBLIC,                                         // PLAYER_DUEL_ARBITER+1
     UF_FLAG_PUBLIC,                                         // PLAYER_FLAGS
@@ -618,7 +606,10 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PUBLIC,                                         // PLAYER_VISIBLE_ITEM_19_ENCHANTMENT
     UF_FLAG_PUBLIC,                                         // PLAYER_CHOSEN_TITLE
     UF_FLAG_PUBLIC,                                         // PLAYER_FAKE_INEBRIATION
-    UF_FLAG_NONE,                                           // PLAYER_FIELD_PAD_0
+    UF_FLAG_PRIVATE,                                        //PLAYER_HOMEPLAYER_REALM
+    UF_FLAG_PRIVATE,                                        //PLAYER_CURRENT_SPECID
+    UF_FLAG_PRIVATE,                                        //PLAYER_TAXIMOUNT_ANIMKITID
+    UF_FLAG_PRIVATE,                                        //PLAYER_PARTY_TYPE
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_INV_SLOT_HEAD
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_INV_SLOT_HEAD+1
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_INV_SLOT_HEAD+2
@@ -1187,11 +1178,77 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_0+61
     UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_0+62
     UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_0+63
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+1
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+2
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+3
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+4
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+5
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+6
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+7
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+8
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+9
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+10
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+11
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+12
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+13
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+14
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+15
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+16
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+17
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+18
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+19
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+20
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+21
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+22
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+23
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+24
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+25
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+26
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+27
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+28
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+29
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+30
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+31
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+32
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+33
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+34
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+35
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+36
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+37
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+38
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+39
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+40
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+41
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+42
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+43
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+44
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+45
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+46
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+47
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+48
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+49
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+50
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+51
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+52
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+53
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+54
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+55
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+56
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+57
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+58
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+59
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+60
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+61
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+62
+    UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+63
     UF_FLAG_PRIVATE,                                        // PLAYER_CHARACTER_POINTS
+    UF_FLAG_PRIVATE,                                        //PLAYER_MAXTALENT_TIERS
     UF_FLAG_PRIVATE,                                        // PLAYER_TRACK_CREATURES
     UF_FLAG_PRIVATE,                                        // PLAYER_TRACK_RESOURCES
     UF_FLAG_PRIVATE,                                        // PLAYER_EXPERTISE
     UF_FLAG_PRIVATE,                                        // PLAYER_OFFHAND_EXPERTISE
+    UF_FLAG_PRIVATE,                                        //PLAYER_RANGED_PERCENTAGE
     UF_FLAG_PRIVATE,                                        // PLAYER_BLOCK_PERCENTAGE
     UF_FLAG_PRIVATE,                                        // PLAYER_DODGE_PERCENTAGE
     UF_FLAG_PRIVATE,                                        // PLAYER_PARRY_PERCENTAGE
@@ -1208,6 +1265,7 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PRIVATE,                                        // PLAYER_SHIELD_BLOCK
     UF_FLAG_PRIVATE,                                        // PLAYER_SHIELD_BLOCK_CRIT_PERCENTAGE
     UF_FLAG_PRIVATE,                                        // PLAYER_MASTERY
+    UF_FLAG_PRIVATE,                                        //PLAYER_PVP_PWOER
     UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1
     UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+1
     UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+2
@@ -1364,6 +1422,50 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+153
     UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+154
     UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+155
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+156
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+157
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+158
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+159
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+160
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+161
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+162
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+163
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+164
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+165
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+166
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+167
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+168
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+169
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+170
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+171
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+172
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+173
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+174
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+155
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+155
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+155
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+155
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+155
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+180
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+181
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+182
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+183
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+184
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+185
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+186
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+187
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+188
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+189
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+190
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+191
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+192
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+182
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+182
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+195
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+182
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+182
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+182
+    UF_FLAG_PRIVATE,                                        // PLAYER_EXPLORED_ZONES_1+199
     UF_FLAG_PRIVATE,                                        // PLAYER_REST_STATE_EXPERIENCE
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_COINAGE
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_COINAGE+1
@@ -1391,11 +1493,14 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MOD_HEALING_DONE_POS
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MOD_HEALING_PCT
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MOD_HEALING_DONE_PCT
+    UF_FLAG_PRIVATE,                                        //PLAYER_FIELD_PERIODIC_HEALING_DONE_PCT
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_WEAPON_DMG_MULTIPLIERS
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_WEAPON_DMG_MULTIPLIERS+1
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_WEAPON_DMG_MULTIPLIERS+2
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MOD_SPELL_POWER_PCT
+    UF_FLAG_PRIVATE,                                        //PLAYER_FIELD_MOD_RESILIENCE_PCT
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_OVERRIDE_SPELL_POWER_BY_AP_PCT
+    UF_FLAG_PRIVATE,                                        //PLAYER_FIELD_OVERRIDE_AP_BY_SPELL_POWER_PCT
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MOD_TARGET_RESISTANCE
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MOD_TARGET_PHYSICAL_RESISTANCE
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_BYTES
@@ -1427,7 +1532,6 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_BUYBACK_TIMESTAMP_1+11
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_KILLS
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_LIFETIME_HONORBALE_KILLS
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_BYTES2
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_WATCHED_FACTION_INDEX
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_COMBAT_RATING_1
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_COMBAT_RATING_1+1
@@ -1455,6 +1559,7 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_COMBAT_RATING_1+23
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_COMBAT_RATING_1+24
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_COMBAT_RATING_1+25
+    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_COMBAT_RATING_1+26
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_ARENA_TEAM_INFO_1_1
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_ARENA_TEAM_INFO_1_1+1
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_ARENA_TEAM_INFO_1_1+2
@@ -1478,31 +1583,6 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_ARENA_TEAM_INFO_1_1+20
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_BATTLEGROUND_RATING
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MAX_LEVEL
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+1
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+2
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+3
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+4
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+5
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+6
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+7
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+8
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+9
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+10
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+11
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+12
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+13
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+14
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+15
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+16
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+17
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+18
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+19
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+20
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+21
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+22
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+23
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_DAILY_QUESTS_1+24
     UF_FLAG_PRIVATE,                                        // PLAYER_RUNE_REGEN_1
     UF_FLAG_PRIVATE,                                        // PLAYER_RUNE_REGEN_1+1
     UF_FLAG_PRIVATE,                                        // PLAYER_RUNE_REGEN_1+2
@@ -1510,24 +1590,19 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PRIVATE,                                        // PLAYER_NO_REAGENT_COST_1
     UF_FLAG_PRIVATE,                                        // PLAYER_NO_REAGENT_COST_1+1
     UF_FLAG_PRIVATE,                                        // PLAYER_NO_REAGENT_COST_1+2
+    UF_FLAG_PRIVATE,                                        // PLAYER_NO_REAGENT_COST_1+3
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPH_SLOTS_1
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPH_SLOTS_1+1
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPH_SLOTS_1+2
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPH_SLOTS_1+3
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPH_SLOTS_1+4
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPH_SLOTS_1+5
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPH_SLOTS_1+6
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPH_SLOTS_1+7
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPH_SLOTS_1+8
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPHS_1
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPHS_1+1
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPHS_1+2
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPHS_1+3
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPHS_1+4
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPHS_1+5
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPHS_1+6
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPHS_1+7
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_GLYPHS_1+8
     UF_FLAG_PRIVATE,                                        // PLAYER_GLYPHS_ENABLED
     UF_FLAG_PRIVATE,                                        // PLAYER_PET_SPELL_POWER
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESEARCHING_1
@@ -1538,23 +1613,16 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESEARCHING_1+5
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESEARCHING_1+6
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESEARCHING_1+7
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESERACH_SITE_1
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESERACH_SITE_1+1
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESERACH_SITE_1+2
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESERACH_SITE_1+3
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESERACH_SITE_1+4
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESERACH_SITE_1+5
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESERACH_SITE_1+6
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESERACH_SITE_1+7
     UF_FLAG_PRIVATE,                                        // PLAYER_PROFESSION_SKILL_LINE_1
     UF_FLAG_PRIVATE,                                        // PLAYER_PROFESSION_SKILL_LINE_1+1
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_UI_HIT_MODIFIER
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_UI_SPELL_HIT_MODIFIER
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_HOME_REALM_TIME_OFFSET
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MOD_HASTE
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MOD_RANGED_HASTE
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MOD_PET_HASTE
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MOD_HASTE_REGEN
+    UF_FLAG_PRIVATE,                                        //PLAYER_FIELD_SUMMONED_BATTLEPTE_ID
+    UF_FLAG_PRIVATE,                                        //PLAYER_FIELD_AURA_VISION
+    UF_FLAG_PRIVATE,                                        //PLAYER_FIELD_OVERRIVDE_SPELLS_ID
 };
 
 uint32 GameObjectUpdateFieldFlags[GAMEOBJECT_END] =
@@ -1566,7 +1634,6 @@ uint32 GameObjectUpdateFieldFlags[GAMEOBJECT_END] =
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_TYPE
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_ENTRY
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_SCALE_X
-    UF_FLAG_NONE,                                           // OBJECT_FIELD_PADDING
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_CREATED_BY
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_CREATED_BY+1
     UF_FLAG_PUBLIC,                                         // GAMEOBJECT_DISPLAYID
@@ -1590,7 +1657,6 @@ uint32 DynamicObjectUpdateFieldFlags[DYNAMICOBJECT_END] =
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_TYPE
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_ENTRY
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_SCALE_X
-    UF_FLAG_NONE,                                           // OBJECT_FIELD_PADDING
     UF_FLAG_PUBLIC,                                         // DYNAMICOBJECT_CASTER
     UF_FLAG_PUBLIC,                                         // DYNAMICOBJECT_CASTER+1
     UF_FLAG_DYNAMIC,                                        // DYNAMICOBJECT_BYTES
@@ -1608,7 +1674,6 @@ uint32 CorpseUpdateFieldFlags[CORPSE_END] =
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_TYPE
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_ENTRY
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_SCALE_X
-    UF_FLAG_NONE,                                           // OBJECT_FIELD_PADDING
     UF_FLAG_PUBLIC,                                         // CORPSE_FIELD_OWNER
     UF_FLAG_PUBLIC,                                         // CORPSE_FIELD_OWNER+1
     UF_FLAG_PUBLIC,                                         // CORPSE_FIELD_PARTY
@@ -1648,11 +1713,9 @@ uint32 AreaTriggerUpdateFieldFlags[AREATRIGGER_END] =
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_TYPE
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_ENTRY
     UF_FLAG_PUBLIC,                                         // OBJECT_FIELD_SCALE_X
-    UF_FLAG_NONE,                                           // OBJECT_FIELD_PADDING
+    UF_FLAG_PUBLIC,                                         // AREATRIGGER_FINAL_POS
+    UF_FLAG_PUBLIC,                                         // AREATRIGGER_FINAL_POS+1
     UF_FLAG_PUBLIC,                                         // AREATRIGGER_SPELLID
     UF_FLAG_PUBLIC,                                         // AREATRIGGER_SPELLVISUALID
     UF_FLAG_PUBLIC,                                         // AREATRIGGER_DURATION
-    UF_FLAG_PUBLIC,                                         // AREATRIGGER_FINAL_POS
-    UF_FLAG_PUBLIC,                                         // AREATRIGGER_FINAL_POS+1
-    UF_FLAG_PUBLIC,                                         // AREATRIGGER_FINAL_POS+2
 };

@@ -28,8 +28,7 @@ enum EObjectFields
     OBJECT_FIELD_TYPE                                = 0x0004, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
     OBJECT_FIELD_ENTRY                               = 0x0005, // Size: 1, Type: INT, Flags: PUBLIC
     OBJECT_FIELD_SCALE_X                             = 0x0006, // Size: 1, Type: FLOAT, Flags: PUBLIC
-    OBJECT_FIELD_PADDING                             = 0x0007, // Size: 1, Type: INT, Flags: NONE
-    OBJECT_END                                       = 0x0008
+    OBJECT_END                                       = 0x0007
 };
 
 enum EItemFields
@@ -61,31 +60,37 @@ enum EItemFields
     ITEM_FIELD_ENCHANTMENT_9_1                       = OBJECT_END + 0x0028, // Size: 2, Type: INT, Flags: PUBLIC
     ITEM_FIELD_ENCHANTMENT_9_3                       = OBJECT_END + 0x002A, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
     ITEM_FIELD_ENCHANTMENT_10_1                      = OBJECT_END + 0x002B, // Size: 2, Type: INT, Flags: PUBLIC
-    ITEM_FIELD_ENCHANTMENT_10_3                      = OBJECT_END + 0x002D, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    ITEM_FIELD_ENCHANTMENT_11_1                      = OBJECT_END + 0x002E, // Size: 2, Type: INT, Flags: PUBLIC
-    ITEM_FIELD_ENCHANTMENT_11_3                      = OBJECT_END + 0x0030, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    ITEM_FIELD_ENCHANTMENT_12_1                      = OBJECT_END + 0x0031, // Size: 2, Type: INT, Flags: PUBLIC
-    ITEM_FIELD_ENCHANTMENT_12_3                      = OBJECT_END + 0x0033, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    ITEM_FIELD_ENCHANTMENT_13_1                      = OBJECT_END + 0x0034, // Size: 2, Type: INT, Flags: PUBLIC
-    ITEM_FIELD_ENCHANTMENT_13_3                      = OBJECT_END + 0x0036, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    ITEM_FIELD_ENCHANTMENT_14_1                      = OBJECT_END + 0x0037, // Size: 2, Type: INT, Flags: PUBLIC
-    ITEM_FIELD_ENCHANTMENT_14_3                      = OBJECT_END + 0x0039, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    ITEM_FIELD_ENCHANTMENT_15_1                      = OBJECT_END + 0x003A, // Size: 2, Type: INT, Flags: PUBLIC
-    ITEM_FIELD_ENCHANTMENT_15_3                      = OBJECT_END + 0x003C, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    ITEM_FIELD_PROPERTY_SEED                         = OBJECT_END + 0x003D, // Size: 1, Type: INT, Flags: PUBLIC
-    ITEM_FIELD_RANDOM_PROPERTIES_ID                  = OBJECT_END + 0x003E, // Size: 1, Type: INT, Flags: PUBLIC
-    ITEM_FIELD_DURABILITY                            = OBJECT_END + 0x003F, // Size: 1, Type: INT, Flags: OWNER, ITEM_OWNER
-    ITEM_FIELD_MAXDURABILITY                         = OBJECT_END + 0x0040, // Size: 1, Type: INT, Flags: OWNER, ITEM_OWNER
-    ITEM_FIELD_CREATE_PLAYED_TIME                    = OBJECT_END + 0x0041, // Size: 1, Type: INT, Flags: PUBLIC
-    ITEM_END                                         = OBJECT_END + 0x0042,
+    ITEM_FIELD_ENCHANTMENT_10_3                      = OBJECT_END + 0x002C, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    ITEM_FIELD_ENCHANTMENT_11_1                      = OBJECT_END + 0x002D, // Size: 2, Type: INT, Flags: PUBLIC
+    ITEM_FIELD_ENCHANTMENT_11_3                      = OBJECT_END + 0x002E, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    ITEM_FIELD_ENCHANTMENT_12_1                      = OBJECT_END + 0x002F, // Size: 2, Type: INT, Flags: PUBLIC
+    ITEM_FIELD_ENCHANTMENT_12_3                      = OBJECT_END + 0x0030, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    ITEM_FIELD_ENCHANTMENT_13_1                      = OBJECT_END + 0x0031, // Size: 2, Type: INT, Flags: PUBLIC
+    ITEM_FIELD_ENCHANTMENT_13_3                      = OBJECT_END + 0x0032, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    ITEM_FIELD_ENCHANTMENT_14_1                      = OBJECT_END + 0x0033, // Size: 2, Type: INT, Flags: PUBLIC
+    ITEM_FIELD_ENCHANTMENT_14_3                      = OBJECT_END + 0x0034, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    ITEM_FIELD_ENCHANTMENT_15_1                      = OBJECT_END + 0x0035, // Size: 2, Type: INT, Flags: PUBLIC
+    ITEM_FIELD_ENCHANTMENT_15_3                      = OBJECT_END + 0x0036, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    ITEM_FIELD_PROPERTY_SEED                         = OBJECT_END + 0x0037, // Size: 1, Type: INT, Flags: PUBLIC
+    ITEM_FIELD_RANDOM_PROPERTIES_ID                  = OBJECT_END + 0x0038, // Size: 1, Type: INT, Flags: PUBLIC
+    ITEM_FIELD_DURABILITY                            = OBJECT_END + 0x0039, // Size: 1, Type: INT, Flags: OWNER, ITEM_OWNER
+    ITEM_FIELD_MAXDURABILITY                         = OBJECT_END + 0x003A, // Size: 1, Type: INT, Flags: OWNER, ITEM_OWNER
+    ITEM_FIELD_CREATE_PLAYED_TIME                    = OBJECT_END + 0x003B, // Size: 1, Type: INT, Flags: PUBLIC
+    ITEM_FIELD_MODIFIERSMASK                         = OBJECT_END + 0x003C, // Size: 1, Type: INT, Flags: PUBLIC
+    ITEM_END                                         = OBJECT_END + 0x003D
+};
+
+enum EItemDynamicFields
+{
+    ITEMD_MODIFIERS                                  = OBJECT_END + 0x0000,
+    ITEMD_END                                        = OBJECT_END + 0x0004
 };
 
 enum EContainerFields
 {
     CONTAINER_FIELD_NUM_SLOTS                        = ITEM_END + 0x0000, // Size: 1, Type: INT, Flags: PUBLIC
-    CONTAINER_ALIGN_PAD                              = ITEM_END + 0x0001, // Size: 1, Type: BYTES, Flags: NONE
-    CONTAINER_FIELD_SLOT_1                           = ITEM_END + 0x0002, // Size: 72, Type: LONG, Flags: PUBLIC
-    CONTAINER_END                                    = ITEM_END + 0x004A
+    CONTAINER_FIELD_SLOT_1                           = ITEM_END + 0x0001, // Size: 72, Type: LONG, Flags: PUBLIC
+    CONTAINER_END                                    = ITEM_END + 0x0049
 };
 
 enum EUnitFields
@@ -98,88 +103,101 @@ enum EUnitFields
     UNIT_FIELD_CREATEDBY                             = OBJECT_END + 0x000A, // Size: 2, Type: LONG, Flags: PUBLIC
     UNIT_FIELD_TARGET                                = OBJECT_END + 0x000C, // Size: 2, Type: LONG, Flags: PUBLIC
     UNIT_FIELD_CHANNEL_OBJECT                        = OBJECT_END + 0x000E, // Size: 2, Type: LONG, Flags: PUBLIC
-    UNIT_CHANNEL_SPELL                               = OBJECT_END + 0x0010, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_BYTES_0                               = OBJECT_END + 0x0011, // Size: 1, Type: BYTES, Flags: PUBLIC
-    UNIT_FIELD_HEALTH                                = OBJECT_END + 0x0012, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_POWER1                                = OBJECT_END + 0x0013, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_POWER2                                = OBJECT_END + 0x0014, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_POWER3                                = OBJECT_END + 0x0015, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_POWER4                                = OBJECT_END + 0x0016, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_POWER5                                = OBJECT_END + 0x0017, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_MAXHEALTH                             = OBJECT_END + 0x0018, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_MAXPOWER1                             = OBJECT_END + 0x0019, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_MAXPOWER2                             = OBJECT_END + 0x001A, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_MAXPOWER3                             = OBJECT_END + 0x001B, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_MAXPOWER4                             = OBJECT_END + 0x001C, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_MAXPOWER5                             = OBJECT_END + 0x001D, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_POWER_REGEN_FLAT_MODIFIER             = OBJECT_END + 0x001E, // Size: 5, Type: FLOAT, Flags: PRIVATE, OWNER, UNUSED2
-    UNIT_FIELD_POWER_REGEN_INTERRUPTED_FLAT_MODIFIER = OBJECT_END + 0x0023, // Size: 5, Type: FLOAT, Flags: PRIVATE, OWNER, UNUSED2
-    UNIT_FIELD_LEVEL                                 = OBJECT_END + 0x0028, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_FACTIONTEMPLATE                       = OBJECT_END + 0x0029, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_VIRTUAL_ITEM_SLOT_ID                        = OBJECT_END + 0x002A, // Size: 3, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_FLAGS                                 = OBJECT_END + 0x002D, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_FLAGS_2                               = OBJECT_END + 0x002E, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_AURASTATE                             = OBJECT_END + 0x002F, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_BASEATTACKTIME                        = OBJECT_END + 0x0030, // Size: 2, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_RANGEDATTACKTIME                      = OBJECT_END + 0x0032, // Size: 1, Type: INT, Flags: PRIVATE
-    UNIT_FIELD_BOUNDINGRADIUS                        = OBJECT_END + 0x0033, // Size: 1, Type: FLOAT, Flags: PUBLIC
-    UNIT_FIELD_COMBATREACH                           = OBJECT_END + 0x0034, // Size: 1, Type: FLOAT, Flags: PUBLIC
-    UNIT_FIELD_DISPLAYID                             = OBJECT_END + 0x0035, // Size: 1, Type: INT, Flags: DYNAMIC
-    UNIT_FIELD_NATIVEDISPLAYID                       = OBJECT_END + 0x0036, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_MOUNTDISPLAYID                        = OBJECT_END + 0x0037, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_MINDAMAGE                             = OBJECT_END + 0x0038, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER, SPECIAL_INFO
-    UNIT_FIELD_MAXDAMAGE                             = OBJECT_END + 0x0039, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER, SPECIAL_INFO
-    UNIT_FIELD_MINOFFHANDDAMAGE                      = OBJECT_END + 0x003A, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER, SPECIAL_INFO
-    UNIT_FIELD_MAXOFFHANDDAMAGE                      = OBJECT_END + 0x003B, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER, SPECIAL_INFO
-    UNIT_FIELD_BYTES_1                               = OBJECT_END + 0x003C, // Size: 1, Type: BYTES, Flags: PUBLIC
-    UNIT_FIELD_PETNUMBER                             = OBJECT_END + 0x003D, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_PET_NAME_TIMESTAMP                    = OBJECT_END + 0x003E, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_PETEXPERIENCE                         = OBJECT_END + 0x003F, // Size: 1, Type: INT, Flags: OWNER
-    UNIT_FIELD_PETNEXTLEVELEXP                       = OBJECT_END + 0x0040, // Size: 1, Type: INT, Flags: OWNER
-    UNIT_DYNAMIC_FLAGS                               = OBJECT_END + 0x0041, // Size: 1, Type: INT, Flags: DYNAMIC
-    UNIT_MOD_CAST_SPEED                              = OBJECT_END + 0x0042, // Size: 1, Type: FLOAT, Flags: PUBLIC
-    UNIT_MOD_CAST_HASTE                              = OBJECT_END + 0x0043, // Size: 1, Type: FLOAT, Flags: PUBLIC
-    UNIT_CREATED_BY_SPELL                            = OBJECT_END + 0x0044, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_NPC_FLAGS                                   = OBJECT_END + 0x0045, // Size: 1, Type: INT, Flags: DYNAMIC
-    UNIT_NPC_EMOTESTATE                              = OBJECT_END + 0x0046, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_STAT0                                 = OBJECT_END + 0x0047, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_STAT1                                 = OBJECT_END + 0x0048, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_STAT2                                 = OBJECT_END + 0x0049, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_STAT3                                 = OBJECT_END + 0x004A, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_STAT4                                 = OBJECT_END + 0x004B, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_POSSTAT0                              = OBJECT_END + 0x004C, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_POSSTAT1                              = OBJECT_END + 0x004D, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_POSSTAT2                              = OBJECT_END + 0x004E, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_POSSTAT3                              = OBJECT_END + 0x004F, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_POSSTAT4                              = OBJECT_END + 0x0050, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_NEGSTAT0                              = OBJECT_END + 0x0051, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_NEGSTAT1                              = OBJECT_END + 0x0052, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_NEGSTAT2                              = OBJECT_END + 0x0053, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_NEGSTAT3                              = OBJECT_END + 0x0054, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_NEGSTAT4                              = OBJECT_END + 0x0055, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_RESISTANCES                           = OBJECT_END + 0x0056, // Size: 7, Type: INT, Flags: PRIVATE, OWNER, SPECIAL_INFO
-    UNIT_FIELD_RESISTANCEBUFFMODSPOSITIVE            = OBJECT_END + 0x005D, // Size: 7, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_RESISTANCEBUFFMODSNEGATIVE            = OBJECT_END + 0x0064, // Size: 7, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_BASE_MANA                             = OBJECT_END + 0x006B, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_BASE_HEALTH                           = OBJECT_END + 0x006C, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_BYTES_2                               = OBJECT_END + 0x006D, // Size: 1, Type: BYTES, Flags: PUBLIC
-    UNIT_FIELD_ATTACK_POWER                          = OBJECT_END + 0x006E, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_ATTACK_POWER_MOD_POS                  = OBJECT_END + 0x006F, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_ATTACK_POWER_MOD_NEG                  = OBJECT_END + 0x0070, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_ATTACK_POWER_MULTIPLIER               = OBJECT_END + 0x0071, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_RANGED_ATTACK_POWER                   = OBJECT_END + 0x0072, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_RANGED_ATTACK_POWER_MOD_POS           = OBJECT_END + 0x0073, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_RANGED_ATTACK_POWER_MOD_NEG           = OBJECT_END + 0x0074, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_RANGED_ATTACK_POWER_MULTIPLIER        = OBJECT_END + 0x0075, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_MINRANGEDDAMAGE                       = OBJECT_END + 0x0076, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_MAXRANGEDDAMAGE                       = OBJECT_END + 0x0077, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_POWER_COST_MODIFIER                   = OBJECT_END + 0x0078, // Size: 7, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_POWER_COST_MULTIPLIER                 = OBJECT_END + 0x007F, // Size: 7, Type: FLOAT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_MAXHEALTHMODIFIER                     = OBJECT_END + 0x0086, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_HOVERHEIGHT                           = OBJECT_END + 0x0087, // Size: 1, Type: FLOAT, Flags: PUBLIC
-    UNIT_FIELD_MAXITEMLEVEL                          = OBJECT_END + 0x0088, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_PADDING                               = OBJECT_END + 0x0089, // Size: 1, Type: INT, Flags: NONE
-    UNIT_END                                         = OBJECT_END + 0x008A
+    UNIT_FIELD_BYTES_0                               = OBJECT_END + 0x0010, // Size: 1, Type: BYTES, Flags: PUBLIC
+    UNIT_CHANNEL_SPELL                               = OBJECT_END + 0x0011, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_DISPLAYPOWER                                = OBJECT_END + 0x0012,
+    UNIT_OVERRIDE_DISPLAYPOWERID                     = OBJECT_END + 0x0013,
+    UNIT_FIELD_HEALTH                                = OBJECT_END + 0x0014, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_POWER1                                = OBJECT_END + 0x0015, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_POWER2                                = OBJECT_END + 0x0016, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_POWER3                                = OBJECT_END + 0x0017, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_POWER4                                = OBJECT_END + 0x0018, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_POWER5                                = OBJECT_END + 0x0019, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_MAXHEALTH                             = OBJECT_END + 0x001A, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_MAXPOWER1                             = OBJECT_END + 0x001B, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_MAXPOWER2                             = OBJECT_END + 0x001C, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_MAXPOWER3                             = OBJECT_END + 0x001D, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_MAXPOWER4                             = OBJECT_END + 0x001E, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_MAXPOWER5                             = OBJECT_END + 0x001F, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_POWER_REGEN_FLAT_MODIFIER             = OBJECT_END + 0x0020, // Size: 5, Type: FLOAT, Flags: PRIVATE, OWNER, UNUSED2
+    UNIT_FIELD_POWER_REGEN_INTERRUPTED_FLAT_MODIFIER = OBJECT_END + 0x0025, // Size: 5, Type: FLOAT, Flags: PRIVATE, OWNER, UNUSED2
+    UNIT_FIELD_LEVEL                                 = OBJECT_END + 0x002A, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_FACTIONTEMPLATE                       = OBJECT_END + 0x002B, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_VIRTUAL_ITEM_SLOT_ID                        = OBJECT_END + 0x002C, // Size: 3, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_FLAGS                                 = OBJECT_END + 0x002F, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_FLAGS_2                               = OBJECT_END + 0x0030, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_AURASTATE                             = OBJECT_END + 0x0031, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_BASEATTACKTIME                        = OBJECT_END + 0x0032, // Size: 2, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_RANGEDATTACKTIME                      = OBJECT_END + 0x0034, // Size: 1, Type: INT, Flags: PRIVATE
+    UNIT_FIELD_BOUNDINGRADIUS                        = OBJECT_END + 0x0035, // Size: 1, Type: FLOAT, Flags: PUBLIC
+    UNIT_FIELD_COMBATREACH                           = OBJECT_END + 0x0036, // Size: 1, Type: FLOAT, Flags: PUBLIC
+    UNIT_FIELD_DISPLAYID                             = OBJECT_END + 0x0037, // Size: 1, Type: INT, Flags: DYNAMIC
+    UNIT_FIELD_NATIVEDISPLAYID                       = OBJECT_END + 0x0038, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_MOUNTDISPLAYID                        = OBJECT_END + 0x0039, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_MINDAMAGE                             = OBJECT_END + 0x003A, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER, SPECIAL_INFO
+    UNIT_FIELD_MAXDAMAGE                             = OBJECT_END + 0x003B, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER, SPECIAL_INFO
+    UNIT_FIELD_MINOFFHANDDAMAGE                      = OBJECT_END + 0x003C, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER, SPECIAL_INFO
+    UNIT_FIELD_MAXOFFHANDDAMAGE                      = OBJECT_END + 0x003D, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER, SPECIAL_INFO
+    UNIT_FIELD_BYTES_1                               = OBJECT_END + 0x003E, // Size: 1, Type: BYTES, Flags: PUBLIC
+    UNIT_FIELD_PETNUMBER                             = OBJECT_END + 0x003F, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_PET_NAME_TIMESTAMP                    = OBJECT_END + 0x0040, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_PETEXPERIENCE                         = OBJECT_END + 0x0041, // Size: 1, Type: INT, Flags: OWNER
+    UNIT_FIELD_PETNEXTLEVELEXP                       = OBJECT_END + 0x0042, // Size: 1, Type: INT, Flags: OWNER
+    UNIT_DYNAMIC_FLAGS                               = OBJECT_END + 0x0043, // Size: 1, Type: INT, Flags: DYNAMIC
+    UNIT_MOD_CAST_SPEED                              = OBJECT_END + 0x0044, // Size: 1, Type: FLOAT, Flags: PUBLIC
+    UNIT_MOD_CAST_HASTE                              = OBJECT_END + 0x0045, // Size: 1, Type: FLOAT, Flags: PUBLIC
+    UNIT_MOD_HASTE                                   = OBJECT_END + 0x0046,
+    UNIT_MOD_HASTEREGEN                              = OBJECT_END + 0x0047,
+    UNIT_CREATED_BY_SPELL                            = OBJECT_END + 0x0048, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_NPC_FLAGS                                   = OBJECT_END + 0x0049, // Size: 1, Type: INT, Flags: DYNAMIC
+    UNIT_NPC_EMOTESTATE                              = OBJECT_END + 0x004B, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_STAT0                                 = OBJECT_END + 0x004C, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_STAT1                                 = OBJECT_END + 0x004D, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_STAT2                                 = OBJECT_END + 0x004E, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_STAT3                                 = OBJECT_END + 0x004F, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_STAT4                                 = OBJECT_END + 0x0050, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_POSSTAT0                              = OBJECT_END + 0x0051, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_POSSTAT1                              = OBJECT_END + 0x0052, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_POSSTAT2                              = OBJECT_END + 0x0053, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_POSSTAT3                              = OBJECT_END + 0x0054, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_POSSTAT4                              = OBJECT_END + 0x0055, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_NEGSTAT0                              = OBJECT_END + 0x0056, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_NEGSTAT1                              = OBJECT_END + 0x0057, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_NEGSTAT2                              = OBJECT_END + 0x0058, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_NEGSTAT3                              = OBJECT_END + 0x0059, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_NEGSTAT4                              = OBJECT_END + 0x005A, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_RESISTANCES                           = OBJECT_END + 0x005B, // Size: 7, Type: INT, Flags: PRIVATE, OWNER, SPECIAL_INFO
+    UNIT_FIELD_RESISTANCEBUFFMODSPOSITIVE            = OBJECT_END + 0x0062, // Size: 7, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_RESISTANCEBUFFMODSNEGATIVE            = OBJECT_END + 0x0069, // Size: 7, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_BASE_MANA                             = OBJECT_END + 0x0070, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_BASE_HEALTH                           = OBJECT_END + 0x0071, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_BYTES_2                               = OBJECT_END + 0x0072, // Size: 1, Type: BYTES, Flags: PUBLIC ShapeshiftForm
+    UNIT_FIELD_ATTACK_POWER                          = OBJECT_END + 0x0073, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_ATTACK_POWER_MOD_POS                  = OBJECT_END + 0x0074, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_ATTACK_POWER_MOD_NEG                  = OBJECT_END + 0x0075, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_ATTACK_POWER_MULTIPLIER               = OBJECT_END + 0x0076, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_RANGED_ATTACK_POWER                   = OBJECT_END + 0x0077, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_RANGED_ATTACK_POWER_MOD_POS           = OBJECT_END + 0x0078, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_RANGED_ATTACK_POWER_MOD_NEG           = OBJECT_END + 0x0079, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_RANGED_ATTACK_POWER_MULTIPLIER        = OBJECT_END + 0x007A, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_MINRANGEDDAMAGE                       = OBJECT_END + 0x007B, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_MAXRANGEDDAMAGE                       = OBJECT_END + 0x007C, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_POWER_COST_MODIFIER                   = OBJECT_END + 0x007D, // Size: 7, Type: INT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_POWER_COST_MULTIPLIER                 = OBJECT_END + 0x0084, // Size: 7, Type: FLOAT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_MAXHEALTHMODIFIER                     = OBJECT_END + 0x008B, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER
+    UNIT_FIELD_HOVERHEIGHT                           = OBJECT_END + 0x008C, // Size: 1, Type: FLOAT, Flags: PUBLIC
+    UNIT_FIELD_MINITEMLEVEL                          = OBJECT_END + 0x008E, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_MAXITEMLEVEL                          = OBJECT_END + 0x008E, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_WILDBATTLEPETLEVEL                    = OBJECT_END + 0x008F, // Size: 1, Type: INT, Flags: NONE
+    UNIT_FIELD_BATTLEPETCOMPANIONIDID                = OBJECT_END + 0x0090,
+    UNIT_FIELD_BATTLEPETCOMPANIONNAMETIMESTAMP       = OBJECT_END + 0x0091,
+    UNIT_END                                         = OBJECT_END + 0x0092
+};
+
+enum EUnitDynamicFields
+{
+    UNITD_PASSIV_SPELLS                               = OBJECT_END + 0x0000,
+    UNITD_END                                         = OBJECT_END + 0x0101
 };
 
 enum EPlayerFields
@@ -394,127 +412,165 @@ enum EPlayerFields
     PLAYER_QUEST_LOG_50_2                            = UNIT_END + 0x0101, // Size: 1, Type: INT, Flags: PARTY_MEMBER
     PLAYER_QUEST_LOG_50_3                            = UNIT_END + 0x0102, // Size: 2, Type: TWO_SHORT, Flags: PARTY_MEMBER
     PLAYER_QUEST_LOG_50_5                            = UNIT_END + 0x0104, // Size: 1, Type: INT, Flags: PARTY_MEMBER
-    PLAYER_VISIBLE_ITEM_1_ENTRYID                    = UNIT_END + 0x0105, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_1_ENCHANTMENT                = UNIT_END + 0x0106, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_2_ENTRYID                    = UNIT_END + 0x0107, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_2_ENCHANTMENT                = UNIT_END + 0x0108, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_3_ENTRYID                    = UNIT_END + 0x0109, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_3_ENCHANTMENT                = UNIT_END + 0x010A, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_4_ENTRYID                    = UNIT_END + 0x010B, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_4_ENCHANTMENT                = UNIT_END + 0x010C, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_5_ENTRYID                    = UNIT_END + 0x010D, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_5_ENCHANTMENT                = UNIT_END + 0x010E, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_6_ENTRYID                    = UNIT_END + 0x010F, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_6_ENCHANTMENT                = UNIT_END + 0x0110, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_7_ENTRYID                    = UNIT_END + 0x0111, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_7_ENCHANTMENT                = UNIT_END + 0x0112, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_8_ENTRYID                    = UNIT_END + 0x0113, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_8_ENCHANTMENT                = UNIT_END + 0x0114, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_9_ENTRYID                    = UNIT_END + 0x0115, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_9_ENCHANTMENT                = UNIT_END + 0x0116, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_10_ENTRYID                   = UNIT_END + 0x0117, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_10_ENCHANTMENT               = UNIT_END + 0x0118, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_11_ENTRYID                   = UNIT_END + 0x0119, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_11_ENCHANTMENT               = UNIT_END + 0x011A, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_12_ENTRYID                   = UNIT_END + 0x011B, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_12_ENCHANTMENT               = UNIT_END + 0x011C, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_13_ENTRYID                   = UNIT_END + 0x011D, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_13_ENCHANTMENT               = UNIT_END + 0x011E, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_14_ENTRYID                   = UNIT_END + 0x011F, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_14_ENCHANTMENT               = UNIT_END + 0x0120, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_15_ENTRYID                   = UNIT_END + 0x0121, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_15_ENCHANTMENT               = UNIT_END + 0x0122, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_16_ENTRYID                   = UNIT_END + 0x0123, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_16_ENCHANTMENT               = UNIT_END + 0x0124, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_17_ENTRYID                   = UNIT_END + 0x0125, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_17_ENCHANTMENT               = UNIT_END + 0x0126, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_18_ENTRYID                   = UNIT_END + 0x0127, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_18_ENCHANTMENT               = UNIT_END + 0x0128, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_19_ENTRYID                   = UNIT_END + 0x0129, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_VISIBLE_ITEM_19_ENCHANTMENT               = UNIT_END + 0x012A, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
-    PLAYER_CHOSEN_TITLE                              = UNIT_END + 0x012B, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_FAKE_INEBRIATION                          = UNIT_END + 0x012C, // Size: 1, Type: INT, Flags: PUBLIC
-    PLAYER_FIELD_PAD_0                               = UNIT_END + 0x012D, // Size: 1, Type: INT, Flags: NONE
-    PLAYER_END_NOT_SELF                              = UNIT_END + 0x012E,
+    PLAYER_VISIBLE_ITEM_1_ENTRYID                    = UNIT_END + 0x02F9, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_1_ENCHANTMENT                = UNIT_END + 0x02FA, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_2_ENTRYID                    = UNIT_END + 0x02FB, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_2_ENCHANTMENT                = UNIT_END + 0x02FC, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_3_ENTRYID                    = UNIT_END + 0x02FD, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_3_ENCHANTMENT                = UNIT_END + 0x02FE, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_4_ENTRYID                    = UNIT_END + 0x02FF, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_4_ENCHANTMENT                = UNIT_END + 0x0300, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_5_ENTRYID                    = UNIT_END + 0x0301, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_5_ENCHANTMENT                = UNIT_END + 0x0302, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_6_ENTRYID                    = UNIT_END + 0x0303, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_6_ENCHANTMENT                = UNIT_END + 0x0304, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_7_ENTRYID                    = UNIT_END + 0x0305, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_7_ENCHANTMENT                = UNIT_END + 0x0306, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_8_ENTRYID                    = UNIT_END + 0x0307, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_8_ENCHANTMENT                = UNIT_END + 0x0308, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_9_ENTRYID                    = UNIT_END + 0x0309, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_9_ENCHANTMENT                = UNIT_END + 0x030A, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_10_ENTRYID                   = UNIT_END + 0x030B, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_10_ENCHANTMENT               = UNIT_END + 0x030C, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_11_ENTRYID                   = UNIT_END + 0x030D, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_11_ENCHANTMENT               = UNIT_END + 0x030E, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_12_ENTRYID                   = UNIT_END + 0x030F, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_12_ENCHANTMENT               = UNIT_END + 0x0310, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_13_ENTRYID                   = UNIT_END + 0x0311, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_13_ENCHANTMENT               = UNIT_END + 0x0312, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_14_ENTRYID                   = UNIT_END + 0x0313, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_14_ENCHANTMENT               = UNIT_END + 0x0314, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_15_ENTRYID                   = UNIT_END + 0x0315, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_15_ENCHANTMENT               = UNIT_END + 0x0316, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_16_ENTRYID                   = UNIT_END + 0x0317, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_16_ENCHANTMENT               = UNIT_END + 0x0318, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_17_ENTRYID                   = UNIT_END + 0x0319, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_17_ENCHANTMENT               = UNIT_END + 0x031A, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_18_ENTRYID                   = UNIT_END + 0x031B, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_18_ENCHANTMENT               = UNIT_END + 0x031C, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_19_ENTRYID                   = UNIT_END + 0x031D, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_VISIBLE_ITEM_19_ENCHANTMENT               = UNIT_END + 0x031E, // Size: 1, Type: TWO_SHORT, Flags: PUBLIC
 
-    PLAYER_FIELD_INV_SLOT_HEAD                       = UNIT_END + 0x012E, // Size: 46, Type: LONG, Flags: PRIVATE
-    PLAYER_FIELD_PACK_SLOT_1                         = UNIT_END + 0x015C, // Size: 32, Type: LONG, Flags: PRIVATE
-    PLAYER_FIELD_BANK_SLOT_1                         = UNIT_END + 0x017C, // Size: 56, Type: LONG, Flags: PRIVATE
-    PLAYER_FIELD_BANKBAG_SLOT_1                      = UNIT_END + 0x01B4, // Size: 14, Type: LONG, Flags: PRIVATE
-    PLAYER_FIELD_VENDORBUYBACK_SLOT_1                = UNIT_END + 0x01C2, // Size: 24, Type: LONG, Flags: PRIVATE
-    PLAYER_FARSIGHT                                  = UNIT_END + 0x01DA, // Size: 2, Type: LONG, Flags: PRIVATE
-    PLAYER__FIELD_KNOWN_TITLES                       = UNIT_END + 0x01DC, // Size: 2, Type: LONG, Flags: PRIVATE
-    PLAYER__FIELD_KNOWN_TITLES1                      = UNIT_END + 0x01DE, // Size: 2, Type: LONG, Flags: PRIVATE
-    PLAYER__FIELD_KNOWN_TITLES2                      = UNIT_END + 0x01E0, // Size: 2, Type: LONG, Flags: PRIVATE
-    PLAYER__FIELD_KNOWN_TITLES3                      = UNIT_END + 0x01E2, // Size: 2, Type: LONG, Flags: PRIVATE
-    PLAYER_XP                                        = UNIT_END + 0x01E4, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_NEXT_LEVEL_XP                             = UNIT_END + 0x01E5, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_SKILL_LINEID_0                            = UNIT_END + 0x01E6, // Size: 64, Type: TWO_SHORT, Flags: PRIVATE
-    PLAYER_SKILL_STEP_0                              = UNIT_END + 0x0226, // Size: 64, Type: TWO_SHORT, Flags: PRIVATE
-    PLAYER_SKILL_RANK_0                              = UNIT_END + 0x0266, // Size: 64, Type: TWO_SHORT, Flags: PRIVATE
-    PLAYER_SKILL_MAX_RANK_0                          = UNIT_END + 0x02A6, // Size: 64, Type: TWO_SHORT, Flags: PRIVATE
-    PLAYER_SKILL_MODIFIER_0                          = UNIT_END + 0x02E6, // Size: 64, Type: TWO_SHORT, Flags: PRIVATE
-    PLAYER_SKILL_TALENT_0                            = UNIT_END + 0x0326, // Size: 64, Type: TWO_SHORT, Flags: PRIVATE
-    PLAYER_CHARACTER_POINTS                          = UNIT_END + 0x0366, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_TRACK_CREATURES                           = UNIT_END + 0x0367, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_TRACK_RESOURCES                           = UNIT_END + 0x0368, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_EXPERTISE                                 = UNIT_END + 0x0369, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_OFFHAND_EXPERTISE                         = UNIT_END + 0x036A, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_BLOCK_PERCENTAGE                          = UNIT_END + 0x036B, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_DODGE_PERCENTAGE                          = UNIT_END + 0x036C, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_PARRY_PERCENTAGE                          = UNIT_END + 0x036D, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_CRIT_PERCENTAGE                           = UNIT_END + 0x036E, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_RANGED_CRIT_PERCENTAGE                    = UNIT_END + 0x036F, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_OFFHAND_CRIT_PERCENTAGE                   = UNIT_END + 0x0370, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_SPELL_CRIT_PERCENTAGE1                    = UNIT_END + 0x0371, // Size: 7, Type: FLOAT, Flags: PRIVATE
-    PLAYER_SHIELD_BLOCK                              = UNIT_END + 0x0378, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_SHIELD_BLOCK_CRIT_PERCENTAGE              = UNIT_END + 0x0379, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_MASTERY                                   = UNIT_END + 0x037A, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_EXPLORED_ZONES_1                          = UNIT_END + 0x037B, // Size: 156, Type: BYTES, Flags: PRIVATE
-    PLAYER_REST_STATE_EXPERIENCE                     = UNIT_END + 0x0417, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_COINAGE                             = UNIT_END + 0x0418, // Size: 2, Type: LONG, Flags: PRIVATE
-    PLAYER_FIELD_MOD_DAMAGE_DONE_POS                 = UNIT_END + 0x041A, // Size: 7, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_MOD_DAMAGE_DONE_NEG                 = UNIT_END + 0x0421, // Size: 7, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_MOD_DAMAGE_DONE_PCT                 = UNIT_END + 0x0428, // Size: 7, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_MOD_HEALING_DONE_POS                = UNIT_END + 0x042F, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_MOD_HEALING_PCT                     = UNIT_END + 0x0430, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_MOD_HEALING_DONE_PCT                = UNIT_END + 0x0431, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_WEAPON_DMG_MULTIPLIERS              = UNIT_END + 0x0432, // Size: 3, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_MOD_SPELL_POWER_PCT                 = UNIT_END + 0x0435, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_OVERRIDE_SPELL_POWER_BY_AP_PCT      = UNIT_END + 0x0436, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_MOD_TARGET_RESISTANCE               = UNIT_END + 0x0437, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_MOD_TARGET_PHYSICAL_RESISTANCE      = UNIT_END + 0x0438, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_BYTES                               = UNIT_END + 0x0439, // Size: 1, Type: BYTES, Flags: PRIVATE
-    PLAYER_SELF_RES_SPELL                            = UNIT_END + 0x043A, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_PVP_MEDALS                          = UNIT_END + 0x043B, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_BUYBACK_PRICE_1                     = UNIT_END + 0x043C, // Size: 12, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_BUYBACK_TIMESTAMP_1                 = UNIT_END + 0x0448, // Size: 12, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_KILLS                               = UNIT_END + 0x0454, // Size: 1, Type: TWO_SHORT, Flags: PRIVATE
-    PLAYER_FIELD_LIFETIME_HONORABLE_KILLS            = UNIT_END + 0x0455, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_BYTES2                              = UNIT_END + 0x0456, // Size: 1, Type: 6, Flags: PRIVATE
-    PLAYER_FIELD_WATCHED_FACTION_INDEX               = UNIT_END + 0x0457, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_COMBAT_RATING_1                     = UNIT_END + 0x0458, // Size: 26, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_ARENA_TEAM_INFO_1_1                 = UNIT_END + 0x0472, // Size: 21, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_BATTLEGROUND_RATING                 = UNIT_END + 0x0487, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_MAX_LEVEL                           = UNIT_END + 0x0488, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_DAILY_QUESTS_1                      = UNIT_END + 0x0489, // Size: 25, Type: INT, Flags: PRIVATE
-    PLAYER_RUNE_REGEN_1                              = UNIT_END + 0x04A2, // Size: 4, Type: FLOAT, Flags: PRIVATE
-    PLAYER_NO_REAGENT_COST_1                         = UNIT_END + 0x04A6, // Size: 3, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_GLYPH_SLOTS_1                       = UNIT_END + 0x04A9, // Size: 9, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_GLYPHS_1                            = UNIT_END + 0x04B2, // Size: 9, Type: INT, Flags: PRIVATE
-    PLAYER_GLYPHS_ENABLED                            = UNIT_END + 0x04BB, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_PET_SPELL_POWER                           = UNIT_END + 0x04BC, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_RESEARCHING_1                       = UNIT_END + 0x04BD, // Size: 8, Type: TWO_SHORT, Flags: PRIVATE
-    PLAYER_FIELD_RESERACH_SITE_1                     = UNIT_END + 0x04C5, // Size: 8, Type: TWO_SHORT, Flags: PRIVATE
-    PLAYER_PROFESSION_SKILL_LINE_1                   = UNIT_END + 0x04CD, // Size: 2, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_UI_HIT_MODIFIER                     = UNIT_END + 0x04CF, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_UI_SPELL_HIT_MODIFIER               = UNIT_END + 0x04D0, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_HOME_REALM_TIME_OFFSET              = UNIT_END + 0x04D1, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_MOD_HASTE                           = UNIT_END + 0x04D2, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_MOD_RANGED_HASTE                    = UNIT_END + 0x04D3, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_MOD_PET_HASTE                       = UNIT_END + 0x04D4, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_MOD_HASTE_REGEN                     = UNIT_END + 0x04D5, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_END                                       = UNIT_END + 0x04D6
+    PLAYER_CHOSEN_TITLE                              = UNIT_END + 0x031F, // Size: 1, Type: INT, Flags: PUBLIC
+    PLAYER_FAKE_INEBRIATION                          = UNIT_END + 0x0320, // Size: 1, Type: INT, Flags: PUBLIC
+
+    PLAYER_HOMEPLAYER_REALM                          = UNIT_END + 0x0321, // Size: 1, Type: INT, Flags: NONE
+    PLAYER_CURRENT_SPECID                            = UNIT_END + 0x0322, // Size: 1, Type: INT, Flags: NONE
+    PLAYER_TAXIMOUNT_ANIMKITID                       = UNIT_END + 0x0323, // Size: 1, Type: INT, Flags: NONE
+    PLAYER_PARTY_TYPE                                = UNIT_END + 0x0324, // Size: 1, Type: INT, Flags: NONE
+    PLAYER_END_NOT_SELF                              = UNIT_END + 0x0325,
+
+    PLAYER_FIELD_INV_SLOT_HEAD                       = UNIT_END + 0x0325, // Size: 46, Type: LONG, Flags: PRIVATE
+    PLAYER_FIELD_PACK_SLOT_1                         = UNIT_END + 0x0353, // Size: 32, Type: LONG, Flags: PRIVATE
+    PLAYER_FIELD_BANK_SLOT_1                         = UNIT_END + 0x0373, // Size: 56, Type: LONG, Flags: PRIVATE
+    PLAYER_FIELD_BANKBAG_SLOT_1                      = UNIT_END + 0x03AB, // Size: 14, Type: LONG, Flags: PRIVATE
+    PLAYER_FIELD_VENDORBUYBACK_SLOT_1                = UNIT_END + 0x03B9, // Size: 24, Type: LONG, Flags: PRIVATE
+    PLAYER_FARSIGHT                                  = UNIT_END + 0x03D1, // Size: 2, Type: LONG, Flags: PRIVATE
+    PLAYER__FIELD_KNOWN_TITLES                       = UNIT_END + 0x03D3, // Size: 2, Type: LONG, Flags: PRIVATE
+    PLAYER__FIELD_KNOWN_TITLES1                      = UNIT_END + 0x03D5, // Size: 2, Type: LONG, Flags: PRIVATE
+    PLAYER__FIELD_KNOWN_TITLES2                      = UNIT_END + 0x03D7, // Size: 2, Type: LONG, Flags: PRIVATE
+    PLAYER__FIELD_KNOWN_TITLES3                      = UNIT_END + 0x03D9, // Size: 2, Type: LONG, Flags: PRIVATE
+    PLAYER_XP                                        = UNIT_END + 0x03DB, // Size: 1, Type: INT, Flags: PRIVATE
+    PLAYER_NEXT_LEVEL_XP                             = UNIT_END + 0x03DC, // Size: 1, Type: INT, Flags: PRIVATE
+    PLAYER_SKILL_LINEID_0                            = UNIT_END + 0x03DD, // Size: 64, Type: TWO_SHORT, Flags: PRIVATE
+
+    PLAYER_SKILL_STEP_0                              = UNIT_END + 0x041D, // Size: 64, Type: TWO_SHORT, Flags: PRIVATE
+    PLAYER_SKILL_RANK_0                              = UNIT_END + 0x045D, // Size: 64, Type: TWO_SHORT, Flags: PRIVATE
+    PLAYER_SKILL_MAX_RANK_0                          = UNIT_END + 0x049D, // Size: 64, Type: TWO_SHORT, Flags: PRIVATE
+    PLAYER_SKILL_MODIFIER_0                          = UNIT_END + 0x04DD, // Size: 64, Type: TWO_SHORT, Flags: PRIVATE
+    PLAYER_SKILL_TALENT_0                            = UNIT_END + 0x051D, // Size: 64, Type: TWO_SHORT, Flags: PRIVATE
+    PLAYER_SKILL_TALENT_1                            = UNIT_END + 0x055D, // Size: 64, Type: TWO_SHORT, Flags: PRIVATE ?? UNK
+
+    PLAYER_CHARACTER_POINTS                          = UNIT_END + 0x059D, // Size: 1, Type: INT, Flags: PRIVATE
+    PLAYER_MAXTALENT_TIERS                           = UNIT_END + 0x059E, // Size: 1, Type: INT, Flags: PRIVATE ?? UNK
+
+    PLAYER_TRACK_CREATURES                           = UNIT_END + 0x059F, // Size: 1, Type: INT, Flags: PRIVATE
+    PLAYER_TRACK_RESOURCES                           = UNIT_END + 0x05A0, // Size: 1, Type: INT, Flags: PRIVATE
+    PLAYER_EXPERTISE                                 = UNIT_END + 0x05A1, // Size: 1, Type: INT, Flags: PRIVATE
+    PLAYER_OFFHAND_EXPERTISE                         = UNIT_END + 0x05A2, // Size: 1, Type: INT, Flags: PRIVATE
+
+    PLAYER_RANGED_PERCENTAGE                         = UNIT_END + 0x05A3, // Size: 1, Type: FLOAT, Flags: PRIVATE
+
+    PLAYER_BLOCK_PERCENTAGE                          = UNIT_END + 0x05A4, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_DODGE_PERCENTAGE                          = UNIT_END + 0x05A5, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_PARRY_PERCENTAGE                          = UNIT_END + 0x05A6, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_CRIT_PERCENTAGE                           = UNIT_END + 0x05A7, // Size: 1, Type: FLOAT, Flags: PRIVATE
+
+    PLAYER_RANGED_CRIT_PERCENTAGE                    = UNIT_END + 0x05A8, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_OFFHAND_CRIT_PERCENTAGE                   = UNIT_END + 0x05A9, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_SPELL_CRIT_PERCENTAGE1                    = UNIT_END + 0x05AA, // Size: 7, Type: FLOAT, Flags: PRIVATE
+    PLAYER_SHIELD_BLOCK                              = UNIT_END + 0x05B1, // Size: 1, Type: INT, Flags: PRIVATE
+
+    PLAYER_SHIELD_BLOCK_CRIT_PERCENTAGE              = UNIT_END + 0x05B2, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_MASTERY                                   = UNIT_END + 0x05B3, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_PVP_PWOER                                 = UNIT_END + 0x05B4, // Size: 1, Type: FLOAT, Flags: PRIVATE
+
+    PLAYER_EXPLORED_ZONES_1                          = UNIT_END + 0x05B5, // Size: 200, Type: BYTES, Flags: PRIVATE
+    PLAYER_REST_STATE_EXPERIENCE                     = UNIT_END + 0x067D, // Size: 1, Type: INT, Flags: PRIVATE
+    PLAYER_FIELD_COINAGE                             = UNIT_END + 0x067E, // Size: 2, Type: LONG, Flags: PRIVATE
+    PLAYER_FIELD_MOD_DAMAGE_DONE_POS                 = UNIT_END + 0x0680, // Size: 7, Type: INT, Flags: PRIVATE
+    PLAYER_FIELD_MOD_DAMAGE_DONE_NEG                 = UNIT_END + 0x0687, // Size: 7, Type: INT, Flags: PRIVATE
+    PLAYER_FIELD_MOD_DAMAGE_DONE_PCT                 = UNIT_END + 0x068E, // Size: 7, Type: INT, Flags: PRIVATE
+    PLAYER_FIELD_MOD_HEALING_DONE_POS                = UNIT_END + 0x0695, // Size: 1, Type: INT, Flags: PRIVATE
+
+    PLAYER_FIELD_MOD_HEALING_PCT                     = UNIT_END + 0x0696, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_FIELD_MOD_HEALING_DONE_PCT                = UNIT_END + 0x0697, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_FIELD_PERIODIC_HEALING_DONE_PCT           = UNIT_END + 0x0698, // Size: 1, Type: FLOAT, Flags: PRIVATE
+
+    PLAYER_FIELD_WEAPON_DMG_MULTIPLIERS              = UNIT_END + 0x0699, // Size: 3, Type: FLOAT, Flags: PRIVATE
+    PLAYER_FIELD_MOD_SPELL_POWER_PCT                 = UNIT_END + 0x069C, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_FIELD_MOD_RESILIENCE_PCT                  = UNIT_END + 0x069D, // Size: 1, Type: FLOAT, Flags: PRIVATE
+
+    PLAYER_FIELD_OVERRIDE_SPELL_POWER_BY_AP_PCT      = UNIT_END + 0x069E, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_FIELD_OVERRIDE_AP_BY_SPELL_POWER_PCT      = UNIT_END + 0x069F, // Size: 1, Type: FLOAT, Flags: PRIVATE
+
+    PLAYER_FIELD_MOD_TARGET_RESISTANCE               = UNIT_END + 0x06A0, // Size: 1, Type: INT, Flags: PRIVATE
+    PLAYER_FIELD_MOD_TARGET_PHYSICAL_RESISTANCE      = UNIT_END + 0x06A1, // Size: 1, Type: INT, Flags: PRIVATE
+
+    PLAYER_FIELD_BYTES                               = UNIT_END + 0x06A2, // Size: 1, Type: BYTES, Flags: PRIVATE
+    PLAYER_SELF_RES_SPELL                            = UNIT_END + 0x06A3, // Size: 1, Type: INT, Flags: PRIVATE
+
+    PLAYER_FIELD_PVP_MEDALS                          = UNIT_END + 0x06A4, // Size: 1, Type: INT, Flags: PRIVATE
+    PLAYER_FIELD_BUYBACK_PRICE_1                     = UNIT_END + 0x06A5, // Size: 12, Type: INT, Flags: PRIVATE
+    PLAYER_FIELD_BUYBACK_TIMESTAMP_1                 = UNIT_END + 0x06B1, // Size: 12, Type: INT, Flags: PRIVATE
+    PLAYER_FIELD_KILLS                               = UNIT_END + 0x06BD, // Size: 1, Type: TWO_SHORT, Flags: PRIVATE
+    PLAYER_FIELD_LIFETIME_HONORABLE_KILLS            = UNIT_END + 0x06BE, // Size: 1, Type: INT, Flags: PRIVATE
+    //PLAYER_FIELD_BYTES2                              = UNIT_END + 0x0456, // Size: 1, Type: 6, Flags: PRIVATE
+    PLAYER_FIELD_WATCHED_FACTION_INDEX               = UNIT_END + 0x06BF, // Size: 1, Type: INT, Flags: PRIVATE
+    PLAYER_FIELD_COMBAT_RATING_1                     = UNIT_END + 0x06C0, // Size: 27, Type: INT, Flags: PRIVATE
+    PLAYER_FIELD_ARENA_TEAM_INFO_1_1                 = UNIT_END + 0x06DB, // Size: 21, Type: INT, Flags: PRIVATE
+
+    PLAYER_FIELD_BATTLEGROUND_RATING                 = UNIT_END + 0x06F0, // Size: 1, Type: INT, Flags: PRIVATE
+    PLAYER_FIELD_MAX_LEVEL                           = UNIT_END + 0x06F1, // Size: 1, Type: INT, Flags: PRIVATE
+    //PLAYER_FIELD_DAILY_QUESTS_1                      = UNIT_END + 0x0489, // Size: 25, Type: INT, Flags: PRIVATE
+    PLAYER_RUNE_REGEN_1                              = UNIT_END + 0x06F2, // Size: 4, Type: FLOAT, Flags: PRIVATE
+    PLAYER_NO_REAGENT_COST_1                         = UNIT_END + 0x06F6, // Size: 4, Type: INT, Flags: PRIVATE
+    PLAYER_FIELD_GLYPH_SLOTS_1                       = UNIT_END + 0x06FA, // Size: 6, Type: INT, Flags: PRIVATE
+    PLAYER_FIELD_GLYPHS_1                            = UNIT_END + 0x0700, // Size: 6, Type: INT, Flags: PRIVATE
+    PLAYER_GLYPHS_ENABLED                            = UNIT_END + 0x0706, // Size: 1, Type: INT, Flags: PRIVATE
+    PLAYER_PET_SPELL_POWER                           = UNIT_END + 0x0707, // Size: 1, Type: INT, Flags: PRIVATE
+    PLAYER_FIELD_RESEARCHING_1                       = UNIT_END + 0x0708, // Size: 2, Type: TWO_SHORT, Flags: PRIVATE
+
+    //PLAYER_FIELD_RESERACH_SITE_1                     = UNIT_END + 0x04C5, // Size: 8, Type: TWO_SHORT, Flags: PRIVATE
+    PLAYER_PROFESSION_SKILL_LINE_1                   = UNIT_END + 0x0710, // Size: 2, Type: INT, Flags: PRIVATE
+    PLAYER_FIELD_UI_HIT_MODIFIER                     = UNIT_END + 0x0712, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_FIELD_UI_SPELL_HIT_MODIFIER               = UNIT_END + 0x0713, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_FIELD_HOME_REALM_TIME_OFFSET              = UNIT_END + 0x0714, // Size: 1, Type: INT, Flags: PRIVATE
+    //PLAYER_FIELD_MOD_HASTE                           = UNIT_END + 0x0715, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_FIELD_MOD_RANGED_HASTE                    = UNIT_END + 0x0715, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_FIELD_MOD_PET_HASTE                       = UNIT_END + 0x0716, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    //PLAYER_FIELD_MOD_HASTE_REGEN                     = UNIT_END + 0x04D5, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_FIELD_SUMMONED_BATTLEPTE_ID               = UNIT_END + 0x0717, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_FIELD_AURA_VISION                         = UNIT_END + 0x0718, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_FIELD_OVERRIVDE_SPELLS_ID                 = UNIT_END + 0x0719, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_END                                       = UNIT_END + 0x071A
+};
+
+enum EPlayerDynamicFields
+{
+    PLAYER_FIELD_RESEARCH_SITES                      = UNIT_END + 0x0000, // Size: 2, Type: LONG, Flags: PUBLIC
+    PLAYER_FIELD_DAILY_QUESTS_1                      = UNIT_END + 0x0002, // Size: 2, Type: INT, Flags: PUBLIC
+    PLAYERD_END                                      = UNIT_END + 0x0004  // Size: 1, Type: INT, Flags: PUBLIC
 };
 
 enum EGameObjectFields
@@ -555,11 +611,19 @@ enum ECorpseFields
 
 enum EAreaTriggerFields
 {
-    AREATRIGGER_SPELLID                              = OBJECT_END + 0x0000, // Size: 1, Type: INT, Flags: PUBLIC
-    AREATRIGGER_SPELLVISUALID                        = OBJECT_END + 0x0001, // Size: 1, Type: INT, Flags: PUBLIC
-    AREATRIGGER_DURATION                             = OBJECT_END + 0x0002, // Size: 1, Type: INT, Flags: PUBLIC
-    AREATRIGGER_FINAL_POS                            = OBJECT_END + 0x0003, // Size: 3, Type: FLOAT, Flags: PUBLIC
-    AREATRIGGER_END                                  = OBJECT_END + 0x0006
+    AREATRIGGER_CASTER                               = OBJECT_END + 0x0000, // Size: 2, Type: FLOAT, Flags: PUBLIC
+    AREATRIGGER_SPELLID                              = OBJECT_END + 0x0002, // Size: 1, Type: INT, Flags: PUBLIC
+    AREATRIGGER_SPELLVISUALID                        = OBJECT_END + 0x0003, // Size: 1, Type: INT, Flags: PUBLIC
+    AREATRIGGER_DURATION                             = OBJECT_END + 0x0004, // Size: 1, Type: INT, Flags: PUBLIC
+    AREATRIGGER_END                                  = OBJECT_END + 0x0005
+};
+
+enum ESceneObjectFields
+{
+    SCENE_SCRIPTPACKAGE_ID                           = OBJECT_END + 0x0000, // Size: 1, Type: FLOAT, Flags: PUBLIC
+    SCENE_RND_SEED_VAL                               = OBJECT_END + 0x0001, // Size: 1, Type: INT, Flags: PUBLIC
+    SCENE_CREATED_BY                                 = OBJECT_END + 0x0002, // Size: 2, Type: INT, Flags: PUBLIC
+    SCENE_END                                        = OBJECT_END + 0x0004  // Size: 1, Type: INT, Flags: PUBLIC
 };
 
 #endif // _UPDATEFIELDS_H
