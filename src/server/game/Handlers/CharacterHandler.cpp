@@ -785,29 +785,15 @@ void WorldSession::HandlePlayerLoginOpcode(WorldPacket& recvData)
     }
 
     m_playerLoading = true;
-    ObjectGuid playerGuid;
 
     sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: Recvd Player Logon Message");
-    playerGuid[2] = recvData.ReadBit();
-    playerGuid[3] = recvData.ReadBit();
-    playerGuid[0] = recvData.ReadBit();
-    playerGuid[6] = recvData.ReadBit();
-    playerGuid[4] = recvData.ReadBit();
-    playerGuid[5] = recvData.ReadBit();
-    playerGuid[1] = recvData.ReadBit();
-    playerGuid[7] = recvData.ReadBit();
 
-    recvData.ReadByteSeq(playerGuid[2]);
-    recvData.ReadByteSeq(playerGuid[7]);
-    recvData.ReadByteSeq(playerGuid[0]);
-    recvData.ReadByteSeq(playerGuid[3]);
-    recvData.ReadByteSeq(playerGuid[5]);
-    recvData.ReadByteSeq(playerGuid[6]);
-    recvData.ReadByteSeq(playerGuid[1]);
-    recvData.ReadByteSeq(playerGuid[4]);
+    uint8 guidMask[8] = { 6, 3, 0, 5, 7, 2, 1, 4 };
+    uint8 guidBytes[8] = { 1, 0, 3, 2, 4, 7, 5, 6 };
+
+    ObjectGuid playerGuid = ObjectGuid(recvData.ReadGuid(guidMask, guidBytes));
 
     sLog->outDebug(LOG_FILTER_NETWORKIO, "Character (Guid: %u) logging in", GUID_LOPART(playerGuid));
-
     if (!CharCanLogin(GUID_LOPART(playerGuid)))
     {
         sLog->outError(LOG_FILTER_NETWORKIO, "Account (%u) can't login with that character (%u).", GetAccountId(), GUID_LOPART(playerGuid));
@@ -904,7 +890,7 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
     // Send MOTD
     {
         data.Initialize(SMSG_MOTD, 50);                     // new in 2.0.1
-        data << (uint32)0;
+        data << (uint32)3;
 
         uint32 linecount=0;
         std::string str_motd = sWorld->GetMotd();
@@ -1096,7 +1082,7 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
         SendNotification(LANG_GM_ON);
 
     std::string IP_str = GetRemoteAddress();
-    sLog->outInfo(LOG_FILTER_CHARACTER, "Account: %d (IP: %s) Login Character:[%s] (GUID: %u) Level: %d",
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "Account: %d (IP: %s) Login Character:[%s] (GUID: %u) Level: %d",
         GetAccountId(), IP_str.c_str(), pCurrChar->GetName().c_str(), pCurrChar->GetGUIDLow(), pCurrChar->getLevel());
 
     if (!pCurrChar->IsStandState() && !pCurrChar->HasUnitState(UNIT_STATE_STUNNED))

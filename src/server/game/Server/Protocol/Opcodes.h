@@ -81,6 +81,10 @@ enum Opcodes
     SMSG_TRIGGER_CINEMATIC                            = 0xC18, //MOP 5.0.5B maybe
     SMSG_UPDATE_CURRENCY                              = 0xE55, //MOP 5.0.5B
     SMSG_UPDATE_OBJECT                                = 0x8F7, //MOP 5.0.5B
+    SMSG_MOTD                                         = 0x952, //MOP 5.0.5B
+    SMSG_NAME_QUERY_RESPONSE                          = 0xCF9, //MOP 5.0.5B
+    SMSG_INITIAL_SPELLS                               = 0xEA3, //MOP 5.0.5B
+    SMSG_INIT_WORLD_STATES                            = 0xF21, //MOP 5.0.5B maybe
 
     CMSG_ACCEPT_LEVEL_GRANT                           = 0x0000,
     CMSG_ACCEPT_TRADE                                 = 0x0000,
@@ -975,8 +979,6 @@ enum Opcodes
     SMSG_HEALTH_UPDATE                                = 0x0000,
     SMSG_HIGHEST_THREAT_UPDATE                        = 0x0000,
     SMSG_INITIALIZE_FACTIONS                          = 0x0000,
-    SMSG_INITIAL_SPELLS                               = 0x0000,
-    SMSG_INIT_WORLD_STATES                            = 0x0000,
     SMSG_INSPECT                                      = 0x0000,
     SMSG_INSPECT_HONOR_STATS                          = 0x0000,
     SMSG_INSPECT_RATED_BG_STATS                       = 0x0000,
@@ -1071,7 +1073,6 @@ enum Opcodes
     SMSG_MONEY_NOTIFY                                 = 0x0000,
     SMSG_MONSTER_MOVE                                 = 0x0000,
     SMSG_MONSTER_MOVE_TRANSPORT                       = 0x0000,
-    SMSG_MOTD                                         = 0x0000,
     SMSG_MOUNTRESULT                                  = 0x0000,
     SMSG_MOUNTSPECIAL_ANIM                            = 0x0000,
     SMSG_MOVE_COLLISION_DISABLE                       = 0x0000,
@@ -1121,7 +1122,6 @@ enum Opcodes
     SMSG_MOVE_UPDATE_WALK_SPEED                       = 0x0000,
     SMSG_MOVE_WATER_WALK                              = 0x0000,
     SMSG_MULTIPLE_PACKETS                             = 0x0000,
-    SMSG_NAME_QUERY_RESPONSE                          = 0x0000,
     SMSG_NEW_TAXI_PATH                                = 0x0000,
     SMSG_NEW_WORLD                                    = 0x0000,
     SMSG_NEW_WORLD_ABORT                              = 0x0000,
