@@ -84,7 +84,9 @@ enum Opcodes
     SMSG_MOTD                                         = 0x952, //MOP 5.0.5B
     SMSG_NAME_QUERY_RESPONSE                          = 0xCF9, //MOP 5.0.5B
     SMSG_INITIAL_SPELLS                               = 0xEA3, //MOP 5.0.5B
-    SMSG_INIT_WORLD_STATES                            = 0xF21, //MOP 5.0.5B maybe
+    SMSG_NEW_WORLD                                    = 0xF21, //MOP 5.0.5B
+    SMSG_NEW_WORLD_ABORT                              = 0xEA0, //MOP 5.0.5B
+    SMSG_INIT_WORLD_STATES                            = 0x0000, //MOP 5.0.5B maybe
 
     CMSG_ACCEPT_LEVEL_GRANT                           = 0x0000,
     CMSG_ACCEPT_TRADE                                 = 0x0000,
@@ -1123,8 +1125,6 @@ enum Opcodes
     SMSG_MOVE_WATER_WALK                              = 0x0000,
     SMSG_MULTIPLE_PACKETS                             = 0x0000,
     SMSG_NEW_TAXI_PATH                                = 0x0000,
-    SMSG_NEW_WORLD                                    = 0x0000,
-    SMSG_NEW_WORLD_ABORT                              = 0x0000,
     SMSG_NOTIFICATION                                 = 0x0000,
     SMSG_NOTIFY_DANCE                                 = 0x0000,
     SMSG_NOTIFY_DEST_LOC_SPELL_CAST                   = 0x0000,

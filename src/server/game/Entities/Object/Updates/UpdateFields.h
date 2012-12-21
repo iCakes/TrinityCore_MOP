@@ -103,10 +103,10 @@ enum EUnitFields
     UNIT_FIELD_CREATEDBY                             = OBJECT_END + 0x000A, // Size: 2, Type: LONG, Flags: PUBLIC
     UNIT_FIELD_TARGET                                = OBJECT_END + 0x000C, // Size: 2, Type: LONG, Flags: PUBLIC
     UNIT_FIELD_CHANNEL_OBJECT                        = OBJECT_END + 0x000E, // Size: 2, Type: LONG, Flags: PUBLIC
-    UNIT_FIELD_BYTES_0                               = OBJECT_END + 0x0010, // Size: 1, Type: BYTES, Flags: PUBLIC
+    UNIT_SUMMONED_BY_HOMEREALM                       = OBJECT_END + 0x0010, //UNUSED
     UNIT_CHANNEL_SPELL                               = OBJECT_END + 0x0011, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_DISPLAYPOWER                                = OBJECT_END + 0x0012,
-    UNIT_OVERRIDE_DISPLAYPOWERID                     = OBJECT_END + 0x0013,
+    UNIT_FIELD_BYTES_0                               = OBJECT_END + 0x0012,
+    UNIT_OVERRIDE_DISPLAYPOWERID                     = OBJECT_END + 0x0013, //UNUSED
     UNIT_FIELD_HEALTH                                = OBJECT_END + 0x0014, // Size: 1, Type: INT, Flags: PUBLIC
     UNIT_FIELD_POWER1                                = OBJECT_END + 0x0015, // Size: 1, Type: INT, Flags: PUBLIC
     UNIT_FIELD_POWER2                                = OBJECT_END + 0x0016, // Size: 1, Type: INT, Flags: PUBLIC
@@ -138,7 +138,7 @@ enum EUnitFields
     UNIT_FIELD_MAXDAMAGE                             = OBJECT_END + 0x003B, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER, SPECIAL_INFO
     UNIT_FIELD_MINOFFHANDDAMAGE                      = OBJECT_END + 0x003C, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER, SPECIAL_INFO
     UNIT_FIELD_MAXOFFHANDDAMAGE                      = OBJECT_END + 0x003D, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER, SPECIAL_INFO
-    UNIT_FIELD_BYTES_1                               = OBJECT_END + 0x003E, // Size: 1, Type: BYTES, Flags: PUBLIC
+    UNIT_FIELD_BYTES_1                               = OBJECT_END + 0x003E, // AnimTier
     UNIT_FIELD_PETNUMBER                             = OBJECT_END + 0x003F, // Size: 1, Type: INT, Flags: PUBLIC
     UNIT_FIELD_PET_NAME_TIMESTAMP                    = OBJECT_END + 0x0040, // Size: 1, Type: INT, Flags: PUBLIC
     UNIT_FIELD_PETEXPERIENCE                         = OBJECT_END + 0x0041, // Size: 1, Type: INT, Flags: OWNER
@@ -171,7 +171,7 @@ enum EUnitFields
     UNIT_FIELD_RESISTANCEBUFFMODSNEGATIVE            = OBJECT_END + 0x0069, // Size: 7, Type: INT, Flags: PRIVATE, OWNER
     UNIT_FIELD_BASE_MANA                             = OBJECT_END + 0x0070, // Size: 1, Type: INT, Flags: PUBLIC
     UNIT_FIELD_BASE_HEALTH                           = OBJECT_END + 0x0071, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
-    UNIT_FIELD_BYTES_2                               = OBJECT_END + 0x0072, // Size: 1, Type: BYTES, Flags: PUBLIC ShapeshiftForm
+    UNIT_FIELD_BYTES_2                               = OBJECT_END + 0x0072, // ShapeshiftForm
     UNIT_FIELD_ATTACK_POWER                          = OBJECT_END + 0x0073, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
     UNIT_FIELD_ATTACK_POWER_MOD_POS                  = OBJECT_END + 0x0074, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
     UNIT_FIELD_ATTACK_POWER_MOD_NEG                  = OBJECT_END + 0x0075, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
@@ -186,11 +186,11 @@ enum EUnitFields
     UNIT_FIELD_POWER_COST_MULTIPLIER                 = OBJECT_END + 0x0084, // Size: 7, Type: FLOAT, Flags: PRIVATE, OWNER
     UNIT_FIELD_MAXHEALTHMODIFIER                     = OBJECT_END + 0x008B, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER
     UNIT_FIELD_HOVERHEIGHT                           = OBJECT_END + 0x008C, // Size: 1, Type: FLOAT, Flags: PUBLIC
-    UNIT_FIELD_MINITEMLEVEL                          = OBJECT_END + 0x008E, // Size: 1, Type: INT, Flags: PUBLIC
+    UNIT_FIELD_MINITEMLEVEL                          = OBJECT_END + 0x008E, // UNUSE
     UNIT_FIELD_MAXITEMLEVEL                          = OBJECT_END + 0x008E, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_WILDBATTLEPETLEVEL                    = OBJECT_END + 0x008F, // Size: 1, Type: INT, Flags: NONE
-    UNIT_FIELD_BATTLEPETCOMPANIONIDID                = OBJECT_END + 0x0090,
-    UNIT_FIELD_BATTLEPETCOMPANIONNAMETIMESTAMP       = OBJECT_END + 0x0091,
+    UNIT_FIELD_WILDBATTLEPETLEVEL                    = OBJECT_END + 0x008F, // UNUSE
+    UNIT_FIELD_BATTLEPETCOMPANIONIDID                = OBJECT_END + 0x0090, // UNUSE
+    UNIT_FIELD_BATTLEPETCOMPANIONNAMETIMESTAMP       = OBJECT_END + 0x0091, // UNUSE
     UNIT_END                                         = OBJECT_END + 0x0092
 };
 
@@ -454,10 +454,10 @@ enum EPlayerFields
     PLAYER_CHOSEN_TITLE                              = UNIT_END + 0x031F, // Size: 1, Type: INT, Flags: PUBLIC
     PLAYER_FAKE_INEBRIATION                          = UNIT_END + 0x0320, // Size: 1, Type: INT, Flags: PUBLIC
 
-    PLAYER_HOMEPLAYER_REALM                          = UNIT_END + 0x0321, // Size: 1, Type: INT, Flags: NONE
-    PLAYER_CURRENT_SPECID                            = UNIT_END + 0x0322, // Size: 1, Type: INT, Flags: NONE
-    PLAYER_TAXIMOUNT_ANIMKITID                       = UNIT_END + 0x0323, // Size: 1, Type: INT, Flags: NONE
-    PLAYER_PARTY_TYPE                                = UNIT_END + 0x0324, // Size: 1, Type: INT, Flags: NONE
+    PLAYER_HOMEPLAYER_REALM                          = UNIT_END + 0x0321, // NEW used
+    PLAYER_CURRENT_SPECID                            = UNIT_END + 0x0322, // NEW unuse
+    PLAYER_TAXIMOUNT_ANIMKITID                       = UNIT_END + 0x0323, // NEW unuse
+    PLAYER_PARTY_TYPE                                = UNIT_END + 0x0324, // NEW unuse
     PLAYER_END_NOT_SELF                              = UNIT_END + 0x0325,
 
     PLAYER_FIELD_INV_SLOT_HEAD                       = UNIT_END + 0x0325, // Size: 46, Type: LONG, Flags: PRIVATE
@@ -479,17 +479,17 @@ enum EPlayerFields
     PLAYER_SKILL_MAX_RANK_0                          = UNIT_END + 0x049D, // Size: 64, Type: TWO_SHORT, Flags: PRIVATE
     PLAYER_SKILL_MODIFIER_0                          = UNIT_END + 0x04DD, // Size: 64, Type: TWO_SHORT, Flags: PRIVATE
     PLAYER_SKILL_TALENT_0                            = UNIT_END + 0x051D, // Size: 64, Type: TWO_SHORT, Flags: PRIVATE
-    PLAYER_SKILL_TALENT_1                            = UNIT_END + 0x055D, // Size: 64, Type: TWO_SHORT, Flags: PRIVATE ?? UNK
+    PLAYER_SKILL_TALENT_1                            = UNIT_END + 0x055D, // NEW unuse
 
     PLAYER_CHARACTER_POINTS                          = UNIT_END + 0x059D, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_MAXTALENT_TIERS                           = UNIT_END + 0x059E, // Size: 1, Type: INT, Flags: PRIVATE ?? UNK
+    PLAYER_MAXTALENT_TIERS                           = UNIT_END + 0x059E, // NEW unuse
 
     PLAYER_TRACK_CREATURES                           = UNIT_END + 0x059F, // Size: 1, Type: INT, Flags: PRIVATE
     PLAYER_TRACK_RESOURCES                           = UNIT_END + 0x05A0, // Size: 1, Type: INT, Flags: PRIVATE
     PLAYER_EXPERTISE                                 = UNIT_END + 0x05A1, // Size: 1, Type: INT, Flags: PRIVATE
     PLAYER_OFFHAND_EXPERTISE                         = UNIT_END + 0x05A2, // Size: 1, Type: INT, Flags: PRIVATE
 
-    PLAYER_RANGED_PERCENTAGE                         = UNIT_END + 0x05A3, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_RANGED_PERCENTAGE                         = UNIT_END + 0x05A3, // NEW unuse
 
     PLAYER_BLOCK_PERCENTAGE                          = UNIT_END + 0x05A4, // Size: 1, Type: FLOAT, Flags: PRIVATE
     PLAYER_DODGE_PERCENTAGE                          = UNIT_END + 0x05A5, // Size: 1, Type: FLOAT, Flags: PRIVATE
@@ -503,7 +503,7 @@ enum EPlayerFields
 
     PLAYER_SHIELD_BLOCK_CRIT_PERCENTAGE              = UNIT_END + 0x05B2, // Size: 1, Type: FLOAT, Flags: PRIVATE
     PLAYER_MASTERY                                   = UNIT_END + 0x05B3, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_PVP_PWOER                                 = UNIT_END + 0x05B4, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_PVP_PWOER                                 = UNIT_END + 0x05B4, // New unuse
 
     PLAYER_EXPLORED_ZONES_1                          = UNIT_END + 0x05B5, // Size: 200, Type: BYTES, Flags: PRIVATE
     PLAYER_REST_STATE_EXPERIENCE                     = UNIT_END + 0x067D, // Size: 1, Type: INT, Flags: PRIVATE
@@ -512,17 +512,16 @@ enum EPlayerFields
     PLAYER_FIELD_MOD_DAMAGE_DONE_NEG                 = UNIT_END + 0x0687, // Size: 7, Type: INT, Flags: PRIVATE
     PLAYER_FIELD_MOD_DAMAGE_DONE_PCT                 = UNIT_END + 0x068E, // Size: 7, Type: INT, Flags: PRIVATE
     PLAYER_FIELD_MOD_HEALING_DONE_POS                = UNIT_END + 0x0695, // Size: 1, Type: INT, Flags: PRIVATE
-
     PLAYER_FIELD_MOD_HEALING_PCT                     = UNIT_END + 0x0696, // Size: 1, Type: FLOAT, Flags: PRIVATE
     PLAYER_FIELD_MOD_HEALING_DONE_PCT                = UNIT_END + 0x0697, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_PERIODIC_HEALING_DONE_PCT           = UNIT_END + 0x0698, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_FIELD_PERIODIC_HEALING_DONE_PCT           = UNIT_END + 0x0698, // NEW unuse
 
     PLAYER_FIELD_WEAPON_DMG_MULTIPLIERS              = UNIT_END + 0x0699, // Size: 3, Type: FLOAT, Flags: PRIVATE
     PLAYER_FIELD_MOD_SPELL_POWER_PCT                 = UNIT_END + 0x069C, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_MOD_RESILIENCE_PCT                  = UNIT_END + 0x069D, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_FIELD_MOD_RESILIENCE_PCT                  = UNIT_END + 0x069D, // NEW unuse
 
     PLAYER_FIELD_OVERRIDE_SPELL_POWER_BY_AP_PCT      = UNIT_END + 0x069E, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_OVERRIDE_AP_BY_SPELL_POWER_PCT      = UNIT_END + 0x069F, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_FIELD_OVERRIDE_AP_BY_SPELL_POWER_PCT      = UNIT_END + 0x069F, // NEW unuse
 
     PLAYER_FIELD_MOD_TARGET_RESISTANCE               = UNIT_END + 0x06A0, // Size: 1, Type: INT, Flags: PRIVATE
     PLAYER_FIELD_MOD_TARGET_PHYSICAL_RESISTANCE      = UNIT_END + 0x06A1, // Size: 1, Type: INT, Flags: PRIVATE
@@ -549,9 +548,8 @@ enum EPlayerFields
     PLAYER_FIELD_GLYPHS_1                            = UNIT_END + 0x0700, // Size: 6, Type: INT, Flags: PRIVATE
     PLAYER_GLYPHS_ENABLED                            = UNIT_END + 0x0706, // Size: 1, Type: INT, Flags: PRIVATE
     PLAYER_PET_SPELL_POWER                           = UNIT_END + 0x0707, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_RESEARCHING_1                       = UNIT_END + 0x0708, // Size: 2, Type: TWO_SHORT, Flags: PRIVATE
-
-    //PLAYER_FIELD_RESERACH_SITE_1                     = UNIT_END + 0x04C5, // Size: 8, Type: TWO_SHORT, Flags: PRIVATE
+    PLAYER_FIELD_RESEARCHING_1                       = UNIT_END + 0x0708, // Size: 4, Type: TWO_SHORT, Flags: PRIVATE
+    PLAYER_FIELD_RESERACH_SITE_1                     = UNIT_END + 0x070C, // Size: 4, Type: TWO_SHORT, Flags: PRIVATE
     PLAYER_PROFESSION_SKILL_LINE_1                   = UNIT_END + 0x0710, // Size: 2, Type: INT, Flags: PRIVATE
     PLAYER_FIELD_UI_HIT_MODIFIER                     = UNIT_END + 0x0712, // Size: 1, Type: FLOAT, Flags: PRIVATE
     PLAYER_FIELD_UI_SPELL_HIT_MODIFIER               = UNIT_END + 0x0713, // Size: 1, Type: FLOAT, Flags: PRIVATE
@@ -560,9 +558,9 @@ enum EPlayerFields
     PLAYER_FIELD_MOD_RANGED_HASTE                    = UNIT_END + 0x0715, // Size: 1, Type: FLOAT, Flags: PRIVATE
     PLAYER_FIELD_MOD_PET_HASTE                       = UNIT_END + 0x0716, // Size: 1, Type: FLOAT, Flags: PRIVATE
     //PLAYER_FIELD_MOD_HASTE_REGEN                     = UNIT_END + 0x04D5, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_SUMMONED_BATTLEPTE_ID               = UNIT_END + 0x0717, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_AURA_VISION                         = UNIT_END + 0x0718, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_OVERRIVDE_SPELLS_ID                 = UNIT_END + 0x0719, // Size: 1, Type: FLOAT, Flags: PRIVATE
+    PLAYER_FIELD_SUMMONED_BATTLEPTE_ID               = UNIT_END + 0x0717, // NEW unuse
+    PLAYER_FIELD_AURA_VISION                         = UNIT_END + 0x0718, // NEW unuse
+    PLAYER_FIELD_OVERRIVDE_SPELLS_ID                 = UNIT_END + 0x0719, // NEW unuse
     PLAYER_END                                       = UNIT_END + 0x071A
 };
 
