@@ -175,9 +175,9 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_TARGET+1
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_CHANNEL_OBJECT
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_CHANNEL_OBJECT+1
-    UF_FLAG_PUBLIC,                                         // UNIT_FIELD_BYTES_0
+    UF_FLAG_PUBLIC,                                         // UNIT_SUMMONED_BY_HOMEREALM
     UF_FLAG_PUBLIC,                                         // UNIT_CHANNEL_SPELL
-    UF_FLAG_PUBLIC,                                         // UNIT_DISPLAYPOWER
+    UF_FLAG_PUBLIC,                                         // UNIT_FIELD_BYTES_0
     UF_FLAG_PUBLIC,                                         // UNIT_OVERRIDE_DISPLAYPOWERID
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_HEALTH
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_POWER1
@@ -212,7 +212,7 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_BASEATTACKTIME
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_BASEATTACKTIME+1
     UF_FLAG_PRIVATE,                                        // UNIT_FIELD_RANGEDATTACKTIME
-    UF_FLAG_PUBLIC,                                         // UNIT_FIELD_BOUNDINGRADIUS
+    UF_FLAG_PUBLIC,                                         // UNIT_FIELD_BOUNDINGRADIUS   0x0035
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_COMBATREACH
     UF_FLAG_DYNAMIC,                                        // UNIT_FIELD_DISPLAYID
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_NATIVEDISPLAYID
@@ -226,7 +226,7 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_PET_NAME_TIMESTAMP
     UF_FLAG_OWNER,                                          // UNIT_FIELD_PETEXPERIENCE
     UF_FLAG_OWNER,                                          // UNIT_FIELD_PETNEXTLEVELEXP
-    UF_FLAG_DYNAMIC,                                        // UNIT_DYNAMIC_FLAGS
+    UF_FLAG_DYNAMIC,                                        // UNIT_DYNAMIC_FLAGS     0x0043
     UF_FLAG_PUBLIC,                                         // UNIT_MOD_CAST_SPEED
     UF_FLAG_PUBLIC,                                         // UNIT_MOD_CAST_HASTE
     UF_FLAG_PUBLIC,                                         // UNIT_MOD_HASTE
@@ -276,7 +276,7 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PRIVATE | UF_FLAG_OWNER,                        // UNIT_FIELD_ATTACK_POWER
     UF_FLAG_PRIVATE | UF_FLAG_OWNER,                        // UNIT_FIELD_ATTACK_POWER_MOD_POS
     UF_FLAG_PRIVATE | UF_FLAG_OWNER,                        // UNIT_FIELD_ATTACK_POWER_MOD_NEG
-    UF_FLAG_PRIVATE | UF_FLAG_OWNER,                        // UNIT_FIELD_ATTACK_POWER_MULTIPLIER
+    UF_FLAG_PRIVATE | UF_FLAG_OWNER,                        // UNIT_FIELD_ATTACK_POWER_MULTIPLIER 0x0076
     UF_FLAG_PRIVATE | UF_FLAG_OWNER,                        // UNIT_FIELD_RANGED_ATTACK_POWER
     UF_FLAG_PRIVATE | UF_FLAG_OWNER,                        // UNIT_FIELD_RANGED_ATTACK_POWER_MOD_POS
     UF_FLAG_PRIVATE | UF_FLAG_OWNER,                        // UNIT_FIELD_RANGED_ATTACK_POWER_MOD_NEG
@@ -304,7 +304,6 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_WILDBATTLEPETLEVEL
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_BATTLEPETCOMPANIONIDID
     UF_FLAG_PUBLIC,                                         // UNIT_FIELD_BATTLEPETCOMPANIONNAMETIMESTAMP
-    UF_FLAG_PUBLIC,                                         //UNITD_PASSIV_SPELLS
     UF_FLAG_PUBLIC,                                         // PLAYER_DUEL_ARBITER
     UF_FLAG_PUBLIC,                                         // PLAYER_DUEL_ARBITER+1
     UF_FLAG_PUBLIC,                                         // PLAYER_FLAGS
@@ -566,7 +565,508 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_3
     UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_3+1
     UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
-    UF_FLAG_PUBLIC,                                         // PLAYER_VISIBLE_ITEM_1_ENTRYID
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5
+    UF_FLAG_PARTY_MEMBER,                                   // PLAYER_QUEST_LOG_50_5 0x02F8
+    UF_FLAG_PUBLIC,                                         // PLAYER_VISIBLE_ITEM_1_ENTRYID 0x02F9
     UF_FLAG_PUBLIC,                                         // PLAYER_VISIBLE_ITEM_1_ENCHANTMENT
     UF_FLAG_PUBLIC,                                         // PLAYER_VISIBLE_ITEM_2_ENTRYID
     UF_FLAG_PUBLIC,                                         // PLAYER_VISIBLE_ITEM_2_ENCHANTMENT
@@ -603,11 +1103,11 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PUBLIC,                                         // PLAYER_VISIBLE_ITEM_18_ENTRYID
     UF_FLAG_PUBLIC,                                         // PLAYER_VISIBLE_ITEM_18_ENCHANTMENT
     UF_FLAG_PUBLIC,                                         // PLAYER_VISIBLE_ITEM_19_ENTRYID
-    UF_FLAG_PUBLIC,                                         // PLAYER_VISIBLE_ITEM_19_ENCHANTMENT
+    UF_FLAG_PUBLIC,                                         // PLAYER_VISIBLE_ITEM_19_ENCHANTMENT 0x031E
     UF_FLAG_PUBLIC,                                         // PLAYER_CHOSEN_TITLE
     UF_FLAG_PUBLIC,                                         // PLAYER_FAKE_INEBRIATION
-    UF_FLAG_PRIVATE,                                        //PLAYER_HOMEPLAYER_REALM
-    UF_FLAG_PRIVATE,                                        //PLAYER_CURRENT_SPECID
+    UF_FLAG_PRIVATE,                                        //PLAYER_HOMEPLAYER_REALM 0x0321
+    UF_FLAG_PRIVATE,                                        //PLAYER_CURRENT_SPECID 0x0322
     UF_FLAG_PRIVATE,                                        //PLAYER_TAXIMOUNT_ANIMKITID
     UF_FLAG_PRIVATE,                                        //PLAYER_PARTY_TYPE
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_INV_SLOT_HEAD
@@ -1244,7 +1744,7 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PRIVATE,                                        // PLAYER_SKILL_TALENT_1+63
     UF_FLAG_PRIVATE,                                        // PLAYER_CHARACTER_POINTS
     UF_FLAG_PRIVATE,                                        //PLAYER_MAXTALENT_TIERS
-    UF_FLAG_PRIVATE,                                        // PLAYER_TRACK_CREATURES
+    UF_FLAG_PRIVATE,                                        // PLAYER_TRACK_CREATURES 0x059F
     UF_FLAG_PRIVATE,                                        // PLAYER_TRACK_RESOURCES
     UF_FLAG_PRIVATE,                                        // PLAYER_EXPERTISE
     UF_FLAG_PRIVATE,                                        // PLAYER_OFFHAND_EXPERTISE
@@ -1490,7 +1990,7 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MOD_DAMAGE_DONE_PCT+4
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MOD_DAMAGE_DONE_PCT+5
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MOD_DAMAGE_DONE_PCT+6
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MOD_HEALING_DONE_POS
+    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MOD_HEALING_DONE_POS 0x0695
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MOD_HEALING_PCT
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_MOD_HEALING_DONE_PCT
     UF_FLAG_PRIVATE,                                        //PLAYER_FIELD_PERIODIC_HEALING_DONE_PCT
@@ -1609,10 +2109,10 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESEARCHING_1+1
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESEARCHING_1+2
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESEARCHING_1+3
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESEARCHING_1+4
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESEARCHING_1+5
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESEARCHING_1+6
-    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESEARCHING_1+7
+    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESERACH_SITE_1
+    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESERACH_SITE_1+1
+    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESERACH_SITE_1+2
+    UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_RESERACH_SITE_1+3
     UF_FLAG_PRIVATE,                                        // PLAYER_PROFESSION_SKILL_LINE_1
     UF_FLAG_PRIVATE,                                        // PLAYER_PROFESSION_SKILL_LINE_1+1
     UF_FLAG_PRIVATE,                                        // PLAYER_FIELD_UI_HIT_MODIFIER
