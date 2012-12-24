@@ -175,8 +175,9 @@ int WorldSocket::SendPacket(WorldPacket const& pct)
     WorldPacket buff;
     if (m_Session && pkt->size() > 0x400)
     {
-        buff.Compress(m_Session->GetCompressionStream(), pkt);
-        pkt = &buff;
+        //COMPRESSED_OPCODE_MASK need reset some right value
+        //buff.Compress(m_Session->GetCompressionStream(), pkt);
+        //pkt = &buff;
     }
 
     if (m_Session)
@@ -187,6 +188,25 @@ int WorldSocket::SendPacket(WorldPacket const& pct)
     sScriptMgr->OnPacketSend(this, *pkt);
 
     ServerPktHeader header(pkt->size()+2, pkt->GetOpcode());
+
+    std::string filename = "WorldPacket.log";
+    FILE* logFile = fopen(filename.c_str(), "a+");
+    if (logFile)
+    {
+        fprintf(logFile, "\nSERVER -> CLIENT \nLENGTH: %u \nOPCODE: %s (0x%.4X)\nDATA:\n",pkt->size(), GetOpcodeNameForLogging(pkt->GetOpcode()).c_str(), pkt->GetOpcode());
+
+        size_t p = 0;
+        while (p < pkt->size())
+        {
+            for (size_t j = 0; j < 16 && p < pkt->size(); ++j)
+                fprintf(logFile, "%.2X ", (*pkt)[p++]);
+
+            fprintf(logFile, "\n");
+        }
+
+        fprintf(logFile, "\n\n");
+        fflush(logFile);
+    }
 
     if (m_Crypt.IsInitialized())
     {
@@ -788,6 +808,25 @@ int WorldSocket::ProcessIncoming(WorldPacket* new_pct)
         sLog->outDebug(LOG_FILTER_OPCODES, "C->S: %s %s", m_Session->GetPlayerInfo().c_str(), opcodeName.c_str());
     else
         sLog->outDebug(LOG_FILTER_OPCODES, "C->S: %s", opcodeName.c_str());
+
+    std::string filename = "WorldPacket.log";
+    FILE* logFile = fopen(filename.c_str(), "a+");
+    if (logFile)
+    {
+        fprintf(logFile, "\nCLIENT->SERVER \nLENGTH: %u \nOPCODE: %s (0x%.4X)\nDATA:\n",new_pct->size(), GetOpcodeNameForLogging(new_pct->GetOpcode()).c_str(), new_pct->GetOpcode());
+
+        size_t p = 0;
+        while (p < new_pct->size())
+        {
+            for (size_t j = 0; j < 16 && p < new_pct->size(); ++j)
+                fprintf(logFile, "%.2X ", (*new_pct)[p++]);
+
+            fprintf(logFile, "\n");
+        }
+
+        fprintf(logFile, "\n\n");
+        fflush(logFile);
+    }
 
     try
     {
