@@ -96,6 +96,9 @@ enum Opcodes
     SMSG_MESSAGECHAT                                  = 0x0C9F,//MOP 5.0.5B
     SMSG_SPELL_GO                                     = 0x0D42,//MOP 5.0.5B
     SMSG_SPELL_START                                  = 0x08FC,//MOP 5.0.5B
+    SMSG_LOGOUT_COMPLETE                              = 0x08DA,//MOP 5.0.5B
+    SMSG_TIME_ADJUSTMENT                              = 0x0F3A,//MOP 5.0.5B
+    SMSG_TIME_SYNC_REQ                                = 0x0AA9, //MOP 5.0.5B
 
     SMSG_INIT_WORLD_STATES                            = 0x1000,
     CMSG_ACCEPT_LEVEL_GRANT                           = 0x1001,
@@ -1045,7 +1048,6 @@ enum Opcodes
     SMSG_LOGIN_SETTIMESPEED                           = 0x13B1,
     SMSG_LOGIN_VERIFY_WORLD                           = 0x13B2,
     SMSG_LOGOUT_CANCEL_ACK                            = 0x13B3,
-    SMSG_LOGOUT_COMPLETE                              = 0x13B4,
     SMSG_LOGOUT_RESPONSE                              = 0x13B5,
     SMSG_LOG_XPGAIN                                   = 0x13B6,
     SMSG_LOOT_ALL_PASSED                              = 0x13B7,
@@ -1340,8 +1342,6 @@ enum Opcodes
     SMSG_THREAT_CLEAR                                 = 0x14D8,
     SMSG_THREAT_REMOVE                                = 0x14D9,
     SMSG_THREAT_UPDATE                                = 0x14DA,
-    SMSG_TIME_ADJUSTMENT                              = 0x14DB,
-    SMSG_TIME_SYNC_REQ                                = 0x14DC,
     SMSG_TITLE_EARNED                                 = 0x14DD,
     SMSG_TOGGLE_XP_GAIN                               = 0x14DE,
     SMSG_TOTEM_CREATED                                = 0x14DF,
