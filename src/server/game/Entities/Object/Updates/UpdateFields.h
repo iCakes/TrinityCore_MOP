@@ -83,7 +83,7 @@ enum EItemFields
 enum EItemDynamicFields
 {
     ITEMD_MODIFIERS                                  = OBJECT_END + 0x0000,
-    ITEMD_END                                        = OBJECT_END + 0x0004
+    ITEMD_END                                        = OBJECT_END + 0x0048
 };
 
 enum EContainerFields
