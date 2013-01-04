@@ -243,6 +243,8 @@ void Object::BuildCreateUpdateBlockForPlayer(UpdateData* data, Player* target) c
     buf << uint8(m_objectTypeId);
 
     flags = UPDATEFLAG_LIVING | UPDATEFLAG_ROTATION | UPDATEFLAG_SELF | UPDATEFLAG_UNK4;
+    sLog->outDebug(LOG_FILTER_GENERAL, "Object BuildCreateUpdateBlockForPlayer flags %u", flags);
+
     _BuildMovementUpdate(&buf, flags);
 
     UpdateMask updateMask;
@@ -304,9 +306,8 @@ void Object::_BuildMovementUpdate(ByteBuffer* data, uint16 flags) const
 {
     uint32 unkLoopCounter = 0;
     uint32 unkLoopNewer = 0;
-    uint32 field9C = 0;
+    uint32 unkLoopNewer1 = 0;
     // Bit content
-	sLog->outError(LOG_FILTER_GENERAL, "_BuildMovementUpdate flags %u", flags);//3
     data->WriteBit(flags & UPDATEFLAG_HAS_TARGET);
     data->WriteBit(flags & UPDATEFLAG_VEHICLE);
     data->WriteBits(unkLoopCounter, 24);
@@ -359,18 +360,14 @@ void Object::_BuildMovementUpdate(ByteBuffer* data, uint16 flags) const
             movementFlags &= MOVEMENTFLAG_MASK_CREATURE_ALLOWED;
 
         data->WriteBit(guid[3]);
-        //data->WriteBit(self->IsSplineEnabled());                                // Has spline data
-        data->WriteBit(0);                                // Has spline data
-        data->WriteBits(field9C, 24);
+        data->WriteBit(self->IsSplineEnabled());                                // Has spline data
+        data->WriteBits(unkLoopNewer1, 24);
         data->WriteBit(guid[4]);
-        data->WriteBit(1);                                // Has spline data
-        //data->WriteBit(!((movementFlags & (MOVEMENTFLAG_SWIMMING | MOVEMENTFLAG_FLYING)) ||
-            //(movementFlagsExtra & MOVEMENTFLAG2_ALWAYS_ALLOW_PITCHING)));       // hasPitch
-        //data->WriteBit(self->m_movementInfo.t_guid);                            // Has transport data
-        data->WriteBit(false);                            // Has transport data
-        //data->WriteBit(movementFlagsExtra & MOVEMENTFLAG2_INTERPOLATED_TURNING);// Has fall data
-        data->WriteBit(0);                                                      // Is missing time
-        data->WriteBit(false);                                                      // Is missing time
+        data->WriteBit(!((movementFlags & (MOVEMENTFLAG_SWIMMING | MOVEMENTFLAG_FLYING)) ||
+            (movementFlagsExtra & MOVEMENTFLAG2_ALWAYS_ALLOW_PITCHING)));       // hasPitch
+        data->WriteBit(self->m_movementInfo.t_guid);                            // Has transport data
+        data->WriteBit(movementFlagsExtra & MOVEMENTFLAG2_INTERPOLATED_TURNING);// Has fall data
+        data->WriteBit(!(flags & UPDATEFLAG_LIVING));                           // Is missing time
         if (self->m_movementInfo.t_guid)
         {
             ObjectGuid transGuid = self->m_movementInfo.t_guid;
@@ -389,7 +386,7 @@ void Object::_BuildMovementUpdate(ByteBuffer* data, uint16 flags) const
 
         data->WriteBit(1);                  //???????????????????????????  cause client error//The instruction at "0x005D578A" referenced memory at "0xC4840003".
         data->WriteBit(guid[7]);
-        data->WriteBit(true);
+        data->WriteBit(!movementFlagsExtra);
         data->WriteBit(guid[0]);
         data->WriteBit(0);
         data->WriteBit(guid[5]);
@@ -472,7 +469,7 @@ void Object::_BuildMovementUpdate(ByteBuffer* data, uint16 flags) const
             Movement::PacketBuilder::WriteCreateData(*self->movespline, *data);
         }
 
-        for (uint32 i = 0; i < field9C; ++i)
+        for (uint32 i = 0; i < unkLoopNewer1; ++i)
         {
             //Not implement
             *data << uint32(0);
@@ -604,6 +601,7 @@ void Object::_BuildMovementUpdate(ByteBuffer* data, uint16 flags) const
 
     if (flags & UPDATEFLAG_ROTATION)
         *data << uint64(0);
+        //*data << uint64(ToGameObject()->GetRotation());
 
     if (flags & UPDATEFLAG_VEHICLE)
     {
