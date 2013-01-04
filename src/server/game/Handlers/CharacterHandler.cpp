@@ -1090,7 +1090,7 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
 
     m_playerLoading = false;
 
-    //sScriptMgr->OnPlayerLogin(pCurrChar);  Cause crash....
+    sScriptMgr->OnPlayerLogin(pCurrChar);
     delete holder;
 }
 
