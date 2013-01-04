@@ -357,16 +357,12 @@ void Object::_BuildMovementUpdate(ByteBuffer* data, uint16 flags) const
         uint16 movementFlagsExtra = self->m_movementInfo.GetExtraMovementFlags();
         if (GetTypeId() == TYPEID_UNIT)
             movementFlags &= MOVEMENTFLAG_MASK_CREATURE_ALLOWED;
-        uint8 guidMask[8] = { 3, 4, 7, 0, 5, 2, 6, 1 };
 
-        data->WriteGuidMask(guid,guidMask,1);
-        //data->WriteBit(guid[3]);
+        data->WriteBit(guid[3]);
         //data->WriteBit(self->IsSplineEnabled());                                // Has spline data
         data->WriteBit(0);                                // Has spline data
-        //data->WriteBits(field9C, 24);
-        data->WriteBits(0, 24);
-        //data->WriteBit(guid[4]);
-        data->WriteGuidMask(guid,guidMask,1,1);
+        data->WriteBits(field9C, 24);
+        data->WriteBit(guid[4]);
         data->WriteBit(1);                                // Has spline data
         //data->WriteBit(!((movementFlags & (MOVEMENTFLAG_SWIMMING | MOVEMENTFLAG_FLYING)) ||
             //(movementFlagsExtra & MOVEMENTFLAG2_ALWAYS_ALLOW_PITCHING)));       // hasPitch
@@ -392,20 +388,15 @@ void Object::_BuildMovementUpdate(ByteBuffer* data, uint16 flags) const
         }
 
         data->WriteBit(1);                  //???????????????????????????  cause client error//The instruction at "0x005D578A" referenced memory at "0xC4840003".
-        data->WriteGuidMask(guid, guidMask, 1, 2);
-        //data->WriteBit(guid[7]);
-        //data->WriteBit(!movementFlagsExtra);
+        data->WriteBit(guid[7]);
         data->WriteBit(true);
-        data->WriteGuidMask(guid, guidMask, 1, 3);
-        //data->WriteBit(guid[0]);
+        data->WriteBit(guid[0]);
         data->WriteBit(0);
-        data->WriteGuidMask(guid, guidMask, 1, 4);
-        //data->WriteBit(guid[5]);
+        data->WriteBit(guid[5]);
         if (movementFlagsExtra)
             data->WriteBits(movementFlagsExtra, 13);
-        data->WriteGuidMask(guid, guidMask, 2, 5);
-        //data->WriteBit(guid[2]);
-        //data->WriteBit(guid[6]);
+        data->WriteBit(guid[2]);
+        data->WriteBit(guid[6]);
         data->WriteBit(!movementFlags);
         if (movementFlagsExtra & MOVEMENTFLAG2_INTERPOLATED_TURNING)     //Has fall direction
             data->WriteBit(movementFlags & MOVEMENTFLAG_FALLING);
@@ -423,8 +414,7 @@ void Object::_BuildMovementUpdate(ByteBuffer* data, uint16 flags) const
             Movement::PacketBuilder::WriteCreateBits(*self->movespline, *data);
         }
 
-        data->WriteGuidMask(guid, guidMask, 1, 7);
-        //data->WriteBit(guid[1]);
+        data->WriteBit(guid[1]);
         data->WriteBit(!(movementFlags & MOVEMENTFLAG_SPLINE_ELEVATION));       // Has spline elevation
 
     }
@@ -469,8 +459,6 @@ void Object::_BuildMovementUpdate(ByteBuffer* data, uint16 flags) const
 
     if (flags & UPDATEFLAG_LIVING)
     {
-        uint8 guidByte[8] = { 2, 7, 5, 3, 6, 1, 4, 0 };
-
         Unit const* self = ToUnit();
         ObjectGuid guid = GetGUID();
         uint32 movementFlags = self->m_movementInfo.GetMovementFlags();
@@ -514,8 +502,7 @@ void Object::_BuildMovementUpdate(ByteBuffer* data, uint16 flags) const
             //if (hasTransportTime2)
             //    *data << uint32(0);
         }
-        //data->WriteByteSeq(guid[2]);
-        data->WriteGuidBytes(guid, guidByte, 1, 0);
+        data->WriteByteSeq(guid[2]);
         if (movementFlagsExtra & MOVEMENTFLAG2_INTERPOLATED_TURNING)
         {
             *data << uint32(self->m_movementInfo.fallTime);
@@ -527,25 +514,22 @@ void Object::_BuildMovementUpdate(ByteBuffer* data, uint16 flags) const
             }
             *data << float(self->m_movementInfo.j_zspeed);
         }
-        data->WriteGuidBytes(guid, guidByte, 1, 1);
-        //data->WriteByteSeq(guid[7]);
+        data->WriteByteSeq(guid[7]);
         //if (true)                        // Has time, controlled by bit just after HasTransport
         *data << uint32(getMSTime());
         *data << self->GetSpeed(MOVE_FLIGHT_BACK);
         *data << float(self->GetPositionX());
         //*data << uint32(0);              // ??????????????????????????????
         *data << float(self->GetPositionY());
-        data->WriteGuidBytes(guid, guidByte, 1, 2);
-        //data->WriteByteSeq(guid[5]);
+        data->WriteByteSeq(guid[5]);
         *data << float(self->GetPositionZMinusOffset());
         if ((movementFlags & (MOVEMENTFLAG_SWIMMING | MOVEMENTFLAG_FLYING)) ||
             (movementFlagsExtra & MOVEMENTFLAG2_ALWAYS_ALLOW_PITCHING))
             *data << float(self->m_movementInfo.pitch);
 
-        data->WriteGuidBytes(guid, guidByte, 3, 3);
-        //data->WriteByteSeq(guid[3]);
-        //data->WriteByteSeq(guid[6]);
-        //data->WriteByteSeq(guid[1]);
+        data->WriteByteSeq(guid[3]);
+        data->WriteByteSeq(guid[6]);
+        data->WriteByteSeq(guid[1]);
         if (movementFlags & MOVEMENTFLAG_SPLINE_ELEVATION)
             *data << float(self->m_movementInfo.splineElevation);
 
@@ -554,14 +538,12 @@ void Object::_BuildMovementUpdate(ByteBuffer* data, uint16 flags) const
         *data << self->GetSpeed(MOVE_RUN);
         if (!G3D::fuzzyEq(self->GetOrientation(), 0.0f))
             *data << float(self->GetOrientation());
-        //data->WriteByteSeq(guid[4]);
-        data->WriteGuidBytes(guid, guidByte, 1, 6);
+        data->WriteByteSeq(guid[4]);
         *data << self->GetSpeed(MOVE_SWIM);
         *data << self->GetSpeed(MOVE_RUN_BACK);
         *data << self->GetSpeed(MOVE_TURN_RATE);
         *data << self->GetSpeed(MOVE_SWIM_BACK);
-        data->WriteGuidBytes(guid, guidByte, 1, 7);
-        //data->WriteByteSeq(guid[0]);
+        data->WriteByteSeq(guid[0]);
     }
     if (flags & UPDATEFLAG_UNK3)
     {
@@ -695,8 +677,6 @@ void Object::_BuildValuesUpdate(uint8 updatetype, ByteBuffer* data, UpdateMask* 
     data->append(updateMask->GetMask(), updateMask->GetLength());
 
     // 2 specialized loops for speed optimization in non-unit case
-    sLog->outError(LOG_FILTER_GENERAL,"updateMask->GetBlockCount() %u updateMask->GetLength() %u",updateMask->GetBlockCount(),updateMask->GetLength());
-    sLog->outError(LOG_FILTER_GENERAL,"valCount %u",valCount);
     if (isType(TYPEMASK_UNIT))                               // unit (creature/player) case
     {
         for (uint16 index = 0; index < valCount; ++index)
