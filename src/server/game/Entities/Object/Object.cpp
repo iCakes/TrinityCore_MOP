@@ -242,9 +242,7 @@ void Object::BuildCreateUpdateBlockForPlayer(UpdateData* data, Player* target) c
     buf.append(GetPackGUID());
     buf << uint8(m_objectTypeId);
 
-    flags = UPDATEFLAG_LIVING | UPDATEFLAG_ROTATION | UPDATEFLAG_SELF | UPDATEFLAG_UNK4;
-    sLog->outDebug(LOG_FILTER_GENERAL, "Object BuildCreateUpdateBlockForPlayer flags %u", flags);
-
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "Object BuildCreateUpdateBlockForPlayer flags %u m_objectTypeId %u", flags,m_objectTypeId);
     _BuildMovementUpdate(&buf, flags);
 
     UpdateMask updateMask;
@@ -317,12 +315,14 @@ void Object::_BuildMovementUpdate(ByteBuffer* data, uint16 flags) const
     data->WriteBits(unkLoopNewer, 21);
     data->WriteBit(flags & UPDATEFLAG_UNK);
     data->WriteBit(flags & UPDATEFLAG_UNK3);
-    data->WriteBit(flags & UPDATEFLAG_UNK4);
+    //data->WriteBit(flags & UPDATEFLAG_UNK4);
+    data->WriteBit(true);
     data->WriteBit(flags & UPDATEFLAG_LIVING);
     data->WriteBit(false);
     data->WriteBit(flags & UPDATEFLAG_UNK2);
     data->WriteBit(false);
-    data->WriteBit(flags & UPDATEFLAG_ROTATION);
+    //data->WriteBit(flags & UPDATEFLAG_ROTATION);
+    data->WriteBit(true);
     data->WriteBit(flags & UPDATEFLAG_ANIMKITS);
     data->WriteBit(false);
     data->WriteBit(flags & UPDATEFLAG_SELF);
@@ -600,8 +600,9 @@ void Object::_BuildMovementUpdate(ByteBuffer* data, uint16 flags) const
         *data << uint32(getMSTime());              // Unknown - getMSTime is wrong.
 
     if (flags & UPDATEFLAG_ROTATION)
+        *data << uint64(ToGameObject()->GetRotation());
+    else
         *data << uint64(0);
-        //*data << uint64(ToGameObject()->GetRotation());
 
     if (flags & UPDATEFLAG_VEHICLE)
     {
