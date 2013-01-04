@@ -997,6 +997,7 @@ void WorldSession::HandleUpdateAccountData(WorldPacket& recvData)
 
 void WorldSession::HandleRequestAccountData(WorldPacket& recvData)
 {
+    return;
     sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: Received CMSG_REQUEST_ACCOUNT_DATA");
 
     uint32 type;

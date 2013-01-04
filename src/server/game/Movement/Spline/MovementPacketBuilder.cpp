@@ -151,60 +151,64 @@ namespace Movement
 
     void PacketBuilder::WriteCreateBits(MoveSpline const& moveSpline, ByteBuffer& data)
     {
-        if (!data.WriteBit(!moveSpline.Finalized()))
+        if (!data.WriteBit(!moveSpline.Finalized()))//packet.ReadBit("Has extended spline data", index);
             return;
 
-        data.WriteBits(uint8(moveSpline.spline.mode()), 2);
-        data.WriteBit(moveSpline.splineflags & (MoveSplineFlag::Parabolic | MoveSplineFlag::Animation));
-        data.WriteBits(moveSpline.getPath().size(), 22);
+        data.WriteBit((moveSpline.splineflags & MoveSplineFlag::Parabolic) && moveSpline.effect_start_time < moveSpline.Duration());
+        data.WriteBits(uint8(moveSpline.spline.mode()), 2); ///*var splineMode =*/ packet.ReadEnum<SplineMode>("Spline Mode", 2, index);
+        data.WriteBit(0); //packet.ReadBits(2);
+        //true?
+        data.WriteBits(0/*unkSplineCounter*/,23);//unkSplineCounter = packet.ReadBits(23);
+        data.WriteBit(2); //packet.ReadBits(2);
+         // /*splineFlags =*/ packet.WriteLine("[{0}] Spline flags 0x{1}", index, packet.ReadBits(25).ToString("X8"));
+        data.WriteBit(moveSpline.splineflags & (MoveSplineFlag::Parabolic | MoveSplineFlag::Animation)); //hasSplineStartTime = packet.ReadBit();
+        data.WriteBits(moveSpline.getPath().size(), 22);//splineCount = packet.ReadBits("Spline Waypoints", 22, index);
         switch (moveSpline.splineflags & MoveSplineFlag::Mask_Final_Facing)
         {
-            case MoveSplineFlag::Final_Target:
+            case MoveSplineFlag::Final_Target://if (splineType == SplineType.FacingTarget)
             {
                 ObjectGuid targetGuid = moveSpline.facing.target;
-                data.WriteBits(2, 2);
-                data.WriteBit(targetGuid[4]);
-                data.WriteBit(targetGuid[3]);
+                data.WriteBits(3, 2);
+                data.WriteBit(targetGuid[4]); //facingTargetGuid = packet.StartBitStream(4, 3, 7, 2, 6, 1, 0, 5);
+                data.WriteBit(targetGuid[5]);
+                data.WriteBit(targetGuid[0]);
                 data.WriteBit(targetGuid[7]);
+                data.WriteBit(targetGuid[1]);
+                data.WriteBit(targetGuid[3]);
                 data.WriteBit(targetGuid[2]);
                 data.WriteBit(targetGuid[6]);
-                data.WriteBit(targetGuid[1]);
-                data.WriteBit(targetGuid[0]);
-                data.WriteBit(targetGuid[5]);
                 break;
             }
-            case MoveSplineFlag::Final_Angle:
-                data.WriteBits(0, 2);
+            case MoveSplineFlag::Final_Angle: //splineType = SplineType.FacingAngle;
+                data.WriteBits(2, 2);
                 break;
-            case MoveSplineFlag::Final_Point:
+            case MoveSplineFlag::Final_Point://splineType = SplineType.FacingSpot;
                 data.WriteBits(1, 2);
                 break;
             default:
-                data.WriteBits(3, 2);
+                data.WriteBits(0, 2);
                 break;
         }
-
-        data.WriteBit((moveSpline.splineflags & MoveSplineFlag::Parabolic) && moveSpline.effect_start_time < moveSpline.Duration());
-        data.WriteBits(moveSpline.splineflags.raw(), 25);
+        //data.WriteBits(moveSpline.splineflags.raw(), 25);///*splineFlags =*/ packet.ReadEnum<SplineFlag434>("Spline flags", 25, index);
     }
 
     void PacketBuilder::WriteCreateData(MoveSpline const& moveSpline, ByteBuffer& data)
     {
-        if (!moveSpline.Finalized())
+        if (!moveSpline.Finalized())//if (bit216)
         {
             MoveSplineFlag splineFlags = moveSpline.splineflags;
 
             if ((splineFlags & MoveSplineFlag::Parabolic) && moveSpline.effect_start_time < moveSpline.Duration())
-                data << moveSpline.vertical_acceleration;   // added in 3.1
+                data << moveSpline.vertical_acceleration;   //packet.ReadSingle("Spline Vertical Acceleration", index); // added in 3.1
 
-            data << moveSpline.timePassed();
+            data << moveSpline.timePassed();//packet.ReadUInt32("Spline Time", index);
 
-            if (splineFlags.final_angle)
-                data << moveSpline.facing.angle;
-            else if (splineFlags.final_target)
+            if (splineFlags.final_angle)//if (splineType == SplineType.FacingAngle)
+                data << moveSpline.facing.angle;//packet.ReadSingle("Facing Angle", index);
+            else if (splineFlags.final_target)//else if (splineType == SplineType.FacingTarget)
             {
                 ObjectGuid facingGuid = moveSpline.facing.target;
-                data.WriteByteSeq(facingGuid[5]);
+                data.WriteByteSeq(facingGuid[5]);//packet.ParseBitStream(facingTargetGuid, 5, 3, 7, 1, 6, 4, 2, 0);
                 data.WriteByteSeq(facingGuid[3]);
                 data.WriteByteSeq(facingGuid[7]);
                 data.WriteByteSeq(facingGuid[1]);
@@ -212,37 +216,40 @@ namespace Movement
                 data.WriteByteSeq(facingGuid[4]);
                 data.WriteByteSeq(facingGuid[2]);
                 data.WriteByteSeq(facingGuid[0]);
+                // ?? no that:: packet.WriteGuid("Facing Target GUID", facingTargetGuid, index);
             }
 
             uint32 nodes = moveSpline.getPath().size();
-            for (uint32 i = 0; i < nodes; ++i)
+            for (uint32 i = 0; i < nodes; ++i)// for (var i = 0u; i < splineCount; ++i)
             {
-                data << float(moveSpline.getPath()[i].z);
-                data << float(moveSpline.getPath()[i].x);
-                data << float(moveSpline.getPath()[i].y);
+                data << float(moveSpline.getPath()[i].z);// Z = packet.ReadSingle(),
+                data << float(moveSpline.getPath()[i].x);//X = packet.ReadSingle(),
+                data << float(moveSpline.getPath()[i].y);// Y = packet.ReadSingle(),
+                // ?? no that:: packet.WriteLine("[{0}][{1}] Spline Waypoint: {2}", index, i, wp);
             }
 
-            if (splineFlags.final_point)
-                data << moveSpline.facing.f.x << moveSpline.facing.f.z << moveSpline.facing.f.y;
+            if (splineFlags.final_point)//if (splineType == SplineType.FacingSpot)
+                data << moveSpline.facing.f.x << moveSpline.facing.f.z << moveSpline.facing.f.y;// X = packet.ReadSingle(), Z = packet.ReadSingle(),Y = packet.ReadSingle(),
+                // ?? no that :: packet.WriteLine("[{0}] Facing Spot: {1}", index, point);
+            data << float(1.f);       // packet.ReadSingle("Spline Duration Multiplier Next", index);                     // splineInfo.duration_mod_next; added in 3.1
+            data << moveSpline.Duration();// packet.ReadUInt32("Spline Full Time", index);
+            if (splineFlags & (MoveSplineFlag::Parabolic | MoveSplineFlag::Animation))//if (hasSplineStartTime)
+                data << moveSpline.effect_start_time;   //packet.ReadUInt32("Spline Start time", index);    // added in 3.1
 
-            data << float(1.f);                             // splineInfo.duration_mod_next; added in 3.1
-            data << moveSpline.Duration();
-            if (splineFlags & (MoveSplineFlag::Parabolic | MoveSplineFlag::Animation))
-                data << moveSpline.effect_start_time;       // added in 3.1
-
-            data << float(1.f);                             // splineInfo.duration_mod; added in 3.1
+            data << float(1.f);        // packet.ReadSingle("Spline Duration Multiplier", index);                     // splineInfo.duration_mod; added in 3.1
         }
 
-        if (!moveSpline.isCyclic())
+        if (!moveSpline.isCyclic())//
         {
-            Vector3 dest = moveSpline.FinalDestination();
-            data << float(dest.z);
-            data << float(dest.x);
-            data << float(dest.y);
+            Vector3 dest = moveSpline.FinalDestination();//var endPoint = new Vector3
+            data << float(dest.z);// Z = packet.ReadSingle(),
+            data << float(dest.x);// X = packet.ReadSingle(),
+            data << float(dest.y);//  Y = packet.ReadSingle(),
         }
         else
             data << Vector3::zero();
 
-        data << moveSpline.GetId();
+        data << moveSpline.GetId();//packet.ReadUInt32("Spline Id", index);
+        // ?? no that::packet.WriteLine("[{0}] Spline Endpoint: {1}", index, endPoint);
     }
 }

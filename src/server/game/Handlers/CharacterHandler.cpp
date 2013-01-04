@@ -770,6 +770,7 @@ void WorldSession::HandleCharDeleteOpcode(WorldPacket& recvData)
 
 void WorldSession::HandleWorldLoginOpcode(WorldPacket& recvData)
 {
+    return;
     sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: Recvd World Login Message");
     uint32 unk;
     uint8 unk1;
