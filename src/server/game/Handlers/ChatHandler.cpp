@@ -112,6 +112,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recvData)
         LanguageDesc const* langDesc = GetLanguageDescByID(lang);
         if (!langDesc)
         {
+            sLog->outError(LOG_FILTER_NETWORKIO, "CHAT: Wrong language id %u", lang);
             SendNotification(LANG_UNKNOWN_LANGUAGE);
             recvData.rfinish();
             return;

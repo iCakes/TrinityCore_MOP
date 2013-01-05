@@ -181,7 +181,11 @@ LanguageDesc lang_description[LANGUAGES_COUNT] =
     { LANG_GNOMISH_BINARY,  0, 0                       },
     { LANG_GOBLIN_BINARY,   0, 0                       },
     { LANG_WORGEN,      69270, SKILL_LANG_WORGEN       },
-    { LANG_GOBLIN,      69269, SKILL_LANG_GOBLIN       }
+    { LANG_GOBLIN,      69269, SKILL_LANG_GOBLIN       },
+    { LANG_PANDAREN,    108127,SKILL_PANDAREN_NEUTRAL  }, //MOP 5.0.5B
+    { LANG_PANDAREN_ALLI,108130,SKILL_PANDAREN_ALLIANCE},
+    { LANG_PANDAREN_HORDE,108131,SKILL_PANDAREN_HORDE  },
+    { LANG_RIKKITUN,        0, 0                       }  //MOP 5.0.5B
 };
 
 LanguageDesc const* GetLanguageDescByID(uint32 lang)
@@ -7645,9 +7649,6 @@ SkillRangeType GetSkillRangeType(SkillLineEntry const* pSkill, bool racial)
             return SKILL_RANGE_LEVEL;
         case SKILL_CATEGORY_ARMOR:
         case SKILL_CATEGORY_CLASS:
-            if (pSkill->id != SKILL_LOCKPICKING)
-                return SKILL_RANGE_MONO;
-            else
                 return SKILL_RANGE_LEVEL;
         case SKILL_CATEGORY_SECONDARY:
         case SKILL_CATEGORY_PROFESSION:
