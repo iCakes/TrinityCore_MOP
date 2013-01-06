@@ -1337,7 +1337,7 @@ void World::SetInitialWorldSettings()
     sSpellMgr->LoadDbcDataCorrections();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading SpellInfo store...");
-    //sSpellMgr->LoadSpellInfoStore();
+    sSpellMgr->LoadSpellInfoStore();
 
     sLog->outInfo(LOG_FILTER_SERVER_LOADING, "Loading SkillLineAbilityMultiMap Data...");
     sSpellMgr->LoadSkillLineAbilityMap();

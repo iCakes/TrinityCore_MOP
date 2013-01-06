@@ -2576,6 +2576,11 @@ void SpellMgr::LoadSpellInfoStore()
         SpellEffectEntry const* effect = sSpellEffectStore.LookupEntry(i);
         if (!effect)
             continue;
+        if (effect->EffectIndex > 2)
+        {
+            //sLog->outError(LOG_FILTER_GENERAL, "sSpellEffectStore id %u EffectIndex > 2 , temp ignort...need fix later",effect->Id);
+            continue;
+        }
 
         effectsBySpell[effect->EffectSpellId].effects[effect->EffectIndex] = effect;
     }
