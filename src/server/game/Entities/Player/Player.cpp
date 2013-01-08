@@ -20336,7 +20336,7 @@ void Player::StopCastingCharm()
 inline void Player::BuildPlayerChat(WorldPacket* data, uint8 msgtype, const std::string& text, uint32 language, const char* addonPrefix /*= NULL*/) const
 {
     *data << uint8(msgtype);
-    *data << uint32(language);
+    *data << int32(language);
     *data << uint64(GetGUID());
     *data << uint32(0);                                      // constant unknown time
     if (addonPrefix)
@@ -20345,7 +20345,7 @@ inline void Player::BuildPlayerChat(WorldPacket* data, uint8 msgtype, const std:
         *data << uint64(GetGUID());
     *data << uint32(text.length() + 1);
     *data << text;
-    *data << uint8(GetChatTag());
+    *data << uint16(GetChatTag());
 }
 
 void Player::Say(const std::string& text, const uint32 language)
