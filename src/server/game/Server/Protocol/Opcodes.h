@@ -82,7 +82,6 @@ enum Opcodes
     SMSG_UPDATE_CURRENCY                              = 0x0E55, //MOP 5.0.5B
     SMSG_UPDATE_OBJECT                                = 0x08F7, //MOP 5.0.5B
     SMSG_MOTD                                         = 0x0952, //MOP 5.0.5B
-    SMSG_NAME_QUERY_RESPONSE                          = 0x0CF9, //MOP 5.0.5B
     SMSG_INITIAL_SPELLS                               = 0x0EA3, //MOP 5.0.5B
     SMSG_NEW_WORLD                                    = 0x0F21, //MOP 5.0.5B
     SMSG_NEW_WORLD_ABORT                              = 0x0EA0, //MOP 5.0.5B
@@ -99,6 +98,7 @@ enum Opcodes
     SMSG_LOGOUT_COMPLETE                              = 0x08DA, //MOP 5.0.5B
     SMSG_TIME_ADJUSTMENT                              = 0x0F3A, //MOP 5.0.5B
     SMSG_TIME_SYNC_REQ                                = 0x0AA9, //MOP 5.0.5B
+    SMSG_CUSTOM_LOAD_SCREEN                           = 0xA5B,  //MOP 5.0.5B
 
     SMSG_DONT_AUTO_PUSH_SPELLS_TO_ACTION_BAR          = 0xBD1,  //MOP 5.0.5B
     SMSG_LEARNED_SPELL                                = 0xBF8,  //MOP 5.0.5B
@@ -110,6 +110,11 @@ enum Opcodes
     SMSG_SUPERCEDED_SPELL                             = 0xA6B,  //MOP 5.0.5B
     SMSG_WEEKLY_SPELL_USAGE                           = 0xB6D,  // MOP 5.0.5B
     SMSG_WEEKLY_SPELL_USAGE_UPDATE                    = 0xE92,  // MOP 5.0.5B
+
+    CMSG_NAME_QUERY                                   = 0x884,  // MOP 5.0.5B
+    SMSG_NAME_QUERY_RESPONSE                          = 0x0CF9, //MOP 5.0.5B
+    CMSG_REALM_CACHE                                  = 0x81B,  // MOP 5.0.5B
+    SMSG_REALM_CACHE                                  = 0xC26,  // MOP 5.0.5B
 
     SMSG_INIT_WORLD_STATES                            = 0x1000,
     CMSG_ACCEPT_LEVEL_GRANT                           = 0x1001,
@@ -449,7 +454,6 @@ enum Opcodes
     CMSG_MOVE_TIME_SKIPPED                            = 0x114F,
     CMSG_MOVE_TOGGLE_COLLISION_ACK                    = 0x1150,
     CMSG_MOVE_WATER_WALK_ACK                          = 0x1151,
-    CMSG_NAME_QUERY                                   = 0x1152,
     CMSG_NEW_SPELL_SLOT                               = 0x1153,
     CMSG_NEXT_CINEMATIC_CAMERA                        = 0x1154,
     CMSG_NPC_TEXT_QUERY                               = 0x1155,
@@ -866,7 +870,6 @@ enum Opcodes
     SMSG_CROSSED_INEBRIATION_THRESHOLD                = 0x12F0,
     SMSG_CURRENCY_LOOT_REMOVED                        = 0x12F1,
     SMSG_CURRENCY_LOOT_RESTORED                       = 0x12F2,
-    SMSG_CUSTOM_LOAD_SCREEN                           = 0x12F3,
     SMSG_DAMAGE_CALC_LOG                              = 0x12F4,
     SMSG_DAMAGE_DONE_OBSOLETE                         = 0x12F5,
     SMSG_DANCE_QUERY_RESPONSE                         = 0x12F6,
