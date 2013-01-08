@@ -3436,13 +3436,22 @@ void Player::SendInitialSpells()
     time_t infTime = curTime + infinityCooldownDelayCheck;
 
     uint16 spellCount = 0;
+    WorldPacket data(SMSG_INITIAL_SPELLS/*, (1+2+4*m_spells.size()+m_spellCooldowns.size()*(2+2+2+4+4))*/);
+    for (PlayerSpellMap::const_iterator itr = m_spells.begin(); itr != m_spells.end(); ++itr)
+    {
+        if (itr->second->state == PLAYERSPELL_REMOVED)
+            continue;
 
-    WorldPacket data(SMSG_INITIAL_SPELLS, (1+2+4*m_spells.size()+2+m_spellCooldowns.size()*(2+2+2+4+4)));
-    data << uint8(0);
+        if (!itr->second->active || itr->second->disabled)
+            continue;
 
+        ++spellCount;
+    }
     size_t countPos = data.wpos();
+    data << uint8(0);
     data << uint16(spellCount);                             // spell count placeholder
-
+    data.WriteBit(1);
+    data.FlushBits();
     for (PlayerSpellMap::const_iterator itr = m_spells.begin(); itr != m_spells.end(); ++itr)
     {
         if (itr->second->state == PLAYERSPELL_REMOVED)
@@ -3452,9 +3461,6 @@ void Player::SendInitialSpells()
             continue;
 
         data << uint32(itr->first);
-        data << uint16(0);                                  // it's not slot id
-
-        ++spellCount;
     }
 
     data.put<uint16>(countPos, spellCount);                  // write real count value
