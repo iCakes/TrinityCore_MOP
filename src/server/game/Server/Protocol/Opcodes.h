@@ -736,6 +736,7 @@ enum Opcodes
     SMSG_AREA_TRIGGER_MESSAGE                         = 0x126A,
     SMSG_AREA_TRIGGER_MOVEMENT_UPDATE                 = 0x126B,
     SMSG_ARENA_ERROR                                  = 0x126C,
+    SMSG_ARENA_UNIT_DESTROYED                         = 0x1514,
     SMSG_ARENA_OPPONENT_UPDATE                        = 0x126D,
     SMSG_ARENA_TEAM_CHANGE_FAILED_QUEUED              = 0x126E,
     SMSG_ARENA_TEAM_COMMAND_RESULT                    = 0x126F,

@@ -14174,9 +14174,9 @@ void Unit::ApplyAttackTimePercentMod(WeaponAttackType att, float val, bool apply
 
         if (GetTypeId() == TYPEID_PLAYER)
         {
-            if (att == BASE_ATTACK)
+            /*if (att == BASE_ATTACK)
                 ApplyPercentModFloatValue(PLAYER_FIELD_MOD_HASTE, val, !apply);
-            else if (att == RANGED_ATTACK)
+            else*/if (att == RANGED_ATTACK)
                 ApplyPercentModFloatValue(PLAYER_FIELD_MOD_RANGED_HASTE, val, !apply);
         }
     }
@@ -14187,9 +14187,9 @@ void Unit::ApplyAttackTimePercentMod(WeaponAttackType att, float val, bool apply
 
         if (GetTypeId() == TYPEID_PLAYER)
         {
-            if (att == BASE_ATTACK)
+            /*if (att == BASE_ATTACK)
                 ApplyPercentModFloatValue(PLAYER_FIELD_MOD_HASTE, -val, apply);
-            else if (att == RANGED_ATTACK)
+            else*/if (att == RANGED_ATTACK)
                 ApplyPercentModFloatValue(PLAYER_FIELD_MOD_RANGED_HASTE, -val, apply);
         }
     }
