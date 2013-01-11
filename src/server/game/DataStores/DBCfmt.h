@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -23,8 +23,8 @@
 // n - index (included), l - bool, p - field present in sql dbc, a - field absent in sql dbc
 
 char const Achievementfmt[]="niixsxiixixxiix";
-//const std::string CustomAchievementfmt="pppaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaapapaaaaaaaaaaaaaaaaaapp";
-//const std::string CustomAchievementIndex = "ID";
+const std::string CustomAchievementfmt="pppaaaapapaapp";
+const std::string CustomAchievementIndex = "ID";
 char const AchievementCriteriafmt[]="niiiiiiiisiiiiixxiiiiii";
 char const AreaTableEntryfmt[]="iiinixxxxxxxisiiiiifxxxxxxxx";
 char const AreaGroupEntryfmt[]="niiiiiii";

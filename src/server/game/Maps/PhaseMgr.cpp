@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -365,7 +365,7 @@ bool PhaseMgr::IsConditionTypeSupported(ConditionTypes const conditionType)
         case CONDITION_TEAM:
         case CONDITION_CLASS:
         case CONDITION_RACE:
-        case CONDITION_INSTANCE_DATA:
+        case CONDITION_INSTANCE_INFO:
         case CONDITION_LEVEL:
             return true;
         default:

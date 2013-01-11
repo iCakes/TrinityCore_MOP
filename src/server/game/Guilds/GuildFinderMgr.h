@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -37,7 +37,7 @@ enum GuildFinderOptionsAvailability
 {
     AVAILABILITY_WEEKDAYS     = 0x1,
     AVAILABILITY_WEEKENDS     = 0x2,
-    ALL_WEEK                  = AVAILABILITY_WEEKDAYS | AVAILABILITY_WEEKENDS
+    AVAILABILITY_ALWAYS       = AVAILABILITY_WEEKDAYS | AVAILABILITY_WEEKENDS
 };
 
 enum GuildFinderOptionsRoles
@@ -50,8 +50,8 @@ enum GuildFinderOptionsRoles
 
 enum GuildFinderOptionsLevel
 {
-    ANY_FINDER_LEVEL   = 0x1,
-    MAX_FINDER_LEVEL   = 0x2,
+    ANY_FINDER_LEVEL       = 0x1,
+    MAX_FINDER_LEVEL       = 0x2,
     ALL_GUILDFINDER_LEVELS = ANY_FINDER_LEVEL | MAX_FINDER_LEVEL
 };
 
@@ -237,7 +237,7 @@ class GuildFinderMgr
          */
         void RemoveMembershipRequest(uint32 playerId, uint32 guildId);
 
-        /// wipes everything related to a guild. Used when that guild is disbanded
+        /// Wipes everything related to a guild. Used when that guild is disbanded
         void DeleteGuild(uint32 guildId);
 
         /**

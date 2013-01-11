@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -23,6 +23,7 @@
 #include "DatabaseEnv.h"
 #include "SharedDefines.h"
 #include "WorldPacket.h"
+#include "DBCEnums.h"
 
 #include <string>
 #include <vector>
@@ -168,7 +169,7 @@ enum __QuestSpecialFlags
     QUEST_SPECIAL_FLAGS_MONTHLY              = 0x010, // quest is reset at the begining of the month
     // room for more custom flags
 
-    QUEST_SPECIAL_FLAGS_DB_ALLOWED = QUEST_SPECIAL_FLAGS_REPEATABLE | QUEST_SPECIAL_FLAGS_EXPLORATION_OR_EVENT | QUEST_SPECIAL_FLAGS_AUTO_ACCEPT | QUEST_SPECIAL_FLAGS_DF_QUEST,
+    QUEST_SPECIAL_FLAGS_DB_ALLOWED = QUEST_SPECIAL_FLAGS_REPEATABLE | QUEST_SPECIAL_FLAGS_EXPLORATION_OR_EVENT | QUEST_SPECIAL_FLAGS_AUTO_ACCEPT | QUEST_SPECIAL_FLAGS_DF_QUEST | QUEST_SPECIAL_FLAGS_MONTHLY,
 
     QUEST_SPECIAL_FLAGS_DELIVER              = 0x080,   // Internal flag computed only
     QUEST_SPECIAL_FLAGS_SPEAKTO              = 0x100,   // Internal flag computed only
@@ -274,7 +275,6 @@ class Quest
         uint32 GetSoundTurnIn() const { return SoundTurnIn; }
         uint32 GetIncompleteEmote() const { return EmoteOnIncomplete; }
         uint32 GetCompleteEmote() const { return EmoteOnComplete; }
-        uint32 GetQuestCompleteScript() const { return CompleteScript; }
         bool   IsRepeatable() const { return SpecialFlags & QUEST_SPECIAL_FLAGS_REPEATABLE; }
         bool   IsAutoAccept() const;
         bool   IsAutoComplete() const;
@@ -291,8 +291,8 @@ class Quest
         bool   IsMonthly() const { return Flags & QUEST_SPECIAL_FLAGS_MONTHLY; }
         bool   IsSeasonal() const { return (ZoneOrSort == -QUEST_SORT_SEASONAL || ZoneOrSort == -QUEST_SORT_SPECIAL || ZoneOrSort == -QUEST_SORT_LUNAR_FESTIVAL || ZoneOrSort == -QUEST_SORT_MIDSUMMER || ZoneOrSort == -QUEST_SORT_BREWFEST || ZoneOrSort == -QUEST_SORT_LOVE_IS_IN_THE_AIR || ZoneOrSort == -QUEST_SORT_NOBLEGARDEN) && !IsRepeatable(); }
         bool   IsDailyOrWeekly() const { return Flags & (QUEST_FLAGS_DAILY | QUEST_FLAGS_WEEKLY); }
-        bool   IsRaidQuest() const { return Type == QUEST_TYPE_RAID || Type == QUEST_TYPE_RAID_10 || Type == QUEST_TYPE_RAID_25; }
-        bool   IsAllowedInRaid() const;
+        bool   IsRaidQuest(Difficulty difficulty) const;
+        bool   IsAllowedInRaid(Difficulty difficulty) const;
         bool   IsDFQuest() const { return SpecialFlags & QUEST_SPECIAL_FLAGS_DF_QUEST; }
         uint32 CalculateHonorGain(uint8 level) const;
 
@@ -402,7 +402,6 @@ class Quest
         uint32 PointOption;
         uint32 EmoteOnIncomplete;
         uint32 EmoteOnComplete;
-        uint32 CompleteScript;
         // new in 4.x
         uint32 MinimapTargetMark;
         uint32 RewardSkillId;

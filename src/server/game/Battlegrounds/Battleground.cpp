@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -274,7 +274,7 @@ void Battleground::Update(uint32 diff)
             // after 47 minutes without one team losing, the arena closes with no winner and no rating change
             if (isArena())
             {
-                if (GetElapsedTime() >= 47*MINUTE*IN_MILLISECONDS)
+                if (GetElapsedTime() >= 47 * MINUTE*IN_MILLISECONDS)
                 {
                     UpdateArenaWorldState();
                     CheckArenaAfterTimerConditions();
@@ -298,7 +298,7 @@ void Battleground::Update(uint32 diff)
     }
 
     // Update start time and reset stats timer
-    m_StartTime += diff;
+    SetElapsedTime(GetElapsedTime() + diff);
     if (GetStatus() == STATUS_WAIT_JOIN)
     {
         m_ResetStatTimer += diff;
@@ -466,8 +466,8 @@ inline void Battleground::_ProcessJoin(uint32 diff)
     // *********************************************************
     ModifyStartDelayTime(diff);
 
-    // I know it's a too big but it's the value sent in packet, I get it from retail sniff.
-    SetRemainingTime(300000);
+    if (!isArena())
+        SetRemainingTime(300000);
 
     if (m_ResetStatTimer > 5000)
     {
@@ -484,7 +484,7 @@ inline void Battleground::_ProcessJoin(uint32 diff)
 
         WorldPacket data(SMSG_START_TIMER, 4+4+4);
         data << uint32(0); // unk
-        data << uint32(countdownMaxForBGType - (m_CountdownTimer / 1000));
+        data << uint32(countdownMaxForBGType - (GetElapsedTime() / 1000));
         data << uint32(countdownMaxForBGType);
 
         for (BattlegroundPlayerMap::const_iterator itr = GetPlayers().begin(); itr != GetPlayers().end(); ++itr)
@@ -554,6 +554,9 @@ inline void Battleground::_ProcessJoin(uint32 diff)
                     sBattlegroundMgr->BuildBattlegroundStatusPacket(&status, this, player, queueSlot, STATUS_IN_PROGRESS, player->GetBattlegroundQueueJoinTime(m_TypeID), GetElapsedTime(), GetArenaType());
                     player->GetSession()->SendPacket(&status);
 
+                    // Correctly display EnemyUnitFrame
+                    player->SetByteValue(PLAYER_BYTES_3, 3, player->GetBGTeam());
+
                     player->RemoveAurasDueToSpell(SPELL_ARENA_PREPARATION);
                     player->ResetAllPowers();
                     if (!player->isGameMaster())
@@ -594,8 +597,8 @@ inline void Battleground::_ProcessJoin(uint32 diff)
         }
     }
 
-    if (m_EndTime > 0 && (m_EndTime -= diff) > 0)
-        m_EndTime -= diff;
+    if (GetRemainingTime() > 0 && (m_EndTime -= diff) > 0)
+        SetRemainingTime(GetRemainingTime() - diff);
 }
 
 inline void Battleground::_ProcessLeave(uint32 diff)
@@ -604,10 +607,10 @@ inline void Battleground::_ProcessLeave(uint32 diff)
     // ***           BATTLEGROUND ENDING SYSTEM              ***
     // *********************************************************
     // remove all players from battleground after 2 minutes
-    m_EndTime -= diff;
-    if (m_EndTime <= 0)
+    SetRemainingTime(GetRemainingTime() - diff);
+    if (GetRemainingTime() <= 0)
     {
-        m_EndTime = 0;
+        SetRemainingTime(0);
         BattlegroundPlayerMap::iterator itr, next;
         for (itr = m_Players.begin(); itr != m_Players.end(); itr = next)
         {
@@ -1237,18 +1240,20 @@ void Battleground::AddPlayer(Player* player)
             player->CastSpell(player, SPELL_ARENA_PREPARATION, true);
             player->ResetAllPowers();
         }
-
-        // Correctly display EnemyUnitFrame
-        player->SetByteValue(PLAYER_BYTES_3, 3, player->GetBGTeam());
-
-        WorldPacket data(SMSG_ARENA_OPPONENT_UPDATE, 8);
-        data << uint64(player->GetGUID());
-        SendPacketToTeam(team, &data, player, false);
     }
     else
     {
         if (GetStatus() == STATUS_WAIT_JOIN)                 // not started yet
+        {
             player->CastSpell(player, SPELL_PREPARATION, true);   // reduces all mana cost of spells.
+            
+            int32 countdownMaxForBGType = isArena() ? ARENA_COUNTDOWN_MAX : BATTLEGROUND_COUNTDOWN_MAX;
+            WorldPacket data(SMSG_START_TIMER, 4+4+4);
+            data << uint32(0); // unk
+            data << uint32(countdownMaxForBGType - (GetElapsedTime() / 1000));
+            data << uint32(countdownMaxForBGType);
+            player->GetSession()->SendPacket(&data);
+        }
     }
 
     player->ResetAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_KILL_CREATURE, ACHIEVEMENT_CRITERIA_CONDITION_BG_MAP, GetMapId(), true);
@@ -1944,7 +1949,7 @@ int32 Battleground::GetObjectType(uint64 guid)
     return -1;
 }
 
-void Battleground::HandleKillUnit(Creature* /*creature*/, Player* /*killer*/)
+void Battleground::HandleKillUnit(Creature* /*victim*/, Player* /*killer*/)
 {
 }
 

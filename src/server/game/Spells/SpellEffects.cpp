@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -200,7 +200,7 @@ pEffect SpellEffects[TOTAL_SPELL_EFFECTS]=
     &Spell::EffectApplyAreaAura,                            //128 SPELL_EFFECT_APPLY_AREA_AURA_FRIEND
     &Spell::EffectApplyAreaAura,                            //129 SPELL_EFFECT_APPLY_AREA_AURA_ENEMY
     &Spell::EffectRedirectThreat,                           //130 SPELL_EFFECT_REDIRECT_THREAT
-    &Spell::EffectPlayerNotification,                       //131 SPELL_EFFECT_PLAYER_NOTIFICATION      sound id in misc value (SoundEntries.dbc)
+    &Spell::EffectPlaySound,                                //131 SPELL_EFFECT_PLAY_SOUND               sound id in misc value (SoundEntries.dbc)
     &Spell::EffectPlayMusic,                                //132 SPELL_EFFECT_PLAY_MUSIC               sound id in misc value (SoundEntries.dbc)
     &Spell::EffectUnlearnSpecialization,                    //133 SPELL_EFFECT_UNLEARN_SPECIALIZATION   unlearn profession specialization
     &Spell::EffectKillCredit,                               //134 SPELL_EFFECT_KILL_CREDIT              misc value is creature entry
@@ -234,21 +234,21 @@ pEffect SpellEffects[TOTAL_SPELL_EFFECTS]=
     &Spell::EffectActivateSpec,                             //162 SPELL_EFFECT_TALENT_SPEC_SELECT       activate primary/secondary spec
     &Spell::EffectUnused,                                   //163 SPELL_EFFECT_163  unused
     &Spell::EffectRemoveAura,                               //164 SPELL_EFFECT_REMOVE_AURA
-    &Spell::EffectNULL,                                     //165 SPELL_EFFECT_165
-    &Spell::EffectNULL,                                     //166 SPELL_EFFECT_166
+    &Spell::EffectDamageFromMaxHealthPCT,                   //165 SPELL_EFFECT_DAMAGE_FROM_MAX_HEALTH_PCT
+    &Spell::EffectGiveCurrency,                             //166 SPELL_EFFECT_GIVE_CURRENCY
     &Spell::EffectNULL,                                     //167 SPELL_EFFECT_167
     &Spell::EffectNULL,                                     //168 SPELL_EFFECT_168
-    &Spell::EffectNULL,                                     //169 SPELL_EFFECT_169
+    &Spell::EffectNULL,                                     //169 SPELL_EFFECT_DESTROY_ITEM
     &Spell::EffectNULL,                                     //170 SPELL_EFFECT_170
     &Spell::EffectNULL,                                     //171 SPELL_EFFECT_171
-    &Spell::EffectNULL,                                     //172 SPELL_EFFECT_172
-    &Spell::EffectNULL,                                     //173 SPELL_EFFECT_173
+    &Spell::EffectResurrectWithAura,                        //172 SPELL_EFFECT_RESURRECT_WITH_AURA
+    &Spell::EffectNULL,                                     //173 SPELL_EFFECT_UNLOCK_GUILD_VAULT_TAB
     &Spell::EffectNULL,                                     //174 SPELL_EFFECT_174
     &Spell::EffectUnused,                                   //175 SPELL_EFFECT_175  unused
     &Spell::EffectNULL,                                     //176 SPELL_EFFECT_176
     &Spell::EffectNULL,                                     //177 SPELL_EFFECT_177
     &Spell::EffectUnused,                                   //178 SPELL_EFFECT_178 unused
-    &Spell::EffectNULL,                                     //179 SPELL_EFFECT_179
+    &Spell::EffectNULL,                                     //179 SPELL_EFFECT_CREATE_AREATRIGGER
     &Spell::EffectUnused,                                   //180 SPELL_EFFECT_180 unused
     &Spell::EffectUnused,                                   //181 SPELL_EFFECT_181 unused
     &Spell::EffectNULL,                                     //182 SPELL_EFFECT_182
@@ -280,13 +280,13 @@ void Spell::EffectResurrectNew(SpellEffIndex effIndex)
 
     Player* target = unitTarget->ToPlayer();
 
-    if (target->isRessurectRequested())       // already have one active request
+    if (target->IsRessurectRequested())       // already have one active request
         return;
 
     uint32 health = damage;
     uint32 mana = m_spellInfo->Effects[effIndex].MiscValue;
     ExecuteLogEffectResurrect(effIndex, target);
-    target->setResurrectRequestData(m_caster->GetGUID(), m_caster->GetMapId(), m_caster->GetPositionX(), m_caster->GetPositionY(), m_caster->GetPositionZ(), health, mana);
+    target->SetResurrectRequestData(m_caster, health, mana, 0);
     SendResurrectRequest(target);
 }
 
@@ -1232,16 +1232,11 @@ void Spell::EffectPowerDrain(SpellEffIndex effIndex)
     damage = m_caster->SpellDamageBonusDone(unitTarget, m_spellInfo, uint32(damage), SPELL_DIRECT_DAMAGE);
     damage = unitTarget->SpellDamageBonusTaken(m_caster, m_spellInfo, uint32(damage), SPELL_DIRECT_DAMAGE);
 
-    // resilience reduce mana draining effect at spell crit damage reduction (added in 2.4)
-    int32 power = damage;
-    if (powerType == POWER_MANA)
-        power -= unitTarget->GetSpellCritDamageReduction(power);
-
-    int32 newDamage = -(unitTarget->ModifyPower(powerType, -int32(power)));
+    int32 newDamage = -(unitTarget->ModifyPower(powerType, -damage));
 
     float gainMultiplier = 0.0f;
 
-    // Don`t restore from self drain
+    // Don't restore from self drain
     if (m_caster != unitTarget)
     {
         gainMultiplier = m_spellInfo->Effects[effIndex].CalcValueMultiplier(m_originalCaster, this);
@@ -1315,12 +1310,7 @@ void Spell::EffectPowerBurn(SpellEffIndex effIndex)
         damage = std::min(damage, maxDamage);
     }
 
-    int32 power = damage;
-    // resilience reduce mana draining effect at spell crit damage reduction (added in 2.4)
-    if (powerType == POWER_MANA)
-        power -= unitTarget->GetSpellCritDamageReduction(power);
-
-    int32 newDamage = -(unitTarget->ModifyPower(powerType, -power));
+    int32 newDamage = -(unitTarget->ModifyPower(powerType, -damage));
 
     // NO - Not a typo - EffectPowerBurn uses effect value multiplier - not effect damage multiplier
     float dmgMultiplier = m_spellInfo->Effects[effIndex].CalcValueMultiplier(m_originalCaster, this);
@@ -1755,7 +1745,7 @@ void Spell::EffectEnergize(SpellEffIndex effIndex)
     if (level_diff > 0)
         damage -= level_multiplier * level_diff;
 
-    if (damage < 0)
+    if (damage < 0 && power != POWER_ECLIPSE)
         return;
 
     if (unitTarget->GetMaxPower(power) == 0)
@@ -1866,7 +1856,6 @@ void Spell::SendLoot(uint64 guid, LootType loottype)
             case GAMEOBJECT_TYPE_DOOR:
             case GAMEOBJECT_TYPE_BUTTON:
                 gameObjTarget->UseDoorOrButton(0, false, player);
-                player->GetMap()->ScriptsStart(sGameObjectScripts, gameObjTarget->GetDBTableGUIDLow(), player, gameObjTarget);
                 return;
 
             case GAMEOBJECT_TYPE_QUESTGIVER:
@@ -2210,6 +2199,7 @@ void Spell::EffectSummonType(SpellEffIndex effIndex)
                 case SUMMON_TYPE_VEHICLE2:
                     summon = m_caster->GetMap()->SummonCreature(entry, *destTarget, properties, duration, m_originalCaster, m_spellInfo->Id);
                     break;
+                case SUMMON_TYPE_LIGHTWELL:
                 case SUMMON_TYPE_TOTEM:
                 {
                     summon = m_caster->GetMap()->SummonCreature(entry, *destTarget, properties, duration, m_originalCaster, m_spellInfo->Id);
@@ -3298,7 +3288,7 @@ void Spell::EffectInterruptCast(SpellEffIndex effIndex)
             // check if we can interrupt spell
             if ((spell->getState() == SPELL_STATE_CASTING
                 || (spell->getState() == SPELL_STATE_PREPARING && spell->GetCastTime() > 0.0f))
-                && curSpellInfo->PreventionType == SPELL_PREVENTION_TYPE_SILENCE
+                && (curSpellInfo->PreventionType == SPELL_PREVENTION_TYPE_SILENCE || curSpellInfo->PreventionType == SPELL_PREVENTION_TYPE_UNK)
                 && ((i == CURRENT_GENERIC_SPELL && curSpellInfo->InterruptFlags & SPELL_INTERRUPT_FLAG_INTERRUPT)
                 || (i == CURRENT_CHANNELED_SPELL && curSpellInfo->ChannelInterruptFlags & CHANNEL_INTERRUPT_FLAG_INTERRUPT)))
             {
@@ -4631,7 +4621,7 @@ void Spell::EffectResurrect(SpellEffIndex effIndex)
 
     Player* target = unitTarget->ToPlayer();
 
-    if (target->isRessurectRequested())       // already have one active request
+    if (target->IsRessurectRequested())       // already have one active request
         return;
 
     uint32 health = target->CountPctFromMaxHealth(damage);
@@ -4639,7 +4629,7 @@ void Spell::EffectResurrect(SpellEffIndex effIndex)
 
     ExecuteLogEffectResurrect(effIndex, target);
 
-    target->setResurrectRequestData(m_caster->GetGUID(), m_caster->GetMapId(), m_caster->GetPositionX(), m_caster->GetPositionY(), m_caster->GetPositionZ(), health, mana);
+    target->SetResurrectRequestData(m_caster, health, mana, 0);
     SendResurrectRequest(target);
 }
 
@@ -5864,7 +5854,7 @@ void Spell::EffectActivateSpec(SpellEffIndex /*effIndex*/)
     unitTarget->ToPlayer()->ActivateSpec(damage-1);  // damage is 1 or 2, spec is 0 or 1
 }
 
-void Spell::EffectPlayerNotification(SpellEffIndex effIndex)
+void Spell::EffectPlaySound(SpellEffIndex effIndex)
 {
     if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET)
         return;
@@ -5874,23 +5864,23 @@ void Spell::EffectPlayerNotification(SpellEffIndex effIndex)
 
     switch (m_spellInfo->Id)
     {
-        case 58730: // Restricted Flight Area
-        case 58600: // Restricted Flight Area
+        case 91604: // Restricted Flight Area
             unitTarget->ToPlayer()->GetSession()->SendNotification(LANG_ZONE_NOFLYZONE);
-            unitTarget->PlayDirectSound(9417); // Fel Reaver sound
+            break;
+        default:
             break;
     }
 
-    uint32 soundid = m_spellInfo->Effects[effIndex].MiscValue;
+    uint32 soundId = m_spellInfo->Effects[effIndex].MiscValue;
 
-    if (!sSoundEntriesStore.LookupEntry(soundid))
+    if (!sSoundEntriesStore.LookupEntry(soundId))
     {
-        sLog->outError(LOG_FILTER_SPELLS_AURAS, "EffectPlayerNotification: Sound (Id: %u) not exist in spell %u.", soundid, m_spellInfo->Id);
+        sLog->outError(LOG_FILTER_SPELLS_AURAS, "EffectPlaySound: Sound (Id: %u) not exist in spell %u.", soundId, m_spellInfo->Id);
         return;
     }
 
     WorldPacket data(SMSG_PLAY_SOUND, 4);
-    data << uint32(soundid);
+    data << uint32(soundId);
     unitTarget->ToPlayer()->GetSession()->SendPacket(&data);
 }
 
@@ -5903,6 +5893,28 @@ void Spell::EffectRemoveAura(SpellEffIndex effIndex)
         return;
     // there may be need of specifying casterguid of removed auras
     unitTarget->RemoveAurasDueToSpell(m_spellInfo->Effects[effIndex].TriggerSpell);
+}
+
+void Spell::EffectDamageFromMaxHealthPCT(SpellEffIndex /*effIndex*/)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET)
+        return;
+
+    if (!unitTarget)
+        return;
+
+    m_damage += unitTarget->CountPctFromMaxHealth(damage);
+}
+
+void Spell::EffectGiveCurrency(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET)
+        return;
+
+    if (!unitTarget || unitTarget->GetTypeId() != TYPEID_PLAYER)
+        return;
+
+    unitTarget->ToPlayer()->ModifyCurrency(m_spellInfo->Effects[effIndex].MiscValue, damage);
 }
 
 void Spell::EffectCastButtons(SpellEffIndex effIndex)
@@ -5988,51 +6000,38 @@ void Spell::EffectBind(SpellEffIndex effIndex)
 
     Player* player = unitTarget->ToPlayer();
 
-    uint32 area_id;
-    WorldLocation loc;
-    if (m_spellInfo->Effects[effIndex].TargetA.GetTarget() == TARGET_DEST_DB || m_spellInfo->Effects[effIndex].TargetB.GetTarget() == TARGET_DEST_DB)
-    {
-        SpellTargetPosition const* st = sSpellMgr->GetSpellTargetPosition(m_spellInfo->Id);
-        if (!st)
-        {
-            sLog->outError(LOG_FILTER_SPELLS_AURAS, "Spell::EffectBind - unknown teleport coordinates for spell ID %u", m_spellInfo->Id);
-            return;
-        }
+    WorldLocation homeLoc;
+    uint32 areaId = player->GetAreaId();
 
-        loc.m_mapId       = st->target_mapId;
-        loc.m_positionX   = st->target_X;
-        loc.m_positionY   = st->target_Y;
-        loc.m_positionZ   = st->target_Z;
-        loc.SetOrientation(st->target_Orientation);
-        area_id = player->GetAreaId();
-    }
+    if (m_spellInfo->Effects[effIndex].MiscValue)
+        areaId = m_spellInfo->Effects[effIndex].MiscValue;
+
+    if (m_targets.HasDst())
+        homeLoc.WorldRelocate(*destTarget);
     else
     {
-        player->GetPosition(&loc);
-        area_id = player->GetAreaId();
+        player->GetPosition(&homeLoc);
+        homeLoc.m_mapId = player->GetMapId();
     }
 
-    player->SetHomebind(loc, area_id);
+    player->SetHomebind(homeLoc, areaId);
 
     // binding
     WorldPacket data(SMSG_BINDPOINTUPDATE, (4+4+4+4+4));
-    data << float(loc.m_positionX);
-    data << float(loc.m_positionY);
-    data << float(loc.m_positionZ);
-    data << uint32(loc.m_mapId);
-    data << uint32(area_id);
+    data << float(homeLoc.GetPositionX());
+    data << float(homeLoc.GetPositionY());
+    data << float(homeLoc.GetPositionZ());
+    data << uint32(homeLoc.GetMapId());
+    data << uint32(areaId);
     player->SendDirectMessage(&data);
 
-    sLog->outDebug(LOG_FILTER_SPELLS_AURAS, "New homebind X      : %f", loc.m_positionX);
-    sLog->outDebug(LOG_FILTER_SPELLS_AURAS, "New homebind Y      : %f", loc.m_positionY);
-    sLog->outDebug(LOG_FILTER_SPELLS_AURAS, "New homebind Z      : %f", loc.m_positionZ);
-    sLog->outDebug(LOG_FILTER_SPELLS_AURAS, "New homebind MapId  : %u", loc.m_mapId);
-    sLog->outDebug(LOG_FILTER_SPELLS_AURAS, "New homebind AreaId : %u", area_id);
+    sLog->outDebug(LOG_FILTER_SPELLS_AURAS, "EffectBind: New homebind X: %f, Y: %f, Z: %f, MapId: %u, AreaId: %u",
+        homeLoc.GetPositionX(), homeLoc.GetPositionY(), homeLoc.GetPositionZ(), homeLoc.GetMapId(), areaId);
 
     // zone update
     data.Initialize(SMSG_PLAYERBOUND, 8+4);
     data << uint64(player->GetGUID());
-    data << uint32(area_id);
+    data << uint32(areaId);
     player->SendDirectMessage(&data);
 }
 
@@ -6045,4 +6044,36 @@ void Spell::EffectSummonRaFFriend(SpellEffIndex effIndex)
         return;
 
     m_caster->CastSpell(unitTarget, m_spellInfo->Effects[effIndex].TriggerSpell, true);
+}
+
+void Spell::EffectResurrectWithAura(SpellEffIndex effIndex)
+{
+    if (effectHandleMode != SPELL_EFFECT_HANDLE_HIT_TARGET)
+        return;
+
+    if (!unitTarget || !unitTarget->IsInWorld())
+        return;
+
+    Player* target = unitTarget->ToPlayer();
+    if (!target)
+        return;
+
+    if (unitTarget->isAlive())
+        return;
+
+    if (target->IsRessurectRequested())       // already have one active request
+        return;
+
+    uint32 health = target->CountPctFromMaxHealth(damage);
+    uint32 mana   = CalculatePct(target->GetMaxPower(POWER_MANA), damage);
+    uint32 resurrectAura = 0;
+    if (sSpellMgr->GetSpellInfo(GetSpellInfo()->Effects[effIndex].TriggerSpell))
+        resurrectAura = GetSpellInfo()->Effects[effIndex].TriggerSpell;
+
+    if (resurrectAura && target->HasAura(resurrectAura))
+        return;
+
+    ExecuteLogEffectResurrect(effIndex, target);
+    target->SetResurrectRequestData(m_caster, health, mana, resurrectAura);
+    SendResurrectRequest(target);
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -173,8 +173,6 @@ void BattlegroundMgr::BuildBattlegroundStatusPacket(WorldPacket *data, Battlegro
             data->WriteBit(playerGuid[5]);
             data->WriteBit(playerGuid[2]);
 
-            data->FlushBits();
-
             data->WriteByteSeq(playerGuid[5]);
             data->WriteByteSeq(playerGuid[6]);
             data->WriteByteSeq(playerGuid[7]);
@@ -274,8 +272,6 @@ void BattlegroundMgr::BuildBattlegroundStatusPacket(WorldPacket *data, Battlegro
             data->WriteBit(bgGuid[5]);
             data->WriteBit(playerGuid[0]);
 
-            data->FlushBits();
-
             data->WriteByteSeq(bgGuid[6]);
             data->WriteByteSeq(bgGuid[5]);
             data->WriteByteSeq(bgGuid[7]);
@@ -303,7 +299,7 @@ void BattlegroundMgr::BuildBattlegroundStatusPacket(WorldPacket *data, Battlegro
             data->WriteBit(bgGuid[7]);
             data->WriteBit(bgGuid[1]);
             data->WriteBit(playerGuid[5]);
-            data->WriteBit(player->GetBGTeam() == ALLIANCE);       // Battlefield Faction ( 0 horde, 1 alliance )
+            data->WriteBit(player->GetBGTeam() == HORDE ? 0 : 1);
             data->WriteBit(bgGuid[0]);
             data->WriteBit(playerGuid[1]);
             data->WriteBit(bgGuid[3]);
@@ -346,7 +342,7 @@ void BattlegroundMgr::BuildBattlegroundStatusPacket(WorldPacket *data, Battlegro
 
             data->WriteByteSeq(playerGuid[0]);
             data->WriteByteSeq(playerGuid[3]);
-            data->WriteByteSeq(playerGuid[2]);
+            data->WriteByteSeq(bgGuid[2]);
 
             *data << uint32(bg->GetClientInstanceID()); // Client Instance ID or faction ?
 
@@ -403,7 +399,7 @@ void BattlegroundMgr::BuildPvpLogDataPacket(WorldPacket* data, Battleground* bg)
         data->WriteBit(playerGUID[5]);
         data->WriteBit(playerGUID[1]);
         data->WriteBit(playerGUID[6]);
-        data->WriteBit(player->GetBGTeam() == ALLIANCE);
+        data->WriteBit(player->GetBGTeam() == HORDE ? 0 : 1);
         data->WriteBit(playerGUID[7]);
 
         buff << uint32(itr->second->HealingDone);             // healing done
@@ -893,7 +889,7 @@ Battleground* BattlegroundMgr::CreateNewBattleground(BattlegroundTypeId original
     bg->SetRandomTypeID(bgTypeId);
     bg->SetRated(isRated);
     bg->SetRandom(isRandom);
-    bg->SetGuid(MAKE_NEW_GUID(bgTypeId, 0, HIGHGUID_TYPE_BATTLEGROUND));
+    bg->SetGuid(MAKE_NEW_GUID(bgTypeId, 0, HIGHGUID_BATTLEGROUND));
 
     return bg;
 }
@@ -969,7 +965,7 @@ bool BattlegroundMgr::CreateBattleground(CreateBattlegroundData& data)
     bg->SetStartMaxDist(data.StartMaxDist);
     bg->SetLevelRange(data.LevelMin, data.LevelMax);
     bg->SetScriptId(data.scriptId);
-    bg->SetGuid(MAKE_NEW_GUID(data.bgTypeId, 0, HIGHGUID_TYPE_BATTLEGROUND));
+    bg->SetGuid(MAKE_NEW_GUID(data.bgTypeId, 0, HIGHGUID_BATTLEGROUND));
 
     AddBattleground(bg);
 
@@ -1107,9 +1103,9 @@ void BattlegroundMgr::BuildBattlegroundListPacket(WorldPacket* data, uint64 guid
     if (!bracketEntry)
         return;
 
-    uint32 winner_conquest = player->GetRandomWinner() ? BG_REWARD_WINNER_CONQUEST_FIRST : BG_REWARD_WINNER_CONQUEST_LAST;
-    uint32 winner_honor = player->GetRandomWinner() ? BG_REWARD_WINNER_HONOR_FIRST : BG_REWARD_WINNER_HONOR_LAST;
-    uint32 loser_honor = !player->GetRandomWinner() ? BG_REWARD_LOSER_HONOR_FIRST : BG_REWARD_LOSER_HONOR_LAST;
+    uint32 winner_conquest = (player->GetRandomWinner() ? BG_REWARD_WINNER_CONQUEST_FIRST : BG_REWARD_WINNER_CONQUEST_LAST) / CURRENCY_PRECISION;
+    uint32 winner_honor = (player->GetRandomWinner() ? BG_REWARD_WINNER_HONOR_FIRST : BG_REWARD_WINNER_HONOR_LAST) / CURRENCY_PRECISION;
+    uint32 loser_honor = (!player->GetRandomWinner() ? BG_REWARD_LOSER_HONOR_FIRST : BG_REWARD_LOSER_HONOR_LAST) / CURRENCY_PRECISION;
 
     ObjectGuid guidBytes = guid;
 
@@ -1447,9 +1443,8 @@ BattlegroundTypeId BattlegroundMgr::GetRandomBG(BattlegroundTypeId bgTypeId)
 
     if (weight)
     {
-        uint32 selectedWeight = 0;
         // Select a random value
-        selectedWeight = urand(0, weight - 1);
+        uint32 selectedWeight = urand(0, weight - 1);
         // Select the correct bg (if we have in DB A(10), B(20), C(10), D(15) --> [0---A---9|10---B---29|30---C---39|40---D---54])
         weight = 0;
         for (BattlegroundSelectionWeightMap::const_iterator it = selectionWeights.begin(); it != selectionWeights.end(); ++it)

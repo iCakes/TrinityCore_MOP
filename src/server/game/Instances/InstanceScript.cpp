@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -108,24 +108,24 @@ void InstanceScript::UpdateMinionState(Creature* minion, EncounterState state)
 
 void InstanceScript::UpdateDoorState(GameObject* door)
 {
-    DoorInfoMap::iterator lower = doors.lower_bound(door->GetEntry());
-    DoorInfoMap::iterator upper = doors.upper_bound(door->GetEntry());
-    if (lower == upper)
+    DoorInfoMapBounds range = doors.equal_range(door->GetEntry());
+    if (range.first == range.second)
         return;
 
     bool open = true;
-    for (DoorInfoMap::iterator itr = lower; itr != upper && open; ++itr)
+    for (; range.first != range.second && open; ++range.first)
     {
-        switch (itr->second.type)
+        DoorInfo const& info = range.first->second;
+        switch (info.type)
         {
             case DOOR_TYPE_ROOM:
-                open = (itr->second.bossInfo->state != IN_PROGRESS);
+                open = (info.bossInfo->state != IN_PROGRESS);
                 break;
             case DOOR_TYPE_PASSAGE:
-                open = (itr->second.bossInfo->state == DONE);
+                open = (info.bossInfo->state == DONE);
                 break;
             case DOOR_TYPE_SPAWN_HOLE:
-                open = (itr->second.bossInfo->state == IN_PROGRESS);
+                open = (info.bossInfo->state == IN_PROGRESS);
                 break;
             default:
                 break;
@@ -137,14 +137,13 @@ void InstanceScript::UpdateDoorState(GameObject* door)
 
 void InstanceScript::AddDoor(GameObject* door, bool add)
 {
-    DoorInfoMap::iterator lower = doors.lower_bound(door->GetEntry());
-    DoorInfoMap::iterator upper = doors.upper_bound(door->GetEntry());
-    if (lower == upper)
+    DoorInfoMapBounds range = doors.equal_range(door->GetEntry());
+    if (range.first == range.second)
         return;
 
-    for (DoorInfoMap::iterator itr = lower; itr != upper; ++itr)
+    for (; range.first != range.second; ++range.first)
     {
-        DoorInfo const& data = itr->second;
+        DoorInfo const& data = range.first->second;
 
         if (add)
         {
@@ -457,7 +456,7 @@ void InstanceScript::UpdateEncounterState(EncounterCreditType type, uint32 credi
 void InstanceScript::UpdatePhasing()
 {
     PhaseUpdateData phaseUdateData;
-    phaseUdateData.AddConditionType(CONDITION_INSTANCE_DATA);
+    phaseUdateData.AddConditionType(CONDITION_INSTANCE_INFO);
 
     Map::PlayerList const& players = instance->GetPlayers();
     for (Map::PlayerList::const_iterator itr = players.begin(); itr != players.end(); ++itr)

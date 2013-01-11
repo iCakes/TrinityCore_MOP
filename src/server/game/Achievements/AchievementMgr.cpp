@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -1845,8 +1845,6 @@ void AchievementMgr<T>::RemoveTimedAchievement(AchievementCriteriaTimedTypes typ
 template<>
 void AchievementMgr<Player>::CompletedAchievement(AchievementEntry const* achievement, Player* referencePlayer)
 {
-    sLog->outInfo(LOG_FILTER_ACHIEVEMENTSYS, "AchievementMgr::CompletedAchievement(%u)", achievement->ID);
-
     // disable for gamemasters with GM-mode enabled
     if (GetOwner()->isGameMaster())
         return;
@@ -1860,6 +1858,9 @@ void AchievementMgr<Player>::CompletedAchievement(AchievementEntry const* achiev
 
     if (!GetOwner()->GetSession()->PlayerLoading())
         SendAchievementEarned(achievement);
+
+    sLog->outInfo(LOG_FILTER_ACHIEVEMENTSYS, "AchievementMgr::CompletedAchievement(%u). Player: %s (%u)",
+        achievement->ID, GetOwner()->GetName().c_str(), GetOwner()->GetGUIDLow());
 
     CompletedAchievementData& ca = m_completedAchievements[achievement->ID];
     ca.date = time(NULL);

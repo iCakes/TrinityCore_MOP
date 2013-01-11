@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -208,9 +208,6 @@ class WorldSession
         void ReadAddonsInfo(WorldPacket& data);
         void SendAddonsInfo();
         bool IsAddonRegistered(const std::string& prefix) const;
-
-        void ReadMovementInfo(WorldPacket& data, MovementInfo* mi);
-        void WriteMovementInfo(WorldPacket& data, MovementInfo* mi);
 
         void SendPacket(WorldPacket const* packet, bool forced = false);
         void SendNotification(const char *format, ...) ATTR_PRINTF(2, 3);

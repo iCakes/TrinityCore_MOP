@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -381,25 +381,6 @@ class NecroticPlagueTargetCheck : public std::unary_function<Unit*, bool>
         Unit const* _sourceObj;
         uint32 _notAura1;
         uint32 _notAura2;
-};
-
-class HeightDifferenceCheck
-{
-    public:
-        HeightDifferenceCheck(GameObject* go, float diff, bool reverse)
-            : _baseObject(go), _difference(diff), _reverse(reverse)
-        {
-        }
-
-        bool operator()(WorldObject* unit) const
-        {
-            return (unit->GetPositionZ() - _baseObject->GetPositionZ() > _difference) != _reverse;
-        }
-
-    private:
-        GameObject* _baseObject;
-        float _difference;
-        bool _reverse;
 };
 
 class FrozenThroneResetWorker
@@ -1535,7 +1516,7 @@ class npc_valkyr_shadowguard : public CreatureScript
                             {
                                 std::list<Creature*> triggers;
                                 GetCreatureListWithEntryInGrid(triggers, me, NPC_WORLD_TRIGGER, 150.0f);
-                                triggers.remove_if(HeightDifferenceCheck(platform, 5.0f, true));
+                                triggers.remove_if(Trinity::HeightDifferenceCheck(platform, 5.0f, true));
                                 if (triggers.empty())
                                     return;
 
@@ -2325,7 +2306,7 @@ class spell_the_lich_king_quake : public SpellScriptLoader
             void FilterTargets(std::list<WorldObject*>& targets)
             {
                 if (GameObject* platform = ObjectAccessor::GetGameObject(*GetCaster(), GetCaster()->GetInstanceScript()->GetData64(DATA_ARTHAS_PLATFORM)))
-                    targets.remove_if(HeightDifferenceCheck(platform, 5.0f, false));
+                    targets.remove_if(Trinity::HeightDifferenceCheck(platform, 5.0f, false));
             }
 
             void HandleSendEvent(SpellEffIndex /*effIndex*/)

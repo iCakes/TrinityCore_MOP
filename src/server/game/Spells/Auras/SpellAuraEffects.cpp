@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -3076,9 +3076,10 @@ void AuraEffect::HandleModPossess(AuraApplication const* aurApp, uint8 mode, boo
         target->RemoveCharmedBy(caster);
 }
 
-// only one spell has this aura
 void AuraEffect::HandleModPossessPet(AuraApplication const* aurApp, uint8 mode, bool apply) const
 {
+    // Used by spell "Eyes of the Beast"
+
     if (!(mode & AURA_EFFECT_HANDLE_REAL))
         return;
 
@@ -3101,6 +3102,9 @@ void AuraEffect::HandleModPossessPet(AuraApplication const* aurApp, uint8 mode, 
         if (caster->ToPlayer()->GetPet() != pet)
             return;
 
+        // Must clear current motion or pet leashes back to owner after a few yards
+        //  when under spell 'Eyes of the Beast'
+        pet->GetMotionMaster()->Clear();
         pet->SetCharmedBy(caster, CHARM_TYPE_POSSESS, aurApp);
     }
     else
@@ -3111,13 +3115,15 @@ void AuraEffect::HandleModPossessPet(AuraApplication const* aurApp, uint8 mode, 
             pet->Remove(PET_SAVE_NOT_IN_SLOT, true);
         else
         {
-            // Reinitialize the pet bar and make the pet come back to the owner
+            // Reinitialize the pet bar or it will appear greyed out
             caster->ToPlayer()->PetSpellInitialize();
-            if (!pet->getVictim())
+
+            // Follow owner only if not fighting or owner didn't click "stay" at new location
+            // This may be confusing because pet bar shows "stay" when under the spell but it retains
+            //  the "follow" flag. Player MUST click "stay" while under the spell.
+            if (!pet->getVictim() && !pet->GetCharmInfo()->HasCommandState(COMMAND_STAY))
             {
                 pet->GetMotionMaster()->MoveFollow(caster, PET_FOLLOW_DIST, pet->GetFollowAngle());
-                //if (target->GetCharmInfo())
-                //    target->GetCharmInfo()->SetCommandState(COMMAND_FOLLOW);
             }
         }
     }
@@ -3174,6 +3180,11 @@ void AuraEffect::HandleAuraControlVehicle(AuraApplication const* aurApp, uint8 m
 
     if (apply)
     {
+        // Currently spells that have base points  0 and DieSides 0 = "0/0" exception are pushed to -1,
+        // however the idea of 0/0 is to ingore flag VEHICLE_SEAT_FLAG_CAN_ENTER_OR_EXIT and -1 checks for it,
+        // so this break such spells or most of them.
+        // Current formula about m_amount: effect base points + dieside - 1
+        // TO DO: Reasearch more about 0/0 and fix it.
         caster->_EnterVehicle(target->GetVehicleKit(), m_amount - 1, aurApp);
     }
     else
@@ -4977,8 +4988,7 @@ void AuraEffect::HandleAuraDummy(AuraApplication const* aurApp, uint8 mode, bool
                         case 60244:  // Blood Parrot Despawn Aura
                             target->CastSpell((Unit*)NULL, GetAmount(), true, NULL, this);
                             break;
-                        case 58600: // Restricted Flight Area
-                        case 58730: // Restricted Flight Area
+                        case 91604: // Restricted Flight Area
                             if (aurApp->GetRemoveMode() == AURA_REMOVE_BY_EXPIRE)
                                 target->CastSpell(target, 58601, true);
                             break;
@@ -5366,7 +5376,7 @@ void AuraEffect::HandleAuraLinked(AuraApplication const* aurApp, uint8 mode, boo
 {
     Unit* target = aurApp->GetTarget();
 
-    uint32 triggeredSpellId = m_spellInfo->Effects[m_effIndex].TriggerSpell;
+    uint32 triggeredSpellId = sSpellMgr->GetSpellIdForDifficulty(m_spellInfo->Effects[m_effIndex].TriggerSpell, target);
     SpellInfo const* triggeredSpellInfo = sSpellMgr->GetSpellInfo(triggeredSpellId);
     if (!triggeredSpellInfo)
         return;
@@ -6085,6 +6095,9 @@ void AuraEffect::HandlePeriodicDamageAurasTick(Unit* target, Unit* caster) const
     // ignore non positive values (can be result apply spellmods to aura damage
     uint32 damage = std::max(GetAmount(), 0);
 
+    // Script Hook For HandlePeriodicDamageAurasTick -- Allow scripts to change the Damage pre class mitigation calculations
+    sScriptMgr->ModifyPeriodicDamageAurasTick(target, caster, damage);
+
     if (GetAuraType() == SPELL_AURA_PERIODIC_DAMAGE)
     {
         damage = caster->SpellDamageBonusDone(target, GetSpellInfo(), damage, DOT, GetBase()->GetStackAmount());
@@ -6139,7 +6152,7 @@ void AuraEffect::HandlePeriodicDamageAurasTick(Unit* target, Unit* caster) const
         damage = caster->SpellCriticalDamageBonus(m_spellInfo, damage, target);
 
     int32 dmg = damage;
-    caster->ApplyResilience(target, NULL, &dmg, crit, CR_CRIT_TAKEN_SPELL);
+    caster->ApplyResilience(target, &dmg, crit);
     damage = dmg;
 
     caster->CalcAbsorbResist(target, GetSpellInfo()->GetSchoolMask(), DOT, damage, &absorb, &resist, GetSpellInfo());
@@ -6206,7 +6219,7 @@ void AuraEffect::HandlePeriodicHealthLeechAuraTick(Unit* target, Unit* caster) c
     }
 
     int32 dmg = damage;
-    caster->ApplyResilience(target, NULL, &dmg, crit, CR_CRIT_TAKEN_SPELL);
+    caster->ApplyResilience(target, &dmg, crit);
     damage = dmg;
 
     caster->CalcAbsorbResist(target, GetSpellInfo()->GetSchoolMask(), DOT, damage, &absorb, &resist, m_spellInfo);
@@ -6409,10 +6422,6 @@ void AuraEffect::HandlePeriodicManaLeechAuraTick(Unit* target, Unit* caster) con
     sLog->outInfo(LOG_FILTER_SPELLS_AURAS, "PeriodicTick: %u (TypeId: %u) power leech of %u (TypeId: %u) for %u dmg inflicted by %u",
         GUID_LOPART(GetCasterGUID()), GuidHigh2TypeId(GUID_HIPART(GetCasterGUID())), target->GetGUIDLow(), target->GetTypeId(), drainAmount, GetId());
 
-    // resilience reduce mana draining effect at spell crit damage reduction (added in 2.4)
-    if (powerType == POWER_MANA)
-        drainAmount -= target->GetSpellCritDamageReduction(drainAmount);
-
     int32 drainedAmount = -target->ModifyPower(powerType, -drainAmount);
 
     float gainMultiplier = GetSpellInfo()->Effects[GetEffIndex()].CalcValueMultiplier(caster);
@@ -6526,10 +6535,6 @@ void AuraEffect::HandlePeriodicPowerBurnAuraTick(Unit* target, Unit* caster) con
 
     // ignore negative values (can be result apply spellmods to aura damage
     int32 damage = std::max(m_amount, 0);
-
-    // resilience reduce mana draining effect at spell crit damage reduction (added in 2.4)
-    if (powerType == POWER_MANA)
-        damage -= target->GetSpellCritDamageReduction(damage);
 
     uint32 gain = uint32(-target->ModifyPower(powerType, -damage));
 

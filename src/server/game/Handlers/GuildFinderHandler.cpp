@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -64,7 +64,7 @@ void WorldSession::HandleGuildFinderAddRecruit(WorldPacket& recvPacket)
         return;
     if (!(classRoles & GUILDFINDER_ALL_ROLES) || classRoles > GUILDFINDER_ALL_ROLES)
         return;
-    if (!(availability & ALL_WEEK) || availability > ALL_WEEK)
+    if (!(availability & AVAILABILITY_ALWAYS) || availability > AVAILABILITY_ALWAYS)
         return;
     if (!(guildInterests & ALL_INTERESTS) || guildInterests > ALL_INTERESTS)
         return;
@@ -85,7 +85,7 @@ void WorldSession::HandleGuildFinderBrowse(WorldPacket& recvPacket)
 
     if (!(classRoles & GUILDFINDER_ALL_ROLES) || classRoles > GUILDFINDER_ALL_ROLES)
         return;
-    if (!(availability & ALL_WEEK) || availability > ALL_WEEK)
+    if (!(availability & AVAILABILITY_ALWAYS) || availability > AVAILABILITY_ALWAYS)
         return;
     if (!(guildInterests & ALL_INTERESTS) || guildInterests > ALL_INTERESTS)
         return;
@@ -127,26 +127,26 @@ void WorldSession::HandleGuildFinderBrowse(WorldPacket& recvPacket)
         data.WriteBit(guildGUID[6]);
         data.WriteBit(guildGUID[3]);
 
-        bufferData << int32(guild->GetEmblemInfo().GetColor());
-        bufferData << int32(guild->GetEmblemInfo().GetBorderStyle()); // Guessed
-        bufferData << int32(guild->GetEmblemInfo().GetStyle());
+        bufferData << uint32(guild->GetEmblemInfo().GetColor());
+        bufferData << uint32(guild->GetEmblemInfo().GetBorderStyle()); // Guessed
+        bufferData << uint32(guild->GetEmblemInfo().GetStyle());
 
         bufferData.WriteString(guildSettings.GetComment());
 
-        bufferData << uint8(0); // Cached ? Idk
+        bufferData << uint8(0); // Unk
 
         bufferData.WriteByteSeq(guildGUID[5]);
 
-        bufferData << uint32(guildSettings.GetInterests()); // Guild Interests
+        bufferData << uint32(guildSettings.GetInterests());
 
         bufferData.WriteByteSeq(guildGUID[6]);
         bufferData.WriteByteSeq(guildGUID[4]);
 
-        bufferData << guild->GetLevel();
+        bufferData << uint32(guild->GetLevel());
 
         bufferData.WriteString(guild->GetName());
 
-        bufferData << int32(0); // guild->GetAchievementMgr().GetAchievementPoints()
+        bufferData << uint32(guild->GetAchievementMgr().GetAchievementPoints());
 
         bufferData.WriteByteSeq(guildGUID[7]);
 
@@ -159,13 +159,13 @@ void WorldSession::HandleGuildFinderBrowse(WorldPacket& recvPacket)
 
         bufferData.WriteByteSeq(guildGUID[1]);
 
-        bufferData << int32(guild->GetEmblemInfo().GetBackgroundColor());
+        bufferData << uint32(guild->GetEmblemInfo().GetBackgroundColor());
         bufferData << uint32(0); // Unk Int 2 (+ 128) // Always 0 or 1
-        bufferData << int32(guild->GetEmblemInfo().GetBorderColor());
+        bufferData << uint32(guild->GetEmblemInfo().GetBorderColor());
         bufferData << uint32(guildSettings.GetClassRoles());
 
         bufferData.WriteByteSeq(guildGUID[3]);
-        bufferData << int32(guild->GetMembersCount());
+        bufferData << uint32(guild->GetMembersCount());
     }
 
     data.FlushBits();
@@ -421,7 +421,7 @@ void WorldSession::HandleGuildFinderSetGuildPost(WorldPacket& recvPacket)
 
     if (!(classRoles & GUILDFINDER_ALL_ROLES) || classRoles > GUILDFINDER_ALL_ROLES)
         return;
-    if (!(availability & ALL_WEEK) || availability > ALL_WEEK)
+    if (!(availability & AVAILABILITY_ALWAYS) || availability > AVAILABILITY_ALWAYS)
         return;
     if (!(guildInterests & ALL_INTERESTS) || guildInterests > ALL_INTERESTS)
         return;

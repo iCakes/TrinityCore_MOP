@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -200,7 +200,7 @@ class SpellImplicitTargetInfo
 private:
     Targets _target;
 public:
-    SpellImplicitTargetInfo() {}
+    SpellImplicitTargetInfo() : _target(Targets(0)) {}
     SpellImplicitTargetInfo(uint32 target);
 
     bool IsArea() const;
@@ -458,7 +458,7 @@ public:
     bool IsAutoRepeatRangedSpell() const;
 
     bool IsAffectedBySpellMods() const;
-    bool IsAffectedBySpellMod(SpellModifier* mod) const;
+    bool IsAffectedBySpellMod(SpellModifier const* mod) const;
 
     bool CanPierceImmuneAura(SpellInfo const* aura) const;
     bool CanDispelAura(SpellInfo const* aura) const;
@@ -498,7 +498,7 @@ public:
     uint32 CalcCastTime(Unit* caster = NULL, Spell* spell = NULL) const;
     uint32 GetRecoveryTime() const;
 
-    uint32 CalcPowerCost(Unit const* caster, SpellSchoolMask schoolMask) const;
+    int32 CalcPowerCost(Unit const* caster, SpellSchoolMask schoolMask) const;
 
     bool IsRanked() const;
     uint8 GetRank() const;

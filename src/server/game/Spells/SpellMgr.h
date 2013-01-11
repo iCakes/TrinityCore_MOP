@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -578,6 +578,8 @@ typedef std::map<int32, std::vector<int32> > SpellLinkedMap;
 
 bool IsPrimaryProfessionSkill(uint32 skill);
 
+bool IsWeaponSkill(uint32 skill);
+
 inline bool IsProfessionSkill(uint32 skill)
 {
     return  IsPrimaryProfessionSkill(skill) || skill == SKILL_FISHING || skill == SKILL_COOKING || skill == SKILL_FIRST_AID;
@@ -712,7 +714,7 @@ class SpellMgr
         void UnloadSpellInfoStore();
         void UnloadSpellInfoImplicitTargetConditionLists();
         void LoadSpellCustomAttr();
-        void LoadDbcDataCorrections();
+        void LoadSpellInfoCorrections();
 
     private:
         SpellDifficultySearcherMap mSpellDifficultySearcherMap;

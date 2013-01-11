@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -70,7 +70,7 @@ enum Yells
     SAY_FALRIC_INTRO_1                  = 5,
     SAY_FALRIC_INTRO_2                  = 6,
 
-    SAY_MARWYN_INTRO_1                  = 0
+    SAY_MARWYN_INTRO_1                  = 4
 };
 
 enum Events

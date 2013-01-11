@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -1163,6 +1163,15 @@ class TradeData
         uint64     m_items[TRADE_SLOT_COUNT];               // traded items from m_player side including non-traded slot
 };
 
+struct ResurrectionData
+{
+    uint64 GUID;
+    WorldLocation Location;
+    uint32 Health;
+    uint32 Mana;
+    uint32 Aura;
+};
+
 class KillRewarder
 {
 public:
@@ -1291,13 +1300,12 @@ class Player : public Unit, public GridObject<Player>
         Creature* GetNPCIfCanInteractWith(uint64 guid, uint32 npcflagmask);
         GameObject* GetGameObjectIfCanInteractWith(uint64 guid, GameobjectTypes type) const;
 
-        bool ToggleAFK();
-        bool ToggleDND();
+        void ToggleAFK();
+        void ToggleDND();
         bool isAFK() const { return HasFlag(PLAYER_FLAGS, PLAYER_FLAGS_AFK); }
         bool isDND() const { return HasFlag(PLAYER_FLAGS, PLAYER_FLAGS_DND); }
         uint8 GetChatTag() const;
-        std::string afkMsg;
-        std::string dndMsg;
+        std::string autoReplyMsg;
 
         uint32 GetBarberShopCost(uint8 newhairstyle, uint8 newhaircolor, uint8 newfacialhair, BarberShopStyleEntry const* newSkin=NULL);
 
@@ -1689,7 +1697,7 @@ class Player : public Unit, public GridObject<Player>
         bool CanShareQuest(uint32 quest_id) const;
 
         void SendQuestComplete(Quest const* quest);
-        void SendQuestReward(Quest const* quest, uint32 XP, Object* questGiver);
+        void SendQuestReward(Quest const* quest, uint32 XP);
         void SendQuestFailed(uint32 questId, InventoryResult reason = EQUIP_ERR_OK);
         void SendQuestTimerFailed(uint32 quest_id);
         void SendCanTakeQuestResponse(uint32 msg) const;
@@ -1975,19 +1983,32 @@ class Player : public Unit, public GridObject<Player>
         void SetLastPotionId(uint32 item_id) { m_lastPotionId = item_id; }
         void UpdatePotionCooldown(Spell* spell = NULL);
 
-        void setResurrectRequestData(uint64 guid, uint32 mapId, float X, float Y, float Z, uint32 health, uint32 mana)
+        void SetResurrectRequestData(Unit* caster, uint32 health, uint32 mana, uint32 appliedAura)
         {
-            m_resurrectGUID = guid;
-            m_resurrectMap = mapId;
-            m_resurrectX = X;
-            m_resurrectY = Y;
-            m_resurrectZ = Z;
-            m_resurrectHealth = health;
-            m_resurrectMana = mana;
+            ASSERT(!IsRessurectRequested());
+            _resurrectionData = new ResurrectionData();
+            _resurrectionData->GUID = caster->GetGUID();
+            _resurrectionData->Location.WorldRelocate(*caster);
+            _resurrectionData->Health = health;
+            _resurrectionData->Mana = mana;
+            _resurrectionData->Aura = appliedAura;
         }
-        void clearResurrectRequestData() { setResurrectRequestData(0, 0, 0.0f, 0.0f, 0.0f, 0, 0); }
-        bool isRessurectRequestedBy(uint64 guid) const { return m_resurrectGUID == guid; }
-        bool isRessurectRequested() const { return m_resurrectGUID != 0; }
+
+        void ClearResurrectRequestData()
+        {
+            delete _resurrectionData;
+            _resurrectionData = NULL;
+        }
+
+        bool IsRessurectRequestedBy(uint64 guid) const
+        {
+            if (!IsRessurectRequested())
+                return false;
+
+            return _resurrectionData->GUID == guid;
+        }
+
+        bool IsRessurectRequested() const { return _resurrectionData != NULL; }
         void ResurectUsingRequestData();
 
         uint8 getCinematic()
@@ -2178,8 +2199,6 @@ class Player : public Unit, public GridObject<Player>
         void SendMessageToSetInRange(WorldPacket* data, float fist, bool self);// overwrite Object::SendMessageToSetInRange
         void SendMessageToSetInRange(WorldPacket* data, float dist, bool self, bool own_team_only);
         void SendMessageToSet(WorldPacket* data, Player const* skipped_rcvr);
-
-        void SendTeleportPacket(Position &oldPos);
 
         Corpse* GetCorpse() const;
         void SpawnCorpseBones();
@@ -2517,12 +2536,7 @@ class Player : public Unit, public GridObject<Player>
 
         void SetClientControl(Unit* target, uint8 allowMove);
 
-        void SetMover(Unit* target)
-        {
-            m_mover->m_movedPlayer = NULL;
-            m_mover = target;
-            m_mover->m_movedPlayer = this;
-        }
+        void SetMover(Unit* target);
 
         void SetSeer(WorldObject* target) { m_seer = target; }
         void SetViewpoint(WorldObject* target, bool apply);
@@ -2541,7 +2555,7 @@ class Player : public Unit, public GridObject<Player>
         float  m_recallO;
         void   SaveRecallPosition();
 
-        void SetHomebind(WorldLocation const& loc, uint32 area_id);
+        void SetHomebind(WorldLocation const& loc, uint32 areaId);
 
         // Homebind coordinates
         uint32 m_homebindMapId;
@@ -2921,6 +2935,14 @@ class Player : public Unit, public GridObject<Player>
         */
         uint32 _GetCurrencyWeekCap(const CurrencyTypesEntry* currency) const;
 
+        /*
+         * @name   _GetCurrencyTotalCap
+         * @brief  return total cap for selected currency
+     
+         * @param  currency CurrencyTypesEntry witch should get week cap
+         */
+        uint32 _GetCurrencyTotalCap(const CurrencyTypesEntry* currency) const;
+
         VoidStorageItem* _voidStorageItems[VOID_STORAGE_MAX_SLOT];
 
         std::vector<Item*> m_itemUpdateQueue;
@@ -2971,10 +2993,7 @@ class Player : public Unit, public GridObject<Player>
         void ResetTimeSync();
         void SendTimeSync();
 
-        uint64 m_resurrectGUID;
-        uint32 m_resurrectMap;
-        float m_resurrectX, m_resurrectY, m_resurrectZ;
-        uint32 m_resurrectHealth, m_resurrectMana;
+        ResurrectionData* _resurrectionData;
 
         WorldSession* m_session;
 

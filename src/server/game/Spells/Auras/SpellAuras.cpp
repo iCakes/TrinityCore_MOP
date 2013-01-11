@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -935,8 +935,16 @@ bool Aura::CanBeSaved() const
 
     // Incanter's Absorbtion - considering the minimal duration and problems with aura stacking
     // we skip saving this aura
-    if (GetId() == 44413)
-        return false;
+    // Also for some reason other auras put as MultiSlot crash core on keeping them after restart,
+    // so put here only these for which you are sure they get removed
+    switch (GetId())
+    {
+        case 44413: // Incanter's Absorption
+        case 40075: // Fel Flak Fire
+        case 55849: // Power Spark
+            return false;
+            break;
+    }
 
     // When a druid logins, he doesnt have either eclipse power, nor the marker auras, nor the eclipse buffs. Dont save them.
     if (GetId() == 67483 || GetId() == 67484 || GetId() == 48517 || GetId() == 48518)
@@ -1285,16 +1293,6 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
                         break;
                     default:
                         break;
-                }
-                if (!caster)
-                    break;
-                // Ice barrier - dispel/absorb remove
-                if (removeMode == AURA_REMOVE_BY_ENEMY_SPELL && GetSpellInfo()->SpellFamilyFlags[1] & 0x1)
-                {
-                    // Shattered Barrier
-                    if (AuraEffect * dummy = caster->GetDummyAuraEffect(SPELLFAMILY_MAGE, 3260, 0))
-                        if (roll_chance_i(dummy->GetSpellInfo()->ProcChance))
-                            caster->CastSpell(target, 55080, true, NULL, GetEffect(0));
                 }
                 break;
             case SPELLFAMILY_WARLOCK:
@@ -1704,8 +1702,13 @@ bool Aura::IsProcTriggeredOnEvent(AuraApplication* aurApp, ProcEventInfo& eventI
     if (!sSpellMgr->CanSpellTriggerProcOnEvent(*procEntry, eventInfo))
         return false;
 
+    // do checks using conditions table
+    ConditionList conditions = sConditionMgr->GetConditionsForNotGroupedEntry(CONDITION_SOURCE_TYPE_SPELL_PROC, GetSpellInfo()->Id);
+    ConditionSourceInfo condInfo = ConditionSourceInfo(eventInfo.GetActor(), eventInfo.GetActionTarget());
+    if (!sConditionMgr->IsObjectMeetToConditions(condInfo, conditions))
+        return false;
+
     // TODO:
-    // - do checks using conditions table for eventInfo->GetActor() and eventInfo->GetActionTarget()
     // - add DoCheckProc() AuraScript hook
     // to allow additional requirements for procs
     // this is needed because this is the last moment in which you can prevent aura charge drop on proc

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -487,11 +487,13 @@ enum RealmZone
 
 enum WorldStates
 {
-    WS_WEEKLY_QUEST_RESET_TIME  = 20002,                    // Next weekly reset time
-    WS_BG_DAILY_RESET_TIME      = 20003,                    // Next daily BG reset time
-    WS_MONTHLY_QUEST_RESET_TIME = 20004,                     // Next monthly reset time
-    WS_GUILD_DAILY_RESET_TIME   = 20006,                    // Next guild cap reset time
-    WS_GUILD_WEEKLY_RESET_TIME  = 20007,                    // Next guild week reset time
+    WS_WEEKLY_QUEST_RESET_TIME  = 20002,                     // Next weekly reset time
+    WS_BG_DAILY_RESET_TIME      = 20003,                     // Next daily BG reset time
+    WS_CLEANING_FLAGS           = 20004,                     // Cleaning Flags
+    WS_GUILD_DAILY_RESET_TIME   = 20006,                     // Next guild cap reset time
+    WS_MONTHLY_QUEST_RESET_TIME = 20007,                     // Next monthly reset time
+    // Cata specific custom worldstates
+    WS_GUILD_WEEKLY_RESET_TIME  = 20050,                     // Next guild week reset time
 };
 
 /// Storage class for commands issued for delayed execution
@@ -625,7 +627,7 @@ class World
         uint16 GetConfigMaxSkillValue() const
         {
             uint8 lvl = uint8(getIntConfig(CONFIG_MAX_PLAYER_LEVEL));
-            return lvl > 60 ? 300 + ((lvl - 60) * 75) / 10 : lvl*5;
+            return lvl > 60 ? 300 + ((lvl - 60) * 75) / 10 : lvl * 5;
         }
 
         void SetInitialWorldSettings();

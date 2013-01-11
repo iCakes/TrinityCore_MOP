@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -253,6 +253,7 @@ enum UnitRename
 #define MAX_SPELL_CONTROL_BAR   10
 
 #define MAX_AGGRO_RESET_TIME 10 // in seconds
+#define MAX_AGGRO_RADIUS 45.0f  // yards
 
 enum Swing
 {
@@ -537,32 +538,32 @@ enum WeaponAttackType
 
 enum CombatRating
 {
-    CR_WEAPON_SKILL             = 0,
-    CR_DEFENSE_SKILL            = 1, // Removed in 4.0.1
-    CR_DODGE                    = 2,
-    CR_PARRY                    = 3,
-    CR_BLOCK                    = 4,
-    CR_HIT_MELEE                = 5,
-    CR_HIT_RANGED               = 6,
-    CR_HIT_SPELL                = 7,
-    CR_CRIT_MELEE               = 8,
-    CR_CRIT_RANGED              = 9,
-    CR_CRIT_SPELL               = 10,
-    CR_HIT_TAKEN_MELEE          = 11,
-    CR_HIT_TAKEN_RANGED         = 12,
-    CR_HIT_TAKEN_SPELL          = 13,
-    CR_CRIT_TAKEN_MELEE         = 14,
-    CR_CRIT_TAKEN_RANGED        = 15,
-    CR_CRIT_TAKEN_SPELL         = 16,
-    CR_HASTE_MELEE              = 17,
-    CR_HASTE_RANGED             = 18,
-    CR_HASTE_SPELL              = 19,
-    CR_WEAPON_SKILL_MAINHAND    = 20,
-    CR_WEAPON_SKILL_OFFHAND     = 21,
-    CR_WEAPON_SKILL_RANGED      = 22,
-    CR_EXPERTISE                = 23,
-    CR_ARMOR_PENETRATION        = 24,
-    CR_MASTERY                  = 25,
+    CR_WEAPON_SKILL                     = 0,
+    CR_DEFENSE_SKILL                    = 1, // Removed in 4.0.1
+    CR_DODGE                            = 2,
+    CR_PARRY                            = 3,
+    CR_BLOCK                            = 4,
+    CR_HIT_MELEE                        = 5,
+    CR_HIT_RANGED                       = 6,
+    CR_HIT_SPELL                        = 7,
+    CR_CRIT_MELEE                       = 8,
+    CR_CRIT_RANGED                      = 9,
+    CR_CRIT_SPELL                       = 10,
+    CR_HIT_TAKEN_MELEE                  = 11, // Deprecated since Cataclysm
+    CR_HIT_TAKEN_RANGED                 = 12, // Deprecated since Cataclysm
+    CR_HIT_TAKEN_SPELL                  = 13, // Deprecated since Cataclysm
+    CR_RESILIENCE_CRIT_TAKEN            = 14,
+    CR_RESILIENCE_PLAYER_DAMAGE_TAKEN   = 15,
+    CR_CRIT_TAKEN_SPELL                 = 16, // Deprecated since Cataclysm
+    CR_HASTE_MELEE                      = 17,
+    CR_HASTE_RANGED                     = 18,
+    CR_HASTE_SPELL                      = 19,
+    CR_WEAPON_SKILL_MAINHAND            = 20,
+    CR_WEAPON_SKILL_OFFHAND             = 21,
+    CR_WEAPON_SKILL_RANGED              = 22,
+    CR_EXPERTISE                        = 23,
+    CR_ARMOR_PENETRATION                = 24,
+    CR_MASTERY                          = 25,
 };
 
 #define MAX_COMBAT_RATING         26
@@ -1103,12 +1104,12 @@ struct CharmInfo
         explicit CharmInfo(Unit* unit);
         ~CharmInfo();
         void RestoreState();
-        uint32 GetPetNumber() const { return m_petnumber; }
+        uint32 GetPetNumber() const { return _petnumber; }
         void SetPetNumber(uint32 petnumber, bool statwindow);
 
-        void SetCommandState(CommandStates st) { m_CommandState = st; }
-        CommandStates GetCommandState() const { return m_CommandState; }
-        bool HasCommandState(CommandStates state) const { return (m_CommandState == state); }
+        void SetCommandState(CommandStates st) { _CommandState = st; }
+        CommandStates GetCommandState() const { return _CommandState; }
+        bool HasCommandState(CommandStates state) const { return (_CommandState == state); }
 
         void InitPossessCreateSpells();
         void InitCharmCreateSpells();
@@ -1129,12 +1130,14 @@ struct CharmInfo
 
         void ToggleCreatureAutocast(SpellInfo const* spellInfo, bool apply);
 
-        CharmSpellInfo* GetCharmSpell(uint8 index) { return &(m_charmspells[index]); }
+        CharmSpellInfo* GetCharmSpell(uint8 index) { return &(_charmspells[index]); }
 
         GlobalCooldownMgr& GetGlobalCooldownMgr() { return m_GlobalCooldownMgr; }
 
         void SetIsCommandAttack(bool val);
         bool IsCommandAttack();
+        void SetIsCommandFollow(bool val);
+        bool IsCommandFollow();
         void SetIsAtStay(bool val);
         bool IsAtStay();
         void SetIsFollowing(bool val);
@@ -1146,23 +1149,24 @@ struct CharmInfo
 
     private:
 
-        Unit* m_unit;
+        Unit* _unit;
         UnitActionBarEntry PetActionBar[MAX_UNIT_ACTION_BAR_INDEX];
-        CharmSpellInfo m_charmspells[4];
-        CommandStates   m_CommandState;
-        uint32          m_petnumber;
-        bool            m_barInit;
+        CharmSpellInfo _charmspells[4];
+        CommandStates _CommandState;
+        uint32 _petnumber;
+        bool _barInit;
 
         //for restoration after charmed
-        ReactStates     m_oldReactState;
+        ReactStates     _oldReactState;
 
-        bool m_isCommandAttack;
-        bool m_isAtStay;
-        bool m_isFollowing;
-        bool m_isReturning;
-        float m_stayX;
-        float m_stayY;
-        float m_stayZ;
+        bool _isCommandAttack;
+        bool _isCommandFollow;
+        bool _isAtStay;
+        bool _isFollowing;
+        bool _isReturning;
+        float _stayX;
+        float _stayY;
+        float _stayZ;
 
         GlobalCooldownMgr m_GlobalCooldownMgr;
 };
@@ -1206,10 +1210,18 @@ class Unit : public WorldObject
     public:
         typedef std::set<Unit*> AttackerSet;
         typedef std::set<Unit*> ControlList;
-        typedef std::pair<uint32, uint8> spellEffectPair;
+
         typedef std::multimap<uint32,  Aura*> AuraMap;
+        typedef std::pair<AuraMap::const_iterator, AuraMap::const_iterator> AuraMapBounds;
+        typedef std::pair<AuraMap::iterator, AuraMap::iterator> AuraMapBoundsNonConst;
+
         typedef std::multimap<uint32,  AuraApplication*> AuraApplicationMap;
+        typedef std::pair<AuraApplicationMap::const_iterator, AuraApplicationMap::const_iterator> AuraApplicationMapBounds;
+        typedef std::pair<AuraApplicationMap::iterator, AuraApplicationMap::iterator> AuraApplicationMapBoundsNonConst;
+
         typedef std::multimap<AuraStateType,  AuraApplication*> AuraStateAurasMap;
+        typedef std::pair<AuraStateAurasMap::const_iterator, AuraStateAurasMap::const_iterator> AuraStateAurasMapBounds;
+
         typedef std::list<AuraEffect*> AuraEffectList;
         typedef std::list<Aura*> AuraList;
         typedef std::list<AuraApplication *> AuraApplicationList;
@@ -1446,21 +1458,10 @@ class Unit : public WorldObject
         void DealSpellDamage(SpellNonMeleeDamage* damageInfo, bool durabilityLoss);
 
         // player or player's pet resilience (-1%)
-        float GetMeleeCritChanceReduction() const { return GetCombatRatingReduction(CR_CRIT_TAKEN_MELEE); }
-        float GetRangedCritChanceReduction() const { return GetCombatRatingReduction(CR_CRIT_TAKEN_RANGED); }
-        float GetSpellCritChanceReduction() const { return GetCombatRatingReduction(CR_CRIT_TAKEN_SPELL); }
+        uint32 GetCritDamageReduction(uint32 damage) const { return GetCombatRatingDamageReduction(CR_RESILIENCE_CRIT_TAKEN, 2.2f, 33.0f, damage); }
+        uint32 GetDamageReduction(uint32 damage) const { return GetCombatRatingDamageReduction(CR_RESILIENCE_PLAYER_DAMAGE_TAKEN, 2.0f, 100.0f, damage); }
 
-        // player or player's pet resilience (-1%)
-        uint32 GetMeleeCritDamageReduction(uint32 damage) const { return GetCombatRatingDamageReduction(CR_CRIT_TAKEN_MELEE, 2.2f, 33.0f, damage); }
-        uint32 GetRangedCritDamageReduction(uint32 damage) const { return GetCombatRatingDamageReduction(CR_CRIT_TAKEN_RANGED, 2.2f, 33.0f, damage); }
-        uint32 GetSpellCritDamageReduction(uint32 damage) const { return GetCombatRatingDamageReduction(CR_CRIT_TAKEN_SPELL, 2.2f, 33.0f, damage); }
-
-        // player or player's pet resilience (-1%), cap 100%
-        uint32 GetMeleeDamageReduction(uint32 damage) const { return GetCombatRatingDamageReduction(CR_CRIT_TAKEN_MELEE, 2.0f, 100.0f, damage); }
-        uint32 GetRangedDamageReduction(uint32 damage) const { return GetCombatRatingDamageReduction(CR_CRIT_TAKEN_RANGED, 2.0f, 100.0f, damage); }
-        uint32 GetSpellDamageReduction(uint32 damage) const { return GetCombatRatingDamageReduction(CR_CRIT_TAKEN_SPELL, 2.0f, 100.0f, damage); }
-
-        void ApplyResilience(const Unit* victim, float * crit, int32 * damage, bool isCrit, CombatRating type) const;
+        void ApplyResilience(const Unit* victim, int32 * damage, bool isCrit) const;
 
         float MeleeSpellMissChance(const Unit* victim, WeaponAttackType attType, uint32 spellId) const;
         SpellMissInfo MeleeSpellHitResult(Unit* victim, SpellInfo const* spell);
@@ -1586,6 +1587,7 @@ class Unit : public WorldObject
         void SendSpellDamageImmune(Unit* target, uint32 spellId);
 
         void NearTeleportTo(float x, float y, float z, float orientation, bool casting = false);
+        void SendTeleportPacket(Position& pos);
         virtual bool UpdatePosition(float x, float y, float z, float ang, bool teleport = false);
         // returns true if unit's position really changed
         bool UpdatePosition(const Position &pos, bool teleport = false) { return UpdatePosition(pos.GetPositionX(), pos.GetPositionY(), pos.GetPositionZ(), pos.GetOrientation(), teleport); }
@@ -1758,7 +1760,7 @@ class Unit : public WorldObject
         void RemoveAuraFromStack(uint32 spellId, uint64 casterGUID = 0, AuraRemoveMode removeMode = AURA_REMOVE_BY_DEFAULT);
         void RemoveAurasDueToSpellByDispel(uint32 spellId, uint32 dispellerSpellId, uint64 casterGUID, Unit* dispeller, uint8 chargesRemoved = 1);
         void RemoveAurasDueToSpellBySteal(uint32 spellId, uint64 casterGUID, Unit* stealer);
-        void RemoveAurasDueToItemSpell(Item* castItem, uint32 spellId);
+        void RemoveAurasDueToItemSpell(uint32 spellId, uint64 castItemGuid);
         void RemoveAurasByType(AuraType auraType, uint64 casterGUID = 0, Aura* except = NULL, bool negative = true, bool positive = true);
         void RemoveNotOwnSingleTargetAuras(uint32 newPhase = 0x0);
         void RemoveAurasWithInterruptFlags(uint32 flag, uint32 except = 0);
@@ -2175,6 +2177,8 @@ class Unit : public WorldObject
         void _EnterVehicle(Vehicle* vehicle, int8 seatId, AuraApplication const* aurApp = NULL);
 
         void BuildMovementPacket(ByteBuffer *data) const;
+        void ReadMovementInfo(WorldPacket& data, MovementInfo* mi);
+        void WriteMovementInfo(WorldPacket& data);
 
         bool isMoving() const   { return m_movementInfo.HasMovementFlag(MOVEMENTFLAG_MASK_MOVING); }
         bool isTurning() const  { return m_movementInfo.HasMovementFlag(MOVEMENTFLAG_MASK_TURNING); }

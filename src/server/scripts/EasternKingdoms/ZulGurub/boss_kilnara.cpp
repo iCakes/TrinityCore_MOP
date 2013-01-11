@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -23,6 +23,12 @@
 
 enum Yells
 {
+    SAY_AGGRO           = 0,
+    SAY_WAVE_OF_AGONY   = 1, // ID - 96457 Wave of Agony
+    SAY_TRANSFROM_1     = 2,
+    SAY_TRANSFROM_2     = 3,
+    SAY_PLAYER_KILL     = 4,
+    SAY_DEATH           = 5
 };
 
 enum Spells
@@ -40,20 +46,29 @@ class boss_kilnara : public CreatureScript
 
         struct boss_kilnaraAI : public BossAI
         {
-            boss_kilnaraAI(Creature* creature) : BossAI(creature, DATA_KILNARA)
-            {
-            }
+            boss_kilnaraAI(Creature* creature) : BossAI(creature, DATA_KILNARA) { }
 
             void Reset()
             {
+                _Reset();
             }
 
             void EnterCombat(Unit* /*who*/)
             {
+                _EnterCombat();
+                Talk(SAY_AGGRO);
             }
 
             void JustDied(Unit* /*killer*/)
             {
+                _JustDied();
+                Talk(SAY_DEATH);
+            }
+
+            void KilledUnit(Unit* victim)
+            {
+                if (victim->GetTypeId() == TYPEID_PLAYER)
+                    Talk(SAY_PLAYER_KILL);
             }
 
             void UpdateAI(uint32 const diff)
@@ -82,7 +97,7 @@ class boss_kilnara : public CreatureScript
 
         CreatureAI* GetAI(Creature* creature) const
         {
-            return new boss_kilnaraAI(creature);
+            return GetZulGurubAI<boss_kilnaraAI>(creature);
         }
 };
 

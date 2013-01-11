@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -1087,6 +1087,35 @@ namespace Trinity
             NearestHostileUnitInAttackDistanceCheck(NearestHostileUnitInAttackDistanceCheck const&);
     };
 
+    class NearestHostileUnitInAggroRangeCheck
+    {
+        public:
+            explicit NearestHostileUnitInAggroRangeCheck(Creature const* creature, bool useLOS = false) : _me(creature), _useLOS(useLOS)
+            {
+            }
+            bool operator()(Unit* u)
+            {
+                if (!u->IsHostileTo(_me))
+                    return false;
+
+                if (!u->IsWithinDistInMap(_me, _me->GetAggroRange(u)))
+                    return false;
+
+                if (!_me->IsValidAttackTarget(u))
+                    return false;
+
+                if (_useLOS && !u->IsWithinLOSInMap(_me))
+                    return false;
+
+                return true;
+            }
+
+    private:
+            Creature const* _me;
+            bool _useLOS;
+            NearestHostileUnitInAggroRangeCheck(NearestHostileUnitInAggroRangeCheck const&);
+    };
+
     class AnyAssistCreatureInRangeCheck
     {
         public:
@@ -1344,6 +1373,25 @@ namespace Trinity
 
         private:
             uint64 _GUID;
+    };
+
+    class HeightDifferenceCheck
+    {
+    public:
+        HeightDifferenceCheck(WorldObject* go, float diff, bool reverse)
+            : _baseObject(go), _difference(diff), _reverse(reverse)
+        {
+        }
+
+        bool operator()(WorldObject* unit) const
+        {
+            return (unit->GetPositionZ() - _baseObject->GetPositionZ() > _difference) != _reverse;
+        }
+
+    private:
+        WorldObject* _baseObject;
+        float _difference;
+        bool _reverse;
     };
 
     class UnitAuraCheck

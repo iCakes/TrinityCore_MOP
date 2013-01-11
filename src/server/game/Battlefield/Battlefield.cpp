@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2008-2010 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -43,6 +42,7 @@ Battlefield::Battlefield()
     m_TypeId = 0;
     m_BattleId = 0;
     m_ZoneId = 0;
+    m_Map = NULL;
     m_MapId = 0;
     m_MaxPlayer = 0;
     m_MinPlayer = 0;
@@ -458,6 +458,8 @@ WorldPacket Battlefield::BuildWarningAnnPacket(std::string const& msg)
     data << uint64(0);
     data << uint32(msg.length() + 1);
     data << msg;
+    data << uint8(0);
+    data << float(0);
     data << uint8(0);
 
     return data;

@@ -1,4 +1,4 @@
-/* Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+/* Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  *
  * Thanks to the original authors: ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
@@ -583,6 +583,20 @@ void BossAI::UpdateAI(uint32 const diff)
         ExecuteEvent(eventId);
 
     DoMeleeAttackIfReady();
+}
+
+void BossAI::_DespawnAtEvade()
+{
+    uint32 corpseDelay = me->GetCorpseDelay();
+    uint32 respawnDelay = me->GetRespawnDelay();
+
+    me->SetCorpseDelay(1);
+    me->SetRespawnDelay(29);
+
+    me->DespawnOrUnsummon();
+
+    me->SetCorpseDelay(corpseDelay);
+    me->SetRespawnDelay(respawnDelay);
 }
 
 // WorldBossAI - for non-instanced bosses

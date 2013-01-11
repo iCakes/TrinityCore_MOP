@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -783,11 +783,11 @@ void WorldSession::HandleResurrectResponseOpcode(WorldPacket& recvData)
 
     if (status == 0)
     {
-        GetPlayer()->clearResurrectRequestData();           // reject
+        GetPlayer()->ClearResurrectRequestData();           // reject
         return;
     }
 
-    if (!GetPlayer()->isRessurectRequestedBy(guid))
+    if (!GetPlayer()->IsRessurectRequestedBy(guid))
         return;
 
     GetPlayer()->ResurectUsingRequestData();
@@ -1666,7 +1666,7 @@ void WorldSession::HandleMoveSetCanFlyAckOpcode(WorldPacket& recvData)
 
     MovementInfo movementInfo;
     movementInfo.guid = guid;
-    ReadMovementInfo(recvData, &movementInfo);
+    _player->ReadMovementInfo(recvData, &movementInfo);
 
     recvData.read_skip<float>();                           // unk2
 
