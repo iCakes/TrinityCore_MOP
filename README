@@ -1,10 +1,10 @@
 UP:
    (SQL)
-   1、SQL base on Trinity 4.3.4(https://github.com/TrinityCore/TrinityCore_4.3.4_DB_Alpha/downloads) + sql(Update)
+   1:SQL base on Trinity 4.3.4(https://github.com/TrinityCore/TrinityCore_4.3.4_DB_Alpha/downloads) + sql(Update)
 
-   2、Apply auth mgcore_sql/auth_realm_classes.sql
-   3、Apply auth mgcore_sql/auth_realm_races.sql
-   4、Apply auth mgcore_sql/auth_realmlist.sql
+   2:Apply auth mgcore_sql/auth_realm_classes.sql
+   3:Apply auth mgcore_sql/auth_realm_races.sql
+   4:Apply auth mgcore_sql/auth_realmlist.sql
 
 = TrinityCore -- General information =
 
