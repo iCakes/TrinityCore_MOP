@@ -242,7 +242,6 @@ void Object::BuildCreateUpdateBlockForPlayer(UpdateData* data, Player* target) c
     buf.append(GetPackGUID());
     buf << uint8(m_objectTypeId);
 
-    sLog->outDebug(LOG_FILTER_NETWORKIO, "Object BuildCreateUpdateBlockForPlayer flags %u m_objectTypeId %u", flags,m_objectTypeId);
     _BuildMovementUpdate(&buf, flags);
 
     UpdateMask updateMask;
@@ -303,31 +302,28 @@ void Object::DestroyForPlayer(Player* target, bool onDeath) const
 void Object::_BuildMovementUpdate(ByteBuffer* data, uint16 flags) const
 {
     uint32 unkLoopCounter = 0;
-    uint32 unkLoopNewer = 0;
     uint32 unkLoopNewer1 = 0;
     // Bit content
     data->WriteBit(flags & UPDATEFLAG_HAS_TARGET);
     data->WriteBit(flags & UPDATEFLAG_VEHICLE);
     data->WriteBits(unkLoopCounter, 24);
-    data->WriteBit(flags & UPDATEFLAG_UNK5);
+    data->WriteBit(false);
     data->WriteBit(flags & UPDATEFLAG_GO_TRANSPORT_POSITION);
     data->WriteBit(flags & UPDATEFLAG_STATIONARY_POSITION);
-    data->WriteBits(unkLoopNewer, 21);
-    data->WriteBit(flags & UPDATEFLAG_UNK);
-    data->WriteBit(flags & UPDATEFLAG_UNK3);
-    //data->WriteBit(flags & UPDATEFLAG_UNK4);
+    data->WriteBits(0, 21);
+    data->WriteBit(flags & UPDATEFLAG_TRANSPORT);
+    data->WriteBit(false);
+    //data->WriteBit(false);
     data->WriteBit(true);
     data->WriteBit(flags & UPDATEFLAG_LIVING);
     data->WriteBit(false);
-    data->WriteBit(flags & UPDATEFLAG_UNK2);
+    data->WriteBit(false);
     data->WriteBit(false);
     //data->WriteBit(flags & UPDATEFLAG_ROTATION);
     data->WriteBit(true);
     data->WriteBit(flags & UPDATEFLAG_ANIMKITS);
     data->WriteBit(false);
     data->WriteBit(flags & UPDATEFLAG_SELF);
-    for (uint32 i = 0; i < unkLoopNewer; ++i)
-        data->WriteBit(2);
 
     if (flags & UPDATEFLAG_GO_TRANSPORT_POSITION)
     {
@@ -441,15 +437,6 @@ void Object::_BuildMovementUpdate(ByteBuffer* data, uint16 flags) const
 
     data->FlushBits();
 
-    for (uint32 i = 0; i < unkLoopNewer; ++i)
-    {
-        *data << uint32(0);
-        *data << float(0);
-        *data << float(0);
-        *data << uint32(0);
-        *data << float(0);
-        *data << float(0);
-    }
     // Data
     for (uint32 i = 0; i < unkLoopCounter; ++i)
         *data << uint32(0);
