@@ -22,7 +22,8 @@ namespace AuthHelper
 {
     static RealmBuildInfo const PostBcAcceptedClientBuilds[] =
     {
-        {16135, 5, 0, 5, 'b'},//MOP
+		{16357, 5, 1, 0, 'a'}, // 5.1.0a
+        {16309, 5, 1, 0, ' '}, // Mists of Pandaria 5.1.0
         {15595, 4, 3, 4, ' '},
         {14545, 4, 2, 2, ' '},
         {13623, 4, 0, 6, 'a'},
